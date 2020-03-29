@@ -1,6 +1,9 @@
+import geometries.Tube;
+import org.junit.Test;
 import primitives.*;
 
 import static java.lang.System.out;
+import static org.junit.Assert.assertEquals;
 import static primitives.Util.*;
 
 /**
@@ -71,5 +74,22 @@ public final class Main {
             out.println("ERROR: Point - Point does not work correctly");
 
         out.println("If there were no any other outputs - all tests succeeded!");
+    }
+
+    /**
+     * @author Avi Rosenberg
+     *
+     */
+    static class TubeTest {
+
+        /**
+         * Test method for {@link geometries.Tube#getNormal(Point3D)}.
+         */
+        @Test
+        public void testGetNormal() {
+            Tube tube = new Tube(new Ray(new Point3D(0, 0, 0), new Vector(0, 1, 0)), 1);
+            assertEquals("Normal function error", tube.getNormal(new Point3D(1, 2, 0)),  new Vector(1, 0, 0));
+        }
+
     }
 }

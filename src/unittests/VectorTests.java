@@ -1,16 +1,16 @@
 package unittests;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import geometries.*;
-import primitives.*;
-import static primitives.Util.isZero;
+import primitives.Vector;
+
+import static org.junit.Assert.*;
+
+import static primitives.Util.*;
 
 /**
  * @author Avi Rosenberg
  */
-class VectorTests {
+public class VectorTests {
 
     /**
      * Test method for {@link primitives.Vector#add(primitives.Vector)}.
@@ -92,10 +92,10 @@ class VectorTests {
     /**
      * Test method for {@link primitives.Vector#lengthSquared()}.
      */
-    @Test
-    public void testLengthSquared() {
-        fail("Not yet implemented");
-    }
+//    @Test
+//    public void testLengthSquared() {
+//        fail("Not yet implemented");
+//    }
 
     /**
      * Test method for {@link primitives.Vector#length()}.
@@ -123,12 +123,11 @@ class VectorTests {
      */
     @Test
     public void testNormalized() {
-        Vector v1 = new Vector(6, 6, 3);
-        Vector v1Old = new Vector(v1);
-        Vector v2 = v1.normalized();
-
-        assertEquals("ERROR: Normalized() function not create new vector", v1Old, v1);
-        assertEquals("ERROR: Normalized() function not create vector with length of value 1", 1, v2.length());
+        Vector v = new Vector(1, 2, 3);
+        Vector u = v.normalized();
+        assertFalse("ERROR: normalized() function does not create a new vector", u == v);
+        assertTrue("ERROR: normalize() result is not a unit vector",isZero(u.length() - 1));
     }
 
 }
+
