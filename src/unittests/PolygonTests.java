@@ -3,12 +3,13 @@
  */
 package unittests;
 
-import static org.junit.Assert.*;
-
+import geometries.Polygon;
+import org.junit.Assert;
 import org.junit.Test;
+import primitives.Point3D;
+import primitives.Vector;
 
-import geometries.*;
-import primitives.*;
+import static org.junit.Assert.*;
 
 /**
  * Testing Polygons

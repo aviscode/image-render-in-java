@@ -15,6 +15,11 @@ public class Polygon implements Geometry {
      * List of polygon's vertices
      */
     protected List<Point3D> _vertices;
+
+    public Plane getPlane() {
+        return _plane;
+    }
+
     /**
      * Associated plane in which the polygon lays
      */

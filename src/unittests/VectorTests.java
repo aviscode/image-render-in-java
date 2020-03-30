@@ -1,6 +1,7 @@
 package unittests;
 
 import org.junit.Test;
+import primitives.Point3D;
 import primitives.Vector;
 
 import static org.junit.Assert.*;
@@ -17,9 +18,8 @@ public class VectorTests {
      */
     @Test
     public void testAdd() {
-        Vector vec1 = new Vector(1, 2, 3);
-        Vector vec2 = new Vector(3, 2, 1);
-        assertEquals("ERROR: Point + Vector does not work correctly", new Vector(4, 4, 4), vec1.add(vec2));
+        Point3D p1 = new Point3D(1, 2, 3);
+        assertEquals("ERROR: Point + Vector does not work correctly", Point3D.ZERO, p1.add(new Vector(-1, -2, -3)));
     }
 
     /**
@@ -27,9 +27,8 @@ public class VectorTests {
      */
     @Test
     public void testSubtract() {
-        Vector vec1 = new Vector(1, 2, 3);
-        Vector vec2 = new Vector(3, 2, 1);
-        assertEquals("ERROR: Point - Point does not work correctly", new Vector(-2, 0, 2), vec1.subtract(vec2));
+        Point3D p1 = new Point3D(1, 2, 3);
+        assertEquals("ERROR: Point - Point does not work correctly", new Vector(1, 1, 1), new Point3D(2, 3, 4).subtract(p1));
     }
 
     /**
@@ -46,18 +45,12 @@ public class VectorTests {
      */
     @Test
     public void testDotProduct() {
-        Vector vec1 = new Vector(0, 0, 1);
-        Vector vec2 = new Vector(1, 1, 0);
-        double dot = vec1.dotProduct(vec2);
-        assertEquals("Dot product function error", 0, dot, 0);
-        vec1 = new Vector(1, 0, 0);
-        vec2 = new Vector(1, 1, 0);
-        dot = vec1.dotProduct(vec2);
-        assertEquals("Dot product function error", 1, dot, 0);
-        vec1 = new Vector(1, 0, 0);
-        vec2 = new Vector(5, 0, 0);
-        dot = vec1.dotProduct(vec2);
-        assertEquals("Dot product function error", 5, dot, 0);
+        Vector v1 = new Vector(1, 2, 3);
+        Vector v2 = new Vector(-2, -4, -6);
+        Vector v3 = new Vector(0, 3, -2);
+        // test Dot-Product
+        assertTrue("ERROR: dotProduct() for orthogonal vectors is not zero", isZero(v1.dotProduct(v3)));
+        assertTrue("ERROR: dotProduct() wrong value", isZero(v1.dotProduct(v2) + 28));
     }
 
     /**
@@ -80,22 +73,23 @@ public class VectorTests {
         assertTrue("crossProduct() result is not orthogonal to 2nd operand", isZero(vr.dotProduct(v3)));
 
         // =============== Boundary Values Tests ==================
-        // test zero vector from cross-productof co-lined vectors
+        // test zero vector from cross-product of co-lined vectors
         try {
             v1.crossProduct(v2);
             fail("crossProduct() for parallel vectors does not throw an exception");
         } catch (Exception e) {
         }
 
+
     }
 
     /**
      * Test method for {@link primitives.Vector#lengthSquared()}.
      */
-//    @Test
-//    public void testLengthSquared() {
-//        fail("Not yet implemented");
-//    }
+    @Test
+    public void testLengthSquared() {
+
+    }
 
     /**
      * Test method for {@link primitives.Vector#length()}.
@@ -105,8 +99,8 @@ public class VectorTests {
         Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(-2, -4, -6);
         Vector v3 = new Vector(0, 3, -2);
-        assertTrue("ERROR: lengthSquared() wrong value",isZero(v1.lengthSquared() - 14));
-        assertTrue("ERROR: length() wrong value",isZero(new Vector(0, 3, 4).length() - 5));
+        assertTrue("ERROR: lengthSquared() wrong value", isZero(v1.lengthSquared() - 14));
+        assertTrue("ERROR: length() wrong value", isZero(new Vector(0, 3, 4).length() - 5));
     }
 
     /**
@@ -114,8 +108,11 @@ public class VectorTests {
      */
     @Test
     public void testNormalize() {
-        Vector vec1 = new Vector(1, 1, 1);
-        assertEquals(new Vector(Math.sqrt(1.0 / 3), Math.sqrt(1.0 / 3), Math.sqrt(1.0 / 3)), vec1.normalize());
+        Vector v = new Vector(1, 2, 3);
+        Vector vCopy = new Vector(v);
+        Vector vCopyNormalize = vCopy.normalize();
+        assertTrue("ERROR: normalize() function creates a new vector", vCopy == vCopyNormalize);
+        assertTrue("ERROR: normalize() result is not a unit vector", isZero(vCopyNormalize.length() - 1));
     }
 
     /**
@@ -126,7 +123,7 @@ public class VectorTests {
         Vector v = new Vector(1, 2, 3);
         Vector u = v.normalized();
         assertFalse("ERROR: normalized() function does not create a new vector", u == v);
-        assertTrue("ERROR: normalize() result is not a unit vector",isZero(u.length() - 1));
+        assertTrue("ERROR: normalize() result is not a unit vector", isZero(u.length() - 1));
     }
 
 }

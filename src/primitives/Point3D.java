@@ -108,7 +108,7 @@ public class Point3D {
      * @return the squared double as a double
      */
     public double distanceSquared(Point3D other) {
-        Vector temp = this.subtract(other);
+        Vector temp = other.subtract(this);
         double x = temp.getHead()._x.get();
         double y = temp.getHead()._y.get();
         double z = temp.getHead()._z.get();

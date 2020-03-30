@@ -119,7 +119,7 @@ public class Vector {
      * @return the double
      */
     public double lengthSquared() {
-        return _head.distanceSquared(Point3D.ZERO);
+        return Point3D.ZERO.distanceSquared(_head);
     }
 
     /**
@@ -128,7 +128,7 @@ public class Vector {
      * @return the double
      */
     public double length() {
-        return sqrt(lengthSquared());
+        return Point3D.ZERO.distance(_head);
     }
 
     /**
