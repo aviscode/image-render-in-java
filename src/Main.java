@@ -78,7 +78,6 @@ public final class Main {
 
     /**
      * @author Avi Rosenberg
-     *
      */
     static class TubeTest {
 
@@ -88,7 +87,7 @@ public final class Main {
         @Test
         public void testGetNormal() {
             Tube tube = new Tube(new Ray(new Point3D(0, 0, 0), new Vector(0, 1, 0)), 1);
-            assertEquals("Normal function error", tube.getNormal(new Point3D(1, 2, 0)),  new Vector(1, 0, 0));
+            assertEquals("Normal function error", tube.getNormal(new Point3D(1, 2, 0)), new Vector(1, 0, 0));
         }
 
     }
