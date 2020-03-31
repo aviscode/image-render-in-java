@@ -4,6 +4,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import static primitives.Util.alignZero;
+
 /**
  * The type Tube.
  */
@@ -33,14 +35,22 @@ public class Tube extends RadialGeometry {
 
     @Override
     public Vector getNormal(Point3D p) {
-        double t = _axisRay.getDirection().dotProduct(p.subtract(_axisRay.getP()));
-        Point3D center = _axisRay.getP().add(_axisRay.getDirection().scale(t));
-        Vector v = p.subtract(center);
-        return v.normalize();
+        Point3D p0 = _axisRay.getP();
+        Vector v;
+        try {
+            v = p.subtract(p0);
+        } catch (Exception e) {
+            return _axisRay.getDirection();
+        }
+        double temp = alignZero(_axisRay.getDirection().dotProduct(v));
+        if (temp == 0)
+            return p.subtract(p0).normalize();
+        Point3D p1 = p0.add(_axisRay.getDirection().scale(temp));
+        return p.subtract(p1).normalize();
     }
 
     @Override
     public String toString() {
-        return "Tube :" + "axis Ray :(" + _axisRay + ") Radius :(" + this.getRadius()+')';
+        return "Tube :" + "axis Ray :(" + _axisRay + ") Radius :(" + this.getRadius() + ')';
     }
 }

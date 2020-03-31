@@ -1,12 +1,15 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import static primitives.Util.*;
 
 /**
  * The type Cylinder.
  */
-public class Cylinder extends RadialGeometry {
+public class Cylinder extends Tube {
     /**
      * The Height.
      */
@@ -18,8 +21,8 @@ public class Cylinder extends RadialGeometry {
      * @param height the height
      * @param r      the radius
      */
-    public Cylinder(double height, double r) {
-        super(r);
+    public Cylinder(double height, double r, Ray _ray) {
+        super(_ray, r);
         _height = height;
     }
 
@@ -34,11 +37,20 @@ public class Cylinder extends RadialGeometry {
 
     @Override
     public String toString() {
-        return "Cylinder : " + "height :(" + _height + ") Radius :("+ this.getRadius()+')';
+        return "Cylinder : " + "height :(" + _height + ") Radius :(" + this.getRadius() + ')';
     }
 
     @Override
     public Vector getNormal(Point3D p) {
-       return null;
+        Vector v = this.gatAxisRay().getDirection();
+        Point3D p0 = this.gatAxisRay().getP();
+        if (p.equals(p0))
+            return v;
+        else {
+            double temp = v.dotProduct(p.subtract(p0));
+            if (isZero(temp) || isZero(temp - _height))
+                return v;
+            return p.subtract(p0.add(v.scale(temp))).normalize();
+        }
     }
 }
