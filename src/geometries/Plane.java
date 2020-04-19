@@ -1,7 +1,10 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Vector;
+import primitives.*;
+
+import java.util.List;
+
+import static primitives.Util.*;
 
 /**
  * The type Plane.
@@ -59,5 +62,19 @@ public class Plane implements Geometry {
     @Override
     public Vector getNormal(Point3D p) {
         return _normal;
+    }
+
+    @Override
+    public List<Point3D> findIntsersections(Ray ray) {
+        Vector p;
+        try {
+            p = _point.subtract(ray.getP());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+        double nv = _normal.dotProduct(ray.getDirection());
+        if (isZero(nv)) return null;
+        double temp = alignZero(_normal.dotProduct(p) / nv);
+        return temp <= 0 ? null : List.of(ray.getTargetPoint(temp));
     }
 }

@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * The type Sphere.
@@ -29,5 +32,10 @@ public class Sphere extends RadialGeometry {
     @Override
     public Vector getNormal(Point3D p) {
         return p.subtract(_center).normalize();
+    }
+
+    @Override
+    public List<Point3D> findIntsersections(Ray ray) {
+        return null;
     }
 }

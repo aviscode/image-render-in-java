@@ -5,7 +5,7 @@ import primitives.*;
 /**
  * The interface Geometry.
  */
-public interface Geometry {
+public interface Geometry extends Intersectable {
     /**
      * Get normal vector.
      *

@@ -1,5 +1,7 @@
 package primitives;
 
+import static primitives.Util.isZero;
+
 /**
  * The type Ray.
  */
@@ -10,10 +12,10 @@ public class Ray {
     /**
      * Instantiates a new Ray.
      *
-     * @param other         the point
+     * @param other     the point
      * @param direction the direction
      */
-    public Ray(Point3D other , Vector direction) {
+    public Ray(Point3D other, Vector direction) {
         _point = other;
         _direction = direction.normalize();
     }
@@ -43,6 +45,16 @@ public class Ray {
         if (!(obj instanceof Ray)) return false;
         Ray other = (Ray) obj;
         return _point.equals(other._point) && (_direction.equals(other._direction));
+    }
+
+    /**
+     * Gets target point.
+     *
+     * @param length the length.
+     * @return the new Point3D.
+     */
+    public Point3D getTargetPoint(double length) {
+        return isZero(length) ? _point : _point.add(_direction.scale(length));
     }
 
     @Override
