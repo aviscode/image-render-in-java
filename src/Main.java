@@ -23,14 +23,6 @@ public final class Main {
      * @param args irrelevant here
      */
     public static void main(String[] args) {
-        LinkedList<String> aa = new LinkedList<String>();
-        aa.add("abc");
-        Collections.addAll(aa, "aa", "bb", "cc");
-        for (int i = 0; i < aa.size(); ++i) {
-            out.print(aa.get(i)+"\n");
-        }
-
-
 
         try { // test zero vector
             new Vector(0, 0, 0);
