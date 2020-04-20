@@ -1,7 +1,9 @@
 package geometries;
 
 import java.util.List;
+
 import primitives.*;
+
 import static primitives.Util.*;
 
 /**
@@ -92,6 +94,22 @@ public class Polygon implements Geometry {
 
     @Override
     public List<Point3D> findIntsersections(Ray ray) {
-        return null;
+        List<Point3D> intersections = _plane.findIntsersections(ray);
+        if (intersections == null) return null;
+        Point3D point = ray.getP();
+        Vector vec = ray.getDirection();
+        Vector v1 = _vertices.get(0).subtract(point);
+        Vector v2 = _vertices.get(1).subtract(point);
+        double sign = vec.dotProduct(v1.crossProduct(v2));
+        if (isZero(sign)) return null;
+        boolean positive = sign > 0;
+        for (int i = _vertices.size() - 1; i > 0; --i) {
+            v1 = v2;
+            v2 = _vertices.get(i).subtract(point);
+            sign = alignZero(vec.dotProduct(v1.crossProduct(v2)));
+            if (isZero(sign)) return null;
+            if (positive != (sign > 0)) return null;
+        }
+        return intersections;
     }
 }
