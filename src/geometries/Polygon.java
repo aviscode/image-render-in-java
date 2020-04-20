@@ -103,13 +103,13 @@ public class Polygon implements Geometry {
         double sign = vec.dotProduct(v1.crossProduct(v2));
         if (isZero(sign)) return null;
         boolean positive = sign > 0;
-        for (int i = _vertices.size() - 1; i > 0; --i) {
-            v1 = v2;
-            v2 = _vertices.get(i).subtract(point);
-            sign = alignZero(vec.dotProduct(v1.crossProduct(v2)));
-            if (isZero(sign)) return null;
-            if (positive != (sign > 0)) return null;
-        }
+//        for (int i = _vertices.size() - 1; i > 0; --i) {
+//            v1 = v2;
+//            v2 = _vertices.get(i).subtract(point);
+//            sign = alignZero(vec.dotProduct(v1.crossProduct(v2)));
+//            if (isZero(sign)) return null;
+//            if (positive != (sign > 0)) return null;
+//        }
         return intersections;
     }
 }

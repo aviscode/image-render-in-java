@@ -34,11 +34,11 @@ public class GeometriesTests {
         }
 
         //TCO4: all shapes hit ray
-        Geometries g4 = new Geometries(new Sphere(new Point3D(0, 0, 4), 1), new Plane(new Point3D(0, 0, 6), new Vector(4, 5, 0)),
-                new Triangle(new Point3D(-3, -2, 8), new Point3D(-1, 9, 8), new Point3D(2, -2, 8)),
-                new Polygon(new Point3D(-3, -2, 10), new Point3D(-1, 9, 10), new Point3D(2, 3, 10), new Point3D(2, -2, 10)));
+        Geometries g4 = new Geometries(new Sphere(new Point3D(0, 0, 4), 1), new Plane(new Point3D(0, 0, 1), new Vector(2, 2, 1)),
+                new Triangle(new Point3D(-1, -1, 1), new Point3D(1, 1, 1), new Point3D(2, -2, 1)),
+                new Polygon(new Point3D(0, 6, 1), new Point3D(-6, 2, 1), new Point3D(-6, 0, 1), new Point3D(-2, -6, 1), new Point3D(4, 2, 1)));
         try {
-            assertEquals("Error! Geometries didn't find all intersections", g4.getShapes().size(), g4.findIntsersections(new Ray(new Point3D(0, 0, -2), new Vector(0, 0, 1))).size());
+            assertEquals("Error! Geometries didn't find all intersections", g4.getShapes().size(), g4.findIntsersections(new Ray(new Point3D(0, 0, 0), new Vector(0, 0, 1))).size());
         } catch (NullPointerException e)//intersection list was null
         {
             fail("Error! Geometries found no intersections when all intersect");
@@ -46,7 +46,7 @@ public class GeometriesTests {
 
         //TCO5: ray hits all shapes but one
         g4.add(new Sphere(new Point3D(-4, -3, -15), 1));
-        assertEquals("Error! Geometries found invalid amount of intersections", g4.getShapes().size() -1, g4.findIntsersections(new Ray(new Point3D(0, 0, -2), new Vector(0, 0, 1))).size());
+        assertEquals("Error! Geometries found invalid amount of intersections", g4.getShapes().size() - 1, g4.findIntsersections(new Ray(new Point3D(0, 0, -2), new Vector(0, 0, 1))).size());
 
         // ============ Equivalence Partitions Tests ==============
         //TCO6: some shapes hit ray and some don't

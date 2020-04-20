@@ -16,7 +16,7 @@ import static org.junit.Assert.fail;
 public class TriangleTest {
 
     /**
-     * Test method for {@link geometries.Triangle#getNormal()}.
+     * Test method for {@link geometries.Triangle#getNormal(Point3D)} ()}.
      */
     @Test
     public void getNormal() {
