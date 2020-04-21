@@ -6,22 +6,43 @@ import primitives.Ray;
 import java.util.ArrayList;
 import java.util.*;
 
+/**
+ * The type Geometries.
+ */
 public class Geometries implements Intersectable {
     private LinkedList<Intersectable> _shapes;
 
+    /**
+     * Instantiates a new Geometries.
+     */
     public Geometries() {
         _shapes = new LinkedList<Intersectable>();
     }
 
+    /**
+     * Gets shapes.
+     *
+     * @return the shapes
+     */
     public List<Intersectable> getShapes() {
         return _shapes;
     }
 
+    /**
+     * Instantiates a new Geometries.
+     *
+     * @param geometries the geometries
+     */
     public Geometries(Intersectable... geometries) {
         _shapes = new LinkedList<Intersectable>();
         add(geometries);
     }
 
+    /**
+     * Add.
+     *
+     * @param geometries the geometries
+     */
     public void add(Intersectable... geometries) {
         Collections.addAll(_shapes, geometries);
     }
