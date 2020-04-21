@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import primitives.*;
@@ -94,22 +95,24 @@ public class Polygon implements Geometry {
 
     @Override
     public List<Point3D> findIntsersections(Ray ray) {
-        List<Point3D> intersections = _plane.findIntsersections(ray);
-        if (intersections == null) return null;
-        Point3D point = ray.getP();
-        Vector vec = ray.getDirection();
-        Vector v1 = _vertices.get(0).subtract(point);
-        Vector v2 = _vertices.get(1).subtract(point);
-        double sign = vec.dotProduct(v1.crossProduct(v2));
-        if (isZero(sign)) return null;
-        boolean positive = sign > 0;
-//        for (int i = _vertices.size() - 1; i > 0; --i) {
-//            v1 = v2;
-//            v2 = _vertices.get(i).subtract(point);
-//            sign = alignZero(vec.dotProduct(v1.crossProduct(v2)));
-//            if (isZero(sign)) return null;
-//            if (positive != (sign > 0)) return null;
-//        }
-        return intersections;
+        List<Point3D> intersection = _plane.findIntsersections(ray);
+        if (intersection != null) {
+            List<Vector> subtracts = new LinkedList<Vector>();//list for calculations
+            for (int i = 0; i < _vertices.size(); i++)
+                subtracts.add(_vertices.get(i).subtract(ray.getP()));
+            //v*N1. N1 = normalize(v1xv2)
+            double normalize = Util.alignZero(ray.getDirection().dotProduct(subtracts.get(0).crossProduct(subtracts.get(1)).normalize()));
+            for (int index = 1; index < subtracts.size(); index++) {
+                double curNormalize;
+                if (index < subtracts.size() - 1)//not last vector in list
+                    curNormalize = Util.alignZero(ray.getDirection().dotProduct(subtracts.get(index).crossProduct(subtracts.get(index + 1)).normalize()));
+                else
+                    curNormalize = Util.alignZero(ray.getDirection().dotProduct((subtracts.get(index).crossProduct(subtracts.get(0))).normalize()));
+                if (curNormalize * normalize <= 0)
+                    return null;
+            }
+            return intersection;
+        }
+        return null;//no points
     }
 }

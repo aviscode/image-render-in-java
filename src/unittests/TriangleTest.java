@@ -43,9 +43,8 @@ public class TriangleTest {
         assertNull("Ray intersects outside against vertex",triangle.findIntsersections(new Ray(new Point3D(0,-2,0),new Vector(2,1,1))));
 
         // =============== Boundary Values Tests ==================
-
         //TC04: On edge(1 point)
-        assertEquals("Ray intersects on triangle edge",1,triangle.findIntsersections(new Ray(new Point3D(1,-3,-1),new Vector(1,1,2))).size());
+        assertNull("Ray intersects on triangle edge", triangle.findIntsersections(new Ray(new Point3D(1, -3, -1), new Vector(1, 1, 2))));
         //TC05: In vertex(1 point)
         assertEquals("Ray intersects on triangle vertex",1,triangle.findIntsersections(new Ray(new Point3D(0,-2,0),new Vector(1,1,1))).size());
         //TCO6: On edge's continuation(0 point)
