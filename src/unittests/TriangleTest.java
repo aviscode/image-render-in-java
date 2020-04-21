@@ -49,7 +49,7 @@ public class TriangleTest {
         //TC05: In vertex(1 point)
         assertEquals("Ray intersects on triangle vertex",1,triangle.findIntsersections(new Ray(new Point3D(0,-2,0),new Vector(1,1,1))).size());
         //TCO6: On edge's continuation(0 point)
-        assertNull("Ray intersects On edge's continuation",triangle.findIntsersections(new Ray(new Point3D(-5,-1,0),new Vector(1,1,1))));
+        assertNull("Ray intersects On edge continuation",triangle.findIntsersections(new Ray(new Point3D(-5,-1,0),new Vector(1,1,1))));
 
     }
 
