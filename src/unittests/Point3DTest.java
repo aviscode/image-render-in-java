@@ -6,7 +6,7 @@ import org.junit.Test;
 import primitives.Point3D;
 import primitives.Vector;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 
 /**
@@ -35,7 +35,7 @@ public class Point3DTest {
      */
     @Test
     public void testDistanceSquared() {
-        assertEquals("ERROR distanceSquared() in Point3D", 12d, new Point3D(2, 2, 2).distanceSquared(new Point3D(0, 0, 0)));
+        assertEquals("ERROR distanceSquared() in Point3D", 12, new Point3D(2, 2, 2).distanceSquared(new Point3D(0, 0, 0)));
     }
 
     /**
