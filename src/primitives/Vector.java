@@ -104,13 +104,14 @@ public class Vector {
     /**
      * Cross product vector.
      *
-     * @param other the other
+     * @param v2 the other
      * @return the vector
      */
-    public Vector crossProduct(Vector other) {
-        return new Vector(_head.getY().get() * other._head.getZ().get() - _head.getZ().get() * other._head.getY().get(),
-                _head.getZ().get() * other._head.getX().get() - _head.getX().get() * other._head.getZ().get(),
-                _head.getX().get() * other._head.getY().get() - _head.getY().get() * other._head.getX().get());
+    public Vector crossProduct(Vector v2) {
+
+        return new Vector(_head.getY().get() * v2._head.getZ().get() - _head.getZ().get() * v2._head.getY().get(),
+                _head.getZ().get() * v2._head.getX().get() - _head.getX().get() * v2._head.getZ().get(),
+                _head.getX().get() * v2._head.getY().get() - _head.getY().get() * v2._head.getX().get());
     }
 
     /**
@@ -119,7 +120,7 @@ public class Vector {
      * @return the double
      */
     public double lengthSquared() {
-        return Point3D.ZERO.distanceSquared(_head);
+        return (_head.getX().get()) * (_head.getX().get()) + (_head.getY().get()) * (_head.getY().get()) + (_head.getZ().get()) * (_head.getZ().get());
     }
 
     /**
@@ -128,7 +129,7 @@ public class Vector {
      * @return the double
      */
     public double length() {
-        return Point3D.ZERO.distance(_head);
+        return Math.sqrt(this.lengthSquared());
     }
 
     /**
@@ -137,10 +138,7 @@ public class Vector {
      * @return the vector normalize
      */
     public Vector normalize() {
-        double divider = this.length();
-        _head = new Point3D(_head.getX().get() / divider,
-                _head.getY().get() / divider,
-                _head.getZ().get() / divider);
+        _head = normalized()._head;
         return this;
     }
 
@@ -150,7 +148,10 @@ public class Vector {
      * @return the a new normalized vector
      */
     public Vector normalized() {
-        return new Vector(_head).normalize();
+        double divider = this.length();
+        return new Vector(new Point3D(_head.getX().get() / divider,
+                _head.getY().get() / divider,
+                _head.getZ().get() / divider));
     }
 
 

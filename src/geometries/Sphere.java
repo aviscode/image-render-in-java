@@ -13,7 +13,7 @@ import static primitives.Util.alignZero;
  */
 public class Sphere extends RadialGeometry {
 
-    private Point3D _center;
+    private final Point3D _center;
 
     /**
      * Instantiates a new Sphere.

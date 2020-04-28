@@ -17,7 +17,7 @@ public class Ray {
      */
     public Ray(Point3D other, Vector direction) {
         _point = other;
-        _direction = direction.normalize();
+        _direction = direction.normalized();
     }
 
     /**

@@ -4,7 +4,7 @@ package geometries;
  * The type Radial geometry.
  */
 public abstract class RadialGeometry implements Geometry {
-    private double _radius;
+    private final double _radius;
 
     /**
      * Instantiates a new Radial geometry.
