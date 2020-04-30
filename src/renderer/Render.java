@@ -41,7 +41,6 @@ public class Render {
             for (int j = 1; j < _imageWriter.getNx(); j++)
                 if (i % interval == 0 || j % interval == 0)
                     _imageWriter.writePixel(j, i, color);
-                    _imageWriter.writePixel(j, i, color);
         }
     }
 }
