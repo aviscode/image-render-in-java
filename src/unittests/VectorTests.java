@@ -79,16 +79,6 @@ public class VectorTests {
             fail("crossProduct() for parallel vectors does not throw an exception");
         } catch (Exception e) {
         }
-
-
-    }
-
-    /**
-     * Test method for {@link primitives.Vector#lengthSquared()}.
-     */
-    @Test
-    public void testLengthSquared() {
-
     }
 
     /**
@@ -125,6 +115,5 @@ public class VectorTests {
         assertFalse("ERROR: normalized() function does not create a new vector", u == v);
         assertTrue("ERROR: normalize() result is not a unit vector", isZero(u.length() - 1));
     }
-
 }
 

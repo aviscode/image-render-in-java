@@ -23,8 +23,7 @@ public class PolygonTests {
      */
     @Test
     public void testConstructor() {
-        // ============ Equivalence Partitions Tests ==============
-
+        // ============ EPT ==============
         // TC01: Correct concave quadrangular with vertices in correct order
         try {
             new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
@@ -57,8 +56,7 @@ public class PolygonTests {
         } catch (IllegalArgumentException e) {
         }
 
-        // =============== Boundary Values Tests ==================
-
+        // =============== BVT ==================
         // TC10: Vertix on a side of a quadrangular
         try {
             new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
@@ -102,20 +100,19 @@ public class PolygonTests {
     public void testFindIntersections() {
         Polygon p1 = new Polygon(new Point3D(2, 3, 2), new Point3D(4, 3, 2), new Point3D(4, 1, 2), new Point3D(2, 1, 2));
 
-        // ============ Equivalence Partitions Tests ==============
-
+        // ============ EPT ==============
         //TCO1: ray intersects with polygon
-        List<Point3D> intersects = p1.findIntsersections(new Ray( new Point3D(3, 2, 1),new Vector(0, 0, 1)));
+        List<Point3D> intersects = p1.findIntsersections(new Ray(new Point3D(3, 2, 1), new Vector(0, 0, 1)));
         //checks amount of points returned
         if (intersects == null || intersects.size() != 1)
             fail("invalid amount of points returned");
         //checks that points are correct
-        assertEquals("Error! Function does not find ray intersection",new Point3D(3, 2, 2), intersects.get(0));
+        assertEquals("Error! Function does not find ray intersection", new Point3D(3, 2, 2), intersects.get(0));
 
         //TCO2: ray doesn't intersect with polygon
-        assertNull("Error! Function finds intersection when there is none", p1.findIntsersections(new Ray( new Point3D(3, 0, 2),new Vector(0, 0, -1))));
+        assertNull("Error! Function finds intersection when there is none", p1.findIntsersections(new Ray(new Point3D(3, 0, 2), new Vector(0, 0, -1))));
 
-        // ============ Boundary Value Tests ==============
+        // ============ BVT ==============
         //TCO3: ray is parallel to the polygon, in plane but not in polygon
         assertNull("invalid point for ray parallel to plane", p1.findIntsersections(new Ray(new Point3D(4, 4, 2), new Vector(1, 0, 0))));
 
@@ -131,8 +128,7 @@ public class PolygonTests {
         //TCO7: ray is orthogonal to the plane, starts above it and hits the polygon
         try {
             assertEquals("invalid point for ray orthogonal to plane", new Point3D(3, 2, 2), p1.findIntsersections(new Ray(new Point3D(3, 2, 5), new Vector(0, 0, -1))).get(0));
-        } catch (NullPointerException e) //if no point was returned
-        {
+        } catch (NullPointerException e) { //if no point was returned
             fail("invalid point for ray orthogonal to plane");
         }
         //TCO8: ray is orthogonal to the plane, starts above it and doesn't hit the polygon
@@ -155,8 +151,5 @@ public class PolygonTests {
 
         //TC14: ray intersects with polygon's edge
         assertNull("invalid point for ray intersecting with polygon's edge", p1.findIntsersections(new Ray(new Point3D(4, 2, -2), new Vector(0, 0, 1))));
-
-
     }
-
 }

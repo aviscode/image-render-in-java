@@ -16,7 +16,7 @@ public class GeometriesTests {
      */
     @Test
     public void findIntsersections() {
-        // ============ Boundry Value Analysis ==============
+        // ============ BVA ==============
         // TC01: empty list
         Geometries g1 = new Geometries();
         assertNull("Error! Geometries found intersections when there were no shapes", g1.findIntsersections(new Ray(new Point3D(4, 5, 4), new Vector(1, 2, 3))));
@@ -29,7 +29,7 @@ public class GeometriesTests {
         g2.add(new Sphere(new Point3D(-4, -3, -15), 15));
         try {
             assertEquals("Error! Geometries found invalid amount of intersections", g2.findIntsersections(new Ray(new Point3D(-4, -3, -2), new Vector(0, 0, -1))).size(), 1);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException e) {//in case their in intersections
             fail("Error! Geometries didn't find the one intersection point");
         }
 
@@ -39,8 +39,7 @@ public class GeometriesTests {
                 new Polygon(new Point3D(0, 6, 1), new Point3D(-6, 2, 1), new Point3D(-6, 0, 1), new Point3D(-2, -6, 1), new Point3D(4, 2, 1)));
         try {
             assertEquals("Error! Geometries didn't find all intersections", g4.getShapes().size(), g4.findIntsersections(new Ray(new Point3D(0, 0, 0), new Vector(0, 0, 1))).size());
-        } catch (NullPointerException e)//intersection list was null
-        {
+        } catch (NullPointerException e) {//in case their in intersections
             fail("Error! Geometries found no intersections when all intersect");
         }
 
@@ -48,13 +47,12 @@ public class GeometriesTests {
         g4.add(new Sphere(new Point3D(-4, -3, -15), 1));
         assertEquals("Error! Geometries found invalid amount of intersections", g4.getShapes().size() - 1, g4.findIntsersections(new Ray(new Point3D(0, 0, -2), new Vector(0, 0, 1))).size());
 
-        // ============ Equivalence Partitions Tests ==============
+        // ============ EPT ==============
         //TCO6: some shapes hit ray and some don't
         g4.add(new Sphere(new Point3D(15, 6, 50), 1));
         try {
             assertEquals("Error! Geometries found invalid amount of intersections", g4.getShapes().size() - 2, g4.findIntsersections(new Ray(new Point3D(0, 0, -2), new Vector(0, 0, 1))).size());
-        } catch (NullPointerException e)//intersection list was null
-        {
+        } catch (NullPointerException e) {//in case their in intersections
             fail("Error! Geometries found invalid amount of intersections");
         }
 

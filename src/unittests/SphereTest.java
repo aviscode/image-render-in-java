@@ -34,7 +34,7 @@ public class SphereTest {
     public void findIntersectionsTest() {
         Sphere sphere = new Sphere(new Point3D(1, 0, 0), 1d);
 
-        // ============ Equivalence Partitions Tests ==============
+        // ============ EPT ==============
         Point3D p1 = new Point3D(0.0651530771650466, 0.355051025721682, 0);
         Point3D p2 = new Point3D(1.53484692283495, 0.844948974278318, 0);
         List<Point3D> exp = List.of(p1, p2);
@@ -56,7 +56,7 @@ public class SphereTest {
         // TC04: Ray starts after the sphere (0 points)
         assertNull("Sphere behind Ray" ,sphere.findIntsersections(new Ray(new Point3D(2, 1, 0), new Vector(3, 1, 0))));
 
-        // =============== Boundary Values Tests ==================
+        // =============== BVT ==================
         // **** Group: Ray's line crosses the sphere (but not the center)
         // TC11: Ray starts at sphere and goes inside (1 points)
         assertEquals( "Ray from sphere inside", List.of(new Point3D(2, 0, 0)), sphere.findIntsersections(new Ray(new Point3D(1, -1, 0), new Vector(1, 1, 0))));

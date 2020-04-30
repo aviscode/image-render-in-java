@@ -4,10 +4,12 @@ import elements.Camera;
 import geometries.Cylinder;
 import org.junit.Test;
 import primitives.*;
+
 import static org.junit.Assert.assertEquals;
 
 /**
  * Testing Camera Class
+ *
  * @author Avi Rosenberg
  */
 public class CameraTests {
@@ -47,9 +49,6 @@ public class CameraTests {
         // TC13: 3X3 Center of Left Side (1,0)
         assertEquals("Bad ray", new Ray(Point3D.ZERO, new Vector(-2, 0, 10)),
                 camera.constructRayThroughPixel(3, 3, 0, 1, 10, 6, 6));
-
     }
-
-
 }
 

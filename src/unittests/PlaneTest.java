@@ -33,20 +33,17 @@ public class PlaneTest {
     public void FindIntersections(){
         Plane plane=new Plane(new Point3D(0, 0, 1), new Vector(2, 2, 1));
 
-        // ============ Equivalence Partitions Tests ==============
-
+        // ============ EPTts ==============
         //TC01: Ray intersects the plane (1 point)
         assertEquals("Ray intersects Plane",1,plane.findIntsersections(new Ray(new Point3D(0, -1, 0), new Vector(0, 1, 1))).size());
 
         //TC02: Ray does not intersect the plane(0 point)
         assertNull("Ray doesn't intersects Plane",plane.findIntsersections(new Ray(new Point3D(-1,-1,-1),new Vector(-1,-2,-1))));
 
-        // =============== Boundary Values Tests ==================
-
+        // =============== BVT==================
         //***Group: Ray is parallel to the plane
         //TC03: the ray included in the plane
         assertNull("Ray parallel to the plane and included",plane.findIntsersections(new Ray(new Point3D(4,4,3),new Vector(1,-2,2))));
-
 
         //TC04: the ray not included in the plane
         assertNull("Ray parallel to the plane and not included",plane.findIntsersections(new Ray(new Point3D(0,-1,0),new Vector(1,-2,2))));
