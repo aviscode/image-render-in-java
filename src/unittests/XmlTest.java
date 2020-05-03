@@ -14,9 +14,9 @@ import java.io.*;
 import java.util.Arrays;
 
 /**
- * Test rendering abasic image
+ * Test rendering abasic image from a XML file
  *
- * @author Dan
+ * @author Avi rosenberg
  */
 public class XmlTest {
     /**
