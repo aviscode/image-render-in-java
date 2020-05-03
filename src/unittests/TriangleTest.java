@@ -11,6 +11,8 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 
 /**
+ * The type Triangle test.
+ *
  * @author Avi Rosenberg
  */
 public class TriangleTest {
@@ -26,6 +28,7 @@ public class TriangleTest {
         double sqrt3 = Math.sqrt(1d / 3);
         Assert.assertEquals("Bad normal to plain", new Vector(sqrt3, sqrt3, sqrt3), tr.getPlane().getNormal());
     }
+
     /**
      * Test method for {@Link Triangle#findIntsersections(Primitives.Ray)}
      */

@@ -9,6 +9,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 /**
+ * The type Cylinder test.
+ *
  * @author Avi Rosenberg
  */
 public class CylinderTest {
@@ -33,6 +35,9 @@ public class CylinderTest {
                 new Vector(0, 1, 0), new Cylinder(5, 1, new Ray(new Point3D(0, 0, 0), new Vector(0, 1, 0))).getNormal(p1));
     }
 
+    /**
+     * Test find intersections.
+     */
     @Test
     public void testFindIntersections() {
         Point3D point1 = new Point3D(0, 0, 0);

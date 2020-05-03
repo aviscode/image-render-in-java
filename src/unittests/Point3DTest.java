@@ -10,6 +10,8 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 
 /**
+ * The type Point 3 d test.
+ *
  * @author Avi Rosenberg
  */
 public class Point3DTest {

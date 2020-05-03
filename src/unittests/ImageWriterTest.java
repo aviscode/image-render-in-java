@@ -8,6 +8,8 @@ import renderer.ImageWriter;
 import java.awt.*;
 
 /**
+ * The type Image writer test.
+ *
  * @author Avi Rosenberg
  */
 public class ImageWriterTest {

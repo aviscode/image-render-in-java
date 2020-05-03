@@ -10,6 +10,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**
+ * The type Tube test.
+ *
  * @author Avi Rosenberg
  */
 public class TubeTest {

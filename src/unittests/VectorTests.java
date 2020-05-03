@@ -9,6 +9,8 @@ import static org.junit.Assert.*;
 import static primitives.Util.*;
 
 /**
+ * The type Vector tests.
+ *
  * @author Avi Rosenberg
  */
 public class VectorTests {

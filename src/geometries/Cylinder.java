@@ -20,6 +20,7 @@ public class Cylinder extends Tube {
      *
      * @param height the height
      * @param r      the radius
+     * @param _ray   the ray
      */
     public Cylinder(double height, double r, Ray _ray) {
         super(_ray, r);

@@ -7,6 +7,8 @@ import geometries.*;
 import static org.junit.Assert.*;
 
 /**
+ * The type Geometries tests.
+ *
  * @author Avi Rosenberg
  */
 public class GeometriesTests {

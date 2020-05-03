@@ -11,6 +11,8 @@ import static org.junit.Assert.assertNull;
 import static primitives.Util.isZero;
 
 /**
+ * The type Plane test.
+ *
  * @author Avi Rosenberg
  */
 public class PlaneTest {

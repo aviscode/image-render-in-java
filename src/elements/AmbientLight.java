@@ -23,7 +23,7 @@ public class AmbientLight {
      *
      * @return the intensity
      */
-    public Color getIntensity() {
-        return _intensity;
+    public java.awt.Color getIntensity() {
+        return _intensity.getColor();
     }
 }

@@ -15,6 +15,9 @@ public class Color {
      */
     private double _r = 0.0, _g = 0.0, _b = 0.0;
 
+    /**
+     * The constant BLACK.
+     */
     public final static Color BLACK = new Color();
 
     /**
@@ -160,6 +163,7 @@ public class Color {
 
     /**
      * Scale the color by (1 / reduction factor)
+     *
      * @param k reduction factor
      * @return new Color object which is the result of the operation
      */

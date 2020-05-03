@@ -2,6 +2,7 @@ package elements;
 
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
 
 import java.util.IllegalFormatException;
@@ -10,26 +11,29 @@ import java.util.IllegalFormatException;
  * The type Camera.
  */
 public class Camera {
-    private final Point3D _p0;
-    private final Vector _vUp;
-    private final Vector _vRight;
-    private final Vector _vTo;
+
+    private  Point3D _p0;
+    private  Vector _vUp;
+    private  Vector _vRight;
+    private  Vector _vTo;
 
     /**
      * Instantiates a new Camera.
      *
-     * @param p0 camera location
-     * @param vUp camera coordinates in 3D Cartesian coordinate system
-     * @param vTo camera coordinates in 3D Cartesian coordinate system
+     * @param p0  the p 0
+     * @param vTo the v to
+     * @param vUp the v up
      * @throws IllegalArgumentException for none-orthogonal direction vectors
      */
-    public Camera(Point3D p0, Vector vUp, Vector vTo) {
-        if (vUp.dotProduct(vTo) != 0)
-            throw new IllegalArgumentException("the vectors much be orthogonal");
-        _p0 = p0;
-        _vUp = vUp.normalized();
-        _vTo = vTo.normalized();
-        _vRight = vTo.crossProduct(vUp).normalize();
+    public Camera(Point3D p0, Vector vTo, Vector vUp) {
+
+        //if the the vectors are not orthogonal, throw exception.
+        if (Util.isZero(vTo.dotProduct(vUp))) {
+            this._p0 = new Point3D(p0);
+            this._vTo = vTo.normalized();
+            this._vUp = vUp.normalized();
+            _vRight = vTo.crossProduct(vUp).normalized();
+        }
     }
 
     /**

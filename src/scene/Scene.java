@@ -6,55 +6,140 @@ import geometries.Geometries;
 import geometries.Intersectable;
 import primitives.Color;
 
+/**
+ * The type Scene.
+ */
 public class Scene {
-    private String _name;
-    private Color _background;
-    private Geometries _geometries;
-    private Camera _camera;
-    private double _distance;
-    private AmbientLight _ambientLight;
+    /**
+     * The Name.
+     */
+    String _name;
+    /**
+     * The Background.
+     */
+    Color _background;
+    /**
+     * The Ambient light.
+     */
+    AmbientLight _ambientLight;
+    /**
+     * The Geometries.
+     */
+    Geometries _geometries;
+    /**
+     * The Camera.
+     */
+    Camera _camera;
+    /**
+     * The Distance.
+     */
+    double _distance;
 
+    /**
+     * Instantiates a new Scene.
+     *
+     * @param name the name
+     */
     public Scene(String name) {
         _name = name;
         _geometries = new Geometries();
     }
 
+    /**
+     * Gets ambient light.
+     *
+     * @return the ambient light
+     */
     public AmbientLight getAmbientLight() {
         return _ambientLight;
     }
 
-    public String getName() {
-        return _name;
-    }
-
-    public Geometries getGeometries() {
-        return _geometries;
-    }
-
+    /**
+     * Gets camera.
+     *
+     * @return the camera
+     */
     public Camera getCamera() {
         return _camera;
     }
 
+    /**
+     * Gets background.
+     *
+     * @return the background
+     */
+    public Color getBackground() {
+        return _background;
+    }
+
+    /**
+     * Gets distance.
+     *
+     * @return the distance
+     */
     public double getDistance() {
         return _distance;
     }
 
-    public void setBackground(Color background) {
-        _background = background;
+    /**
+     * Gets geometries.
+     *
+     * @return the geometries
+     */
+    public Geometries getGeometries() {
+        return _geometries;
     }
 
-    public void setCamera(Camera camera) {
-        _camera = camera;
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
+    public String getName() {
+        return _name;
     }
 
-    public void setDistance(double distance) {
-        _distance = distance;
-    }
-
+    /**
+     * Sets ambient light.
+     *
+     * @param ambientLight the ambient light
+     */
     public void setAmbientLight(AmbientLight ambientLight) {
         _ambientLight = ambientLight;
     }
 
+    /**
+     * Sets distance.
+     *
+     * @param distance the distance
+     */
+    public void setDistance(double distance) {
+        _distance = distance;
+    }
+
+    /**
+     * Sets background.
+     *
+     * @param background the background
+     */
+    public void setBackground(Color background) {
+       _background = background;
+    }
+
+    /**
+     * Sets camera.
+     *
+     * @param camera the camera
+     */
+    public void setCamera(Camera camera) {
+        _camera = camera;
+    }
+
+    /**
+     * Add geometries.
+     *
+     * @param geometries the geometries
+     */
     public void addGeometries(Intersectable... geometries) {
         _geometries.add(geometries);
     }
