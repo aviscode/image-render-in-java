@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * The interface Intersectable.
- * TODO decimation and explan more
+ * TODO decimation and explan more.
  *
  */
 public interface Intersectable {
