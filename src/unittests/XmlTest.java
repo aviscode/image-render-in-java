@@ -16,7 +16,7 @@ import java.util.Arrays;
 /**
  * Test rendering abasic image from a XML file
  *
- * @author Avi rosenberg
+ * @author Avi rosenberg.
  */
 public class XmlTest {
     /**
