@@ -6,41 +6,15 @@ import java.util.*;
 
 /**
  * The interface Intersectable.
- * TODO decimation and explan more.
+ *      * Find intersections list between giving ray and geometries shapes.
+ *      * the returned list can be null if there is no intersections or there is no geometries shape in Geometries.
  */
 public interface Intersectable {
     /**
-     * Find intsersections list.
+     * List of Intersection points found in tests
      *
      * @param ray the ray
      * @return the list of Points 3D Intersections
      */
     List<Point3D> findIntsersections(Ray ray);
-
-
-    /**
-     * The type Geo point.
-     */
-    public static class GeoPoint {
-        /**
-         * The Geometry.
-         */
-        public Geometry _geometry;
-        /**
-         * The Point.
-         */
-        public Point3D _point;
-
-        /**
-         * Instantiates a new Geo point.
-         *
-         * @param geometry the geometry
-         * @param point    the point
-         */
-        public GeoPoint(Geometry geometry, Point3D point) {
-            _geometry = geometry;
-            _point = point;
-        }
-    }
-
 }
