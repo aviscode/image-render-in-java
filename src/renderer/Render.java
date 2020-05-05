@@ -18,12 +18,12 @@ public class Render {
     /**
      * The Image writer.
      */
-    ImageWriter _imageWriter;
+    private ImageWriter _imageWriter;
 
     /**
      * The Scene.
      */
-    Scene _scene;
+    private Scene _scene;
 
     /**
      * Instantiates a new Render.

@@ -86,13 +86,12 @@ public class Camera {
      */
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight) {
         double rY = screenHeight / nY, rX = screenWidth / nX;
-        Point3D Pc = _p0.add(_vTo.scale(screenDistance));
+        Point3D cP = _p0.add(_vTo.scale(screenDistance));
         double xj = (j - nX / 2.0) * rX + rX / 2.0, yi = (i - nY / 2.0) * rY + rY / 2.0;
         if (xj != 0)
-            Pc = Pc.add(_vRight.scale(xj));
+           cP = cP.add(_vRight.scale(xj));
         if (yi != 0)
-            Pc = Pc.add(_vUp.scale(-yi));
-        return new Ray(_p0, Pc.subtract(_p0).normalize());
+            cP = cP.add(_vUp.scale(-yi));
+        return new Ray(_p0, cP.subtract(_p0).normalize());
     }
-
 }

@@ -13,27 +13,27 @@ public class Scene {
     /**
      * The Name.
      */
-    String _name;
+    private String _name;
     /**
      * The Background.
      */
-    Color _background;
+    private Color _background;
     /**
      * The Ambient light.
      */
-    AmbientLight _ambientLight;
+    private AmbientLight _ambientLight;
     /**
      * The Geometries.
      */
-    Geometries _geometries;
+    private Geometries _geometries;
     /**
      * The Camera.
      */
-    Camera _camera;
+    private Camera _camera;
     /**
      * The Distance.
      */
-    double _distance;
+    private double _distance;
 
     /**
      * Instantiates a new Scene.
