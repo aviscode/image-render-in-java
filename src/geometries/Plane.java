@@ -9,7 +9,7 @@ import static primitives.Util.*;
 /**
  * The type Plane.
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     private Point3D _point;
     private Vector _normal;
 
