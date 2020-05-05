@@ -10,6 +10,7 @@ import java.util.*;
  * The type Geometries.
  */
 public class Geometries implements Intersectable {
+
     private LinkedList<Intersectable> _shapes;
 
     /**
