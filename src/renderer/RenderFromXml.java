@@ -1,40 +1,61 @@
-package unittests;
+package renderer;
 
-import elements.*;
-import geometries.*;
-import org.junit.Test;
+import elements.AmbientLight;
+import elements.Camera;
+import geometries.Plane;
+import geometries.Sphere;
+import geometries.Triangle;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-import primitives.*;
-import renderer.*;
+import primitives.Color;
+import primitives.Point3D;
+import primitives.Vector;
 import scene.Scene;
 
-import javax.xml.parsers.*;
-import java.io.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * Test rendering abasic image from a XML file
- *
- * @author Avi rosenberg.
+ * The type Render from xml.
  */
-public class XmlTest {
+public class RenderFromXml {
+    private Render _render;
+
     /**
-     * Produce a scene with basic 3D model and render it into a jpeg image with a
-     * grid
+     * Instantiates a new Render from xml.
      *
+     * @param render the render
+     */
+    public RenderFromXml(Render render) {
+        _render = render;
+    }
+
+    /**
+     * Instantiates a new Render from xml.
+     */
+    public RenderFromXml() {
+        _render = null;
+    }
+
+    /**
+     * Scene from xml file render.
+     *
+     * @param filePath the file path
+     * @return the render
      * @throws ParserConfigurationException the parser configuration exception
      * @throws IOException                  the io exception
      * @throws SAXException                 the sax exception
      */
-    @Test
-    public void sceneFromXmlFile() throws ParserConfigurationException, IOException, SAXException {
-        File xmlFile = new File("src/basicRenderTestTwoColors.xml");
+    public Render sceneFromXmlFile(String filePath) throws ParserConfigurationException, IOException, SAXException {
+        File xmlFile = new File(filePath);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = factory.newDocumentBuilder();
         Document doc = dBuilder.parse(xmlFile);
         doc.getDocumentElement().normalize();
-
         // ==== Root ====//
         NodeList nList = doc.getElementsByTagName("scene");
         Scene test = null;
@@ -103,14 +124,12 @@ public class XmlTest {
                 }
             }
         }
-        Render render = new Render(imageWriter, test);
-        render.renderImage();
-        render.printGrid(50, java.awt.Color.YELLOW);
-        render.writeToImage();
+        return _render = new Render(imageWriter, test);
     }
 
+
     /**
-     * @param str gets a steing ant returning a list of the numbers in the string.
+     * @param str gets a string ant returning a list of the numbers in the string.
      */
     private double[] stringToDoubleArr(String str) {
         return Arrays.stream(str.split(" ")).mapToDouble(Double::parseDouble).toArray();

@@ -12,10 +12,10 @@ import java.util.IllegalFormatException;
  */
 public class Camera {
 
-    private  Point3D _p0;
-    private  Vector _vUp;
-    private  Vector _vRight;
-    private  Vector _vTo;
+    private Point3D _p0;
+    private Vector _vUp;
+    private Vector _vRight;
+    private Vector _vTo;
 
     /**
      * Instantiates a new Camera.
@@ -88,10 +88,8 @@ public class Camera {
         double rY = screenHeight / nY, rX = screenWidth / nX;
         Point3D cP = _p0.add(_vTo.scale(screenDistance));
         double xj = (j - nX / 2.0) * rX + rX / 2.0, yi = (i - nY / 2.0) * rY + rY / 2.0;
-        if (xj != 0)
-           cP = cP.add(_vRight.scale(xj));
-        if (yi != 0)
-            cP = cP.add(_vUp.scale(-yi));
+        if (xj != 0) cP = cP.add(_vRight.scale(xj));
+        if (yi != 0) cP = cP.add(_vUp.scale(-yi));
         return new Ray(_p0, cP.subtract(_p0).normalize());
     }
 }

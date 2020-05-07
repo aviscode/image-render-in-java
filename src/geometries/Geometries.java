@@ -40,7 +40,7 @@ public class Geometries implements Intersectable {
     }
 
     /**
-     * Add.
+     * Add shapes to the geometries list.
      *
      * @param geometries the geometries
      */
