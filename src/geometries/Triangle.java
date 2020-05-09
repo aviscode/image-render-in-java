@@ -14,21 +14,22 @@ public class Triangle extends Polygon {
     /**
      * Instantiates a new Triangle.
      *
-     * @param p1 the Point 1
-     * @param p2 the Point 2
-     * @param p3 the Point 3
+     * @param emissionLight the emission light
+     * @param material      the material
+     * @param p1            the p 1
+     * @param p2            the p 2
+     * @param p3            the p 3
      */
+    public Triangle(Color emissionLight, Material material, Point3D p1, Point3D p2, Point3D p3) {
+        super(emissionLight, material, p1, p2, p3);
+    }
+
+    public Triangle(Color emissionLight, Point3D p1, Point3D p2, Point3D p3) {
+        super(emissionLight, p1, p2, p3);
+    }
+
     public Triangle(Point3D p1, Point3D p2, Point3D p3) {
         super(p1, p2, p3);
-    }
-
-    public Triangle(Color emmission, Point3D _p1, Point3D _p2, Point3D _p3) {
-        super(emmission, _p1, _p2, _p3);
-    }
-
-    public Triangle(Color emmission, Point3D _p1, Point3D _p2, Point3D _p3, Material material) {
-        this(emmission, _p1, _p2, _p3);
-        _material = material;
     }
 
     @Override

@@ -25,15 +25,16 @@ public class Cylinder extends Tube {
         _height = height;
     }
 
-    public Cylinder(double r, Ray ray, double height, Color emmission){
-        super(ray,r, emmission);
-        _height=_height;
+    public Cylinder(double r, Ray ray, double height, Color emmission) {
+        this(height, r, ray);
+        _emmission = emmission;
     }
 
     public Cylinder(double r, Ray ray, double height, Color emmission, Material material) {
         this(r, ray, height, emmission);
         _material = material;
     }
+
     /**
      * Gets height.
      *

@@ -13,83 +13,52 @@ public class Plane extends Geometry {
     private Point3D _point;
     private Vector _normal;
 
-    /**
-     * Instantiates a new Plane.
-     *
-     * @param p the other point
-     * @param v the Normal vector
-     */
-    public Plane(Point3D p, Vector v) {
-        _point = new Point3D(p);
-        _normal = new Vector(v).normalize();
-    }
-
 
     /**
      * Instantiates a new Plane.
      *
-     * @param normal    the normal
-     * @param point     the point
-     * @param emmission the emmission
+     * @param emissionLight the emission light
+     * @param material      the material
+     * @param p1            the p 1
+     * @param p2            the p 2
+     * @param p3            the p 3
      */
-    public Plane(Vector normal, Point3D point, Color emmission) {
-        super(emmission);
-        _point = new Point3D(point);
-        _normal = new Vector(normal);
-    }
-
-    /**
-     * Instantiates a new Plane.
-     *
-     * @param normal    the normal
-     * @param point     the point
-     * @param emmission the emmission
-     * @param material  the material
-     */
-    public Plane(Vector normal, Point3D point, Color emmission, Material material) {
-        this(normal, point, emmission);
-        _material = material;
-    }
-
-    /**
-     * Instantiates a new Plane.
-     *
-     * @param p1 the p 1
-     * @param p2 the p 2
-     * @param p3 the p 3
-     */
-    public Plane(Point3D p1, Point3D p2, Point3D p3) {
+    public Plane(Color emissionLight, Material material, Point3D p1, Point3D p2, Point3D p3) {
+        super(emissionLight, material);
         _point = new Point3D(p1);
         _normal = p2.subtract(p1).crossProduct(p3.subtract(p1)).normalize();
     }
 
+    public Plane(Color emissionLight, Point3D p1, Point3D p2, Point3D p3) {
+        this(emissionLight, new Material(0, 0, 0), p1, p2, p3);
+    }
+
+    public Plane(Point3D p1, Point3D p2, Point3D p3) {
+        this(Color.BLACK, p1, p2, p3);
+    }
+
 
     /**
      * Instantiates a new Plane.
      *
-     * @param p1        the p 1
-     * @param p2        the p 2
-     * @param p3        the p 3
-     * @param emmission the emmission
+     * @param normal        the normal
+     * @param point         the point
+     * @param emissionLight the emission light
+     * @param material      the material
      */
-    public Plane(Point3D p1, Point3D p2, Point3D p3, Color emmission) {
-        super(emmission);
-        _normal = p2.subtract(p1).crossProduct(p3.subtract(p1)).normalize();
+    public Plane(Vector normal, Point3D point, Color emissionLight, Material material) {
+        super(emissionLight, material);
+        _point = new Point3D(point);
+        _normal = new Vector(normal).normalize();
+    }
+
+    public Plane(Vector normal, Point3D point, Color emmission) {
+        this(normal, point, emmission, new Material(0, 0, 0));
 
     }
 
-    /**
-     * Instantiates a new Plane.
-     *
-     * @param p1        the p 1
-     * @param p2        the p 2
-     * @param p3        the p 3
-     * @param emmission the emmission
-     * @param material  the material
-     */
-    public Plane(Point3D p1, Point3D p2, Point3D p3, Color emmission, Material material) {
-        this(p1, p2, p3, emmission);
-        _material = material;
+    public Plane(Point3D point, Vector normal) {
+        this(normal, point, Color.BLACK, new Material(0, 0, 0));
     }
 
     /**

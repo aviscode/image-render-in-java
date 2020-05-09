@@ -7,25 +7,8 @@ import primitives.*;
  * The interface Geometry.
  */
 public abstract class Geometry implements Intersectable {
-
-    /**
-     * The Emmission.
-     */
     protected Color _emmission;
-
-    /**
-     * The Material.
-     */
     protected Material _material;
-
-    /**
-     * Gets emmission.
-     *
-     * @return the emmission
-     */
-    public Color getEmmission() {
-        return _emmission;
-    }
 
     /**
      * Instantiates a new Geometry.
@@ -61,6 +44,15 @@ public abstract class Geometry implements Intersectable {
      */
     public Material getMaterial() {
         return _material;
+    }
+
+    /**
+     * Gets emmission.
+     *
+     * @return the emmission
+     */
+    public Color getEmmission() {
+        return _emmission;
     }
 
     public abstract Vector getNormal(Point3D p);

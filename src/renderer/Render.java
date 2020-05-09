@@ -54,7 +54,8 @@ public class Render {
 
 
     /**
-     * Render image.
+     * Filling the buffer according to the geometries that are in the scene.
+     * This function does not creating the picture file, but create the buffer pf pixels
      */
     public void renderImage() {
         java.awt.Color background = _scene.getBackground().getColor();
@@ -73,54 +74,62 @@ public class Render {
         Ray ray;
         for (int row = 0; row < Ny; row++) {
             for (int column = 0; column < Nx; column++) {
-                ray = camera.constructRayThroughPixel(Nx, Ny, row, column, distance, width, height);
+                ray = camera.constructRayThroughPixel(Nx, Ny, column, row, distance, width, height);
                 List<GeoPoint> intersectionPoints = geometries.findIntsersections(ray);
                 if (intersectionPoints == null) {
                     _imageWriter.writePixel(column, row, background);
                 } else {
                     GeoPoint closestPoint = getClosestPoint(intersectionPoints);
-                    _imageWriter.writePixel(column , row , calcColor(closestPoint));
+                    _imageWriter.writePixel(column, row, calcColor(closestPoint).getColor());
                 }
             }
         }
     }
 
 
-    private java.awt.Color calcColor(GeoPoint point) {
-//        primitives.Color result = new primitives.Color(_scene.getAmbientLight().getIntensity());
-//        result = result.add(point._geometry.getEmmission());
-//
-//        Vector v = point.getPoint().subtract(_scene.getCamera().get_p0()).normalize();
-//        Vector n = point.getGeometry().getNormal(point.getPoint());
-//
-//        Material material = point.getGeometry().getMaterial();
-//        int nShininess = material.getnShininess();
-//        double kd = material.getKd();
-//        double ks = material.getKs();
-//        if (_scene.getLightSources() != null) {
-//            for (LightSource lightSource : _scene.getLightSources()) {
-//
-//                Vector l = lightSource.getL(point.getPoint());
-//                double nl = alignZero(n.dotProduct(l));
-//                double nv = alignZero(n.dotProduct(v));
-//
-//                if (sign(nl) == sign(nv)) {
-//                    primitives.Color ip = lightSource.getIntensity(point.getPoint());
-//                    result = result.add(
-//                            calcDiffusive(kd, nl, ip),
-//                            calcSpecular(ks, l, n, nl, v, nShininess, ip)
-//                    );
-//                }
-//            }
-//        }
-        return new primitives.Color(_scene.getAmbientLight().getIntensity().add(point.getGeometry().getEmmission())).getColor();
+    private primitives.Color calcColor(GeoPoint gp) {
+        primitives.Color result = new primitives.Color(_scene.getAmbientLight().getIntensity());
+        result = result.add(gp.getGeometry().getEmmission());
+        Vector v = gp.getPoint().subtract(_scene.getCamera().get_p0()).normalize();
+        Vector n = gp.getGeometry().getNormal(gp.getPoint());
+        Material material = gp.getGeometry().getMaterial();
+        int nShininess = material.getnShininess();
+        double kd = material.getKd();
+        double ks = material.getKs();
+        if (_scene.getLightSources() != null) {
+            for (LightSource lightSource : _scene.getLightSources()) {
+
+                Vector l = lightSource.getL(gp.getPoint());
+                double nl = alignZero(n.dotProduct(l));
+                double nv = alignZero(n.dotProduct(v));
+
+                if (sign(nl) == sign(nv)) {
+                    primitives.Color ip = lightSource.getIntensity(gp.getPoint());
+                    result = result.add(calcDiffusive(kd, nl, ip), calcSpecular(ks, l, n, nl, v, nShininess, ip));
+                }
+            }
+        }
+
+        return result;
     }
 
     private boolean sign(double val) {
         return (val > 0d);
     }
 
-
+    /**
+     * Calculate Specular component of light reflection.
+     *
+     * @param ks         specular component coef
+     * @param l          direction from light to point
+     * @param n          normal to surface at the point
+     * @param nl         dot-product n*l
+     * @param v          direction from point of view to point
+     * @param nShininess shininess level
+     * @param ip         light intensity at the point
+     * @return specular component light effect at the point
+     * @author Dan Zilberstein
+     */
     private primitives.Color calcSpecular(double ks, Vector l, Vector n, double nl, Vector v, int nShininess, primitives.Color ip) {
         Vector r = l.add(n.scale(-2 * nl)); // nl must not be zero!
         double minusVR = -alignZero(r.dotProduct(v));
@@ -128,6 +137,15 @@ public class Render {
         return ip.scale(ks * Math.pow(minusVR, nShininess));
     }
 
+    /**
+     * Calculate Diffusive component of light reflection.
+     *
+     * @param kd diffusive component coef
+     * @param nl dot-product n*l
+     * @param ip light intensity at the point
+     * @return diffusive component of light reflection
+     * @author Dan Zilberstein
+     */
     private primitives.Color calcDiffusive(double kd, double nl, primitives.Color ip) {
         if (nl < 0) nl = -nl;
         return ip.scale(nl * kd);
