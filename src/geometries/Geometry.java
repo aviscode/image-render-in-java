@@ -2,7 +2,6 @@ package geometries;
 
 import primitives.*;
 
-import java.awt.Color;
 
 /**
  * The interface Geometry.
@@ -12,15 +11,31 @@ public abstract class Geometry implements Intersectable {
     /**
      * The Emmission.
      */
-    protected java.awt.Color _emmission;
+    protected Color _emmission;
+
+    /**
+     * The Material.
+     */
+    protected Material _material;
 
     /**
      * Gets emmission.
      *
      * @return the emmission
      */
-    public java.awt.Color getEmmission() {
+    public Color getEmmission() {
         return _emmission;
+    }
+
+    /**
+     * Instantiates a new Geometry.
+     *
+     * @param emmission the emmission
+     * @param material  the material
+     */
+    public Geometry(Color emmission, Material material) {
+        _emmission = emmission;
+        _material = material;
     }
 
     /**
@@ -29,21 +44,24 @@ public abstract class Geometry implements Intersectable {
      * @param emmission the emmission
      */
     public Geometry(Color emmission) {
-        _emmission = emmission;
+        this(emmission, new Material(0, 0, 0));
     }
 
     /**
      * Instantiates a new Geometry.
      */
     public Geometry() {
-        _emmission = java.awt.Color.black;
+        this(Color.BLACK, new Material(0, 0, 0));
     }
 
     /**
-     * Get normal vector.
+     * Gets material.
      *
-     * @param p the point
-     * @return the normal to a vector
+     * @return the material
      */
+    public Material getMaterial() {
+        return _material;
+    }
+
     public abstract Vector getNormal(Point3D p);
 }

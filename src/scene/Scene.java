@@ -2,38 +2,29 @@ package scene;
 
 import elements.AmbientLight;
 import elements.Camera;
+import elements.LightSource;
 import geometries.Geometries;
 import geometries.Intersectable;
 import primitives.Color;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * The type Scene.
  */
 public class Scene {
-    /**
-     * The Name.
-     */
-    private String _name;
-    /**
-     * The Background.
-     */
+    private final String _name;
     private Color _background;
-    /**
-     * The Ambient light.
-     */
     private AmbientLight _ambientLight;
-    /**
-     * The Geometries.
-     */
     private Geometries _geometries;
-    /**
-     * The Camera.
-     */
     private Camera _camera;
-    /**
-     * The Distance.
-     */
     private double _distance;
+    /**
+     * The Lights.
+     */
+    List<LightSource> _lights = null;
 
     /**
      * Instantiates a new Scene.
@@ -43,6 +34,7 @@ public class Scene {
     public Scene(String name) {
         _name = name;
         _geometries = new Geometries();
+        _lights = new LinkedList<LightSource>();
     }
 
     /**
@@ -100,6 +92,15 @@ public class Scene {
     }
 
     /**
+     * Gets light sources.
+     *
+     * @return the light sources
+     */
+    public List<LightSource> getLightSources() {
+        return _lights;
+    }
+
+    /**
      * Sets ambient light.
      *
      * @param ambientLight the ambient light
@@ -123,7 +124,7 @@ public class Scene {
      * @param background the background
      */
     public void setBackground(Color background) {
-       _background = background;
+        _background = background;
     }
 
     /**
@@ -133,6 +134,17 @@ public class Scene {
      */
     public void setCamera(Camera camera) {
         _camera = camera;
+    }
+
+
+    /**
+     * Add lights.
+     *
+     * @param lights the lights
+     */
+    public void addLights(LightSource... lights) {
+        Collections.addAll(_lights, lights);
+
     }
 
     /**

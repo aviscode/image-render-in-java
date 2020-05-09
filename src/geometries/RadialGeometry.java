@@ -1,5 +1,7 @@
 package geometries;
 
+import primitives.Color;
+
 /**
  * The type Radial geometry.
  */
@@ -15,14 +17,21 @@ public abstract class RadialGeometry extends Geometry {
         _radius = num;
     }
 
+    public RadialGeometry(double radius, Color emmission) {
+        super(emmission);
+        _radius = radius;
+    }
+
     /**
      * Instantiates a new Radial geometry.
      *
      * @param other the other
      */
     public RadialGeometry(RadialGeometry other) {
+        super((other._emmission));
         _radius = other.getRadius();
     }
+
 
     /**
      * Gets radius.

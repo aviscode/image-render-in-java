@@ -79,7 +79,7 @@ public class RaysAndIntersectionsIntegrationTest {
     }
 
     private int numConstructRayThroughPixelWithShape(int nX, int nY, Geometries shape, Camera camera) {
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int count = 0;
         for (int i = 0; i < nX; ++i)
             for (int j = 0; j < nY; ++j) {

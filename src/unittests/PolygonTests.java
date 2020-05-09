@@ -105,12 +105,12 @@ public class PolygonTests {
 
         // ============ EPT ==============
         //TCO1: ray intersects with polygon
-        List<Point3D> intersects = p1.findIntsersections(new Ray(new Point3D(3, 2, 1), new Vector(0, 0, 1)));
+        List<Intersectable.GeoPoint> intersects = p1.findIntsersections(new Ray(new Point3D(3, 2, 1), new Vector(0, 0, 1)));
         //checks amount of points returned
         if (intersects == null || intersects.size() != 1)
             fail("invalid amount of points returned");
         //checks that points are correct
-        assertEquals("Error! Function does not find ray intersection", new Point3D(3, 2, 2), intersects.get(0));
+        assertEquals("Error! Function does not find ray intersection", new Point3D(3, 2, 2), intersects.get(0)._point);
 
         //TCO2: ray doesn't intersect with polygon
         assertNull("Error! Function finds intersection when there is none", p1.findIntsersections(new Ray(new Point3D(3, 0, 2), new Vector(0, 0, -1))));
@@ -130,7 +130,7 @@ public class PolygonTests {
 
         //TCO7: ray is orthogonal to the plane, starts above it and hits the polygon
         try {
-            assertEquals("invalid point for ray orthogonal to plane", new Point3D(3, 2, 2), p1.findIntsersections(new Ray(new Point3D(3, 2, 5), new Vector(0, 0, -1))).get(0));
+            assertEquals("invalid point for ray orthogonal to plane", new Point3D(3, 2, 2), p1.findIntsersections(new Ray(new Point3D(3, 2, 5), new Vector(0, 0, -1))).get(0)._point);
         } catch (NullPointerException e) { //if no point was returned
             fail("invalid point for ray orthogonal to plane");
         }

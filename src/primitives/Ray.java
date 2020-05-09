@@ -20,6 +20,10 @@ public class Ray {
         _direction = direction.normalized();
     }
 
+    public Ray(Ray other) {
+        _point = new Point3D(other._point);
+        _direction = other._direction.normalized();
+    }
     /**
      * Gets p.
      *

@@ -3,27 +3,16 @@ package elements;
 import primitives.Color;
 
 /**
- * The type Ambient light.
+ * @author aviros
  */
-public class AmbientLight {
-    private final Color _intensity;
 
+public class AmbientLight extends Light {
     /**
-     * Instantiates a new Ambient light.
-     *
-     * @param iA the a
-     * @param kA the k a
+     * constructor for Ambient Light that receives two arguments:
+     * @param Ia intensity of light
+     * @param Ka attenuation factor
      */
-    public AmbientLight(Color iA, double kA) {
-        _intensity = iA.scale(kA);
-    }
-
-    /**
-     * Gets intensity.
-     *
-     * @return the intensity
-     */
-    public java.awt.Color getIntensity() {
-        return _intensity.getColor();
+    public AmbientLight(Color Ia, double Ka) {
+        super(Ia.scale(Ka));
     }
 }

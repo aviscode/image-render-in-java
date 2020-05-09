@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -24,6 +25,12 @@ public class Tube extends RadialGeometry {
     public Tube(Ray _ray, double r) {
         super(r);
         _axisRay = _ray;
+    }
+
+    public Tube(Ray ray, double r, Color emmission) {
+        super(r, emmission);
+        _axisRay = new Ray(ray);
+
     }
 
     /**
@@ -57,7 +64,7 @@ public class Tube extends RadialGeometry {
     }
 
     @Override
-    public List<Point3D> findIntsersections(Ray ray) {
+    public List<GeoPoint> findIntsersections(Ray ray) {
         return null;
     }
 }

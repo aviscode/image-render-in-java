@@ -1,28 +1,26 @@
 package renderer;
 
 import elements.Camera;
+import elements.LightSource;
 import geometries.Intersectable;
+import primitives.Material;
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Vector;
 import scene.Scene;
+import geometries.Intersectable.GeoPoint;
 
 import java.awt.*;
 import java.util.Collections;
 import java.util.List;
 
+import static primitives.Util.alignZero;
+
 /**
  * The type Render.
  */
 public class Render {
-
-    /**
-     * The Image writer.
-     */
     private ImageWriter _imageWriter;
-
-    /**
-     * The Scene.
-     */
     private Scene _scene;
 
     /**
@@ -41,8 +39,8 @@ public class Render {
      * @param scene       the scene
      */
     public Render(ImageWriter imageWriter, Scene scene) {
+        this(scene);
         this._imageWriter = imageWriter;
-        this._scene=   scene;
     }
 
     /**
@@ -50,7 +48,7 @@ public class Render {
      *
      * @return the scene
      */
-    public Scene get_scene() {
+    public Scene getScene() {
         return _scene;
     }
 
@@ -58,11 +56,11 @@ public class Render {
     /**
      * Render image.
      */
-    public void renderImage(){
+    public void renderImage() {
         java.awt.Color background = _scene.getBackground().getColor();
-        Camera camera= _scene.getCamera();
+        Camera camera = _scene.getCamera();
         Intersectable geometries = _scene.getGeometries();
-        double  distance = _scene.getDistance();
+        double distance = _scene.getDistance();
 
         //width and height are the number of pixels in the rows
         //and columns of the view plane
@@ -76,25 +74,63 @@ public class Render {
         for (int row = 0; row < Ny; row++) {
             for (int column = 0; column < Nx; column++) {
                 ray = camera.constructRayThroughPixel(Nx, Ny, row, column, distance, width, height);
-                List<Point3D> intersectionPoints = _scene.getGeometries().findIntsersections(ray);
+                List<GeoPoint> intersectionPoints = geometries.findIntsersections(ray);
                 if (intersectionPoints == null) {
                     _imageWriter.writePixel(column, row, background);
                 } else {
-                    Point3D closestPoint = getClosestPoint(intersectionPoints);
-                    _imageWriter.writePixel(column, row, calcColor(closestPoint));
+                    GeoPoint closestPoint = getClosestPoint(intersectionPoints);
+                    _imageWriter.writePixel(column , row , calcColor(closestPoint));
                 }
             }
         }
     }
 
-    /**
-     * Calc color color.
-     *
-     * @param p the p
-     * @return the color
-     */
-    public Color calcColor(Point3D p){
-        return _scene.getAmbientLight().getIntensity();
+
+    private java.awt.Color calcColor(GeoPoint point) {
+//        primitives.Color result = new primitives.Color(_scene.getAmbientLight().getIntensity());
+//        result = result.add(point._geometry.getEmmission());
+//
+//        Vector v = point.getPoint().subtract(_scene.getCamera().get_p0()).normalize();
+//        Vector n = point.getGeometry().getNormal(point.getPoint());
+//
+//        Material material = point.getGeometry().getMaterial();
+//        int nShininess = material.getnShininess();
+//        double kd = material.getKd();
+//        double ks = material.getKs();
+//        if (_scene.getLightSources() != null) {
+//            for (LightSource lightSource : _scene.getLightSources()) {
+//
+//                Vector l = lightSource.getL(point.getPoint());
+//                double nl = alignZero(n.dotProduct(l));
+//                double nv = alignZero(n.dotProduct(v));
+//
+//                if (sign(nl) == sign(nv)) {
+//                    primitives.Color ip = lightSource.getIntensity(point.getPoint());
+//                    result = result.add(
+//                            calcDiffusive(kd, nl, ip),
+//                            calcSpecular(ks, l, n, nl, v, nShininess, ip)
+//                    );
+//                }
+//            }
+//        }
+        return new primitives.Color(_scene.getAmbientLight().getIntensity().add(point.getGeometry().getEmmission())).getColor();
+    }
+
+    private boolean sign(double val) {
+        return (val > 0d);
+    }
+
+
+    private primitives.Color calcSpecular(double ks, Vector l, Vector n, double nl, Vector v, int nShininess, primitives.Color ip) {
+        Vector r = l.add(n.scale(-2 * nl)); // nl must not be zero!
+        double minusVR = -alignZero(r.dotProduct(v));
+        if (minusVR <= 0) return primitives.Color.BLACK; // view from direction opposite to r vector
+        return ip.scale(ks * Math.pow(minusVR, nShininess));
+    }
+
+    private primitives.Color calcDiffusive(double kd, double nl, primitives.Color ip) {
+        if (nl < 0) nl = -nl;
+        return ip.scale(nl * kd);
     }
 
     /**
@@ -103,20 +139,18 @@ public class Render {
      * @param points the points
      * @return the point 3 d
      */
-    public Point3D getClosestPoint(List<Point3D> points){
-        Point3D result = null;
+    public GeoPoint getClosestPoint(List<GeoPoint> points) {
+        GeoPoint result = null;
         double mindist = Double.MAX_VALUE;
-
         Point3D p0 = this._scene.getCamera().get_p0();
-
-        for (Point3D pt: points ) {
-            double distance = p0.distance(pt);
-            if (distance < mindist){
-                mindist= distance;
-                result =pt;
+        for (GeoPoint pt : points) {
+            double distance = p0.distance(pt._point);
+            if (distance < mindist) {
+                mindist = distance;
+                result = pt;
             }
         }
-        return  result;
+        return result;
     }
 
     /**
@@ -125,14 +159,14 @@ public class Render {
      * @param interval the interval
      * @param color    the color
      */
-    public void printGrid(int interval, java.awt.Color color){
+    public void printGrid(int interval, primitives.Color color) {
         double rows = this._imageWriter.getNx();
         double collumns = _imageWriter.getNy();
         //Writing the lines.
         for (int col = 0; col < collumns; col++) {
             for (int row = 0; row < rows; row++) {
                 if (col % interval == 0 || row % interval == 0) {
-                    _imageWriter.writePixel(row, col, color);
+                    _imageWriter.writePixel(row, col, color.getColor());
                 }
             }
         }

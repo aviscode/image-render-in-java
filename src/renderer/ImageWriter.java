@@ -8,6 +8,8 @@ import java.io.IOException;
 import javax.imageio.*;
 import javax.imageio.stream.*;
 
+import geometries.Intersectable.GeoPoint;
+
 /**
  * Image writer class combines accumulation of pixel color matrix and
  * finally producing a non-optimized jpeg image from this matrix.
@@ -27,7 +29,6 @@ public class ImageWriter {
     private String _imageName;
 
     // ***************** Constructors ********************** //
-
     /**
      * Image Writer constructor accepting image name and View Plane parameters,
      *
@@ -48,34 +49,41 @@ public class ImageWriter {
     }
 
     // ***************** Getters/Setters ********************** //
-
     /**
      * View Plane width getter
      *
      * @return the width
      */
-    public double getWidth()  { return _imageWidth;  }
+    public double getWidth() {
+        return _imageWidth;
+    }
 
     /**
      * View Plane height getter
      *
      * @return the height
      */
-    public double getHeight() { return _imageHeight; }
+    public double getHeight() {
+        return _imageHeight;
+    }
 
     /**
      * View Plane Y axis resolution
      *
      * @return the amount of vertical pixels
      */
-    public int getNy() { return _nY; }
+    public int getNy() {
+        return _nY;
+    }
 
     /**
      * View Plane X axis resolution
      *
      * @return the amount of horizontal pixels
      */
-    public int getNx() { return _nX; }
+    public int getNx() {
+        return _nX;
+    }
 
     // ***************** Operations ******************** //
 

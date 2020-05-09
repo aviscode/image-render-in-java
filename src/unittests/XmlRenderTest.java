@@ -31,7 +31,7 @@ public class XmlRenderTest {
     public void renderFromXmlFile() throws IOException, SAXException, ParserConfigurationException {
         Render renderXml = new RenderFromXml().sceneFromXmlFile("src/basicRenderTestTwoColors.xml");
         renderXml.renderImage();
-        renderXml.printGrid(50, java.awt.Color.YELLOW);
+        renderXml.printGrid(50, new Color(java.awt.Color.YELLOW));
         renderXml.writeToImage();
     }
 }

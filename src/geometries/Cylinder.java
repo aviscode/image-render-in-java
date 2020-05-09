@@ -1,8 +1,6 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import static primitives.Util.*;
 
@@ -22,11 +20,20 @@ public class Cylinder extends Tube {
      * @param r      the radius
      * @param _ray   the ray
      */
-    public Cylinder(double height, double r, Ray _ray) {
-        super(_ray, r);
+    public Cylinder(double height, double r, Ray ray) {
+        super(ray, r);
         _height = height;
     }
 
+    public Cylinder(double r, Ray ray, double height, Color emmission){
+        super(ray,r, emmission);
+        _height=_height;
+    }
+
+    public Cylinder(double r, Ray ray, double height, Color emmission, Material material) {
+        this(r, ray, height, emmission);
+        _material = material;
+    }
     /**
      * Gets height.
      *
