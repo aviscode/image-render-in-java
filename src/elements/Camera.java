@@ -7,6 +7,8 @@ import primitives.Vector;
 
 import java.util.IllegalFormatException;
 
+import static primitives.Util.isZero;
+
 /**
  * The type Camera.
  */
@@ -28,7 +30,7 @@ public class Camera {
     public Camera(Point3D p0, Vector vTo, Vector vUp) {
 
         //if the the vectors are not orthogonal, throw exception.
-        if (Util.isZero(vTo.dotProduct(vUp))) {
+        if (isZero(vTo.dotProduct(vUp))) {
             this._p0 = new Point3D(p0);
             this._vTo = vTo.normalized();
             this._vUp = vUp.normalized();
@@ -85,11 +87,15 @@ public class Camera {
      * @return ray constructed from information received
      */
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight) {
+        if (isZero(screenDistance)) throw new IllegalArgumentException("distance cannot be 0");
+        Point3D Pc = new Point3D(_p0.add(_vTo.scale(screenDistance)));
         double rY = screenHeight / nY, rX = screenWidth / nX;
-        Point3D cP = _p0.add(_vTo.scale(screenDistance));
-        double xj = (j - nX / 2.0) * rX + rX / 2.0, yi = (i - nY / 2.0) * rY + rY / 2.0;
-        if (xj != 0) cP = cP.add(_vRight.scale(xj));
-        if (yi != 0) cP = cP.add(_vUp.scale(-yi));
-        return new Ray(_p0, cP.subtract(_p0).normalize());
+        double yi = ((i - nY / 2d) * rY + rY / 2d);
+        double xj = ((j - nX / 2d) * rX + rX / 2d);
+        Point3D Pij = Pc;
+        if (!isZero(xj)) Pij = Pij.add(_vRight.scale(xj));
+        if (!isZero(yi)) Pij = Pij.add(_vUp.scale(-yi));
+        Vector Vij = Pij.subtract(_p0);
+        return new Ray(_p0, Vij);
     }
 }

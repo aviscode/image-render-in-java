@@ -14,10 +14,12 @@ public class SpotLight extends PointLight {
 
     @Override
     public Color getIntensity(Point3D p) {
-        //TODO fix extremes values
-        Color pointLightIntensity = super.getIntensity(p);
-        double projection = _direction.dotProduct(getL(p));
-        return pointLightIntensity.scale(Math.max(0, projection));
+        double cosAngle = _direction.dotProduct(p.subtract(_position).normalize());
+        if (cosAngle < 0) {
+            return Color.BLACK;
+        } else {
+            return super.getIntensity(p).scale(cosAngle);
+        }
     }
 
     @Override

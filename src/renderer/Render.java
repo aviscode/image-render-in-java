@@ -157,7 +157,7 @@ public class Render {
      * @param points the points
      * @return the point 3 d
      */
-    public GeoPoint getClosestPoint(List<GeoPoint> points) {
+    private GeoPoint getClosestPoint(List<GeoPoint> points) {
         GeoPoint result = null;
         double mindist = Double.MAX_VALUE;
         Point3D p0 = this._scene.getCamera().get_p0();
