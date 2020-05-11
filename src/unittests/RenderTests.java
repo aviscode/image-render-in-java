@@ -98,7 +98,7 @@ public class RenderTests {
      */
     @Test
     public void basicRenderMultiColorTest2() {
-        Scene scene = new Scene("Test scene 1600x1000 testcase");
+        Scene scene = new Scene("Test scene");
         scene.setAmbientLight(new AmbientLight(new Color(0, 0, 0), 1));
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(100);
