@@ -10,7 +10,7 @@ abstract class Light {
 
     /**
      * Instantiates a new Light.
-     *
+     *TODO
      * @param intensity the intensity
      */
     public Light(Color intensity) {
