@@ -121,20 +121,12 @@ public class LightsTests {
         scene.setDistance(1000);
         scene.setBackground(Color.BLACK);
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
-
         scene.addGeometries(
-                new Triangle(Color.BLACK, new Material(0.5, 0.5, 300),
-                        new Point3D(-150, 150, 150), new Point3D(150, 150, 150), new Point3D(75, -75, 150)),
-                new Triangle(Color.BLACK, new Material(0.5, 0.5, 300),
-                        new Point3D(-150, 150, 150), new Point3D(-70, -70, 50), new Point3D(75, -75, 150)));
-
-        scene.addLights(new PointLight(new Color(500, 250, 250),
-                new Point3D(10, 10, 130),
-                1, 0.0005, 0.0005));
-
+                new Triangle(Color.BLACK, new Material(0.5, 0.5, 300), new Point3D(-150, 150, 150), new Point3D(150, 150, 150), new Point3D(75, -75, 150)),
+                new Triangle(Color.BLACK, new Material(0.5, 0.5, 300), new Point3D(-150, 150, 150), new Point3D(-70, -70, 50), new Point3D(75, -75, 150)));
+        scene.addLights(new PointLight(new Color(500, 250, 250), new Point3D(10, 10, 130), 1, 0.0005, 0.0005));
         ImageWriter imageWriter = new ImageWriter("trianglesPoint", 200, 200, 500, 500);
         Render render = new Render(imageWriter, scene);
-
         render.renderImage();
         render.writeToImage();
     }
@@ -149,22 +141,37 @@ public class LightsTests {
         scene.setDistance(1000);
         scene.setBackground(Color.BLACK);
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
-
         scene.addGeometries(
-                new Triangle(Color.BLACK, new Material(0.5, 0.5, 300),
-                        new Point3D(-150, 150, 150), new Point3D(150, 150, 150), new Point3D(75, -75, 150)),
-                new Triangle(Color.BLACK, new Material(0.5, 0.5, 300),
-                        new Point3D(-150, 150, 150), new Point3D(-70, -70, 50), new Point3D(75, -75, 150)));
-
-        scene.addLights(new SpotLight(new Color(500, 250, 250),
-                new Point3D(10, 10, 130), new Vector(-2, 2, 1),
-                1, 0.0001, 0.000005));
-
+                new Triangle(Color.BLACK, new Material(0.5, 0.5, 300), new Point3D(-150, 150, 150), new Point3D(150, 150, 150), new Point3D(75, -75, 150)),
+                new Triangle(Color.BLACK, new Material(0.5, 0.5, 300), new Point3D(-150, 150, 150), new Point3D(-70, -70, 50), new Point3D(75, -75, 150)));
+        scene.addLights(new SpotLight(new Color(500, 250, 250), new Point3D(10, 10, 130), new Vector(-2, 2, 1), 1, 0.0001, 0.000005));
         ImageWriter imageWriter = new ImageWriter("trianglesSpot", 200, 200, 500, 500);
         Render render = new Render(imageWriter, scene);
-
         render.renderImage();
         render.writeToImage();
     }
+
+    /**
+     * Produce a picture of a two triangles lighted by a spot light
+     */
+    @Test
+    public void trianglesSpot2() {
+
+        Scene scene = new Scene("Test scene");
+        scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
+        scene.setDistance(1000);
+        scene.setBackground(new Color(0, 0, 0));
+        scene.setAmbientLight(new AmbientLight(new Color(15, 15, 15), 1.0));
+        scene.addLights(new SpotLight(new Color(255, 100, 100), new Point3D(5, 5, 120), new Vector(-1, -1, 8), 1, 0.0001, 0.000005));
+        scene.addGeometries(
+                new Triangle(Color.BLACK, new Material(0.4, 0.5, 30), new Point3D(-180, -180, 145), new Point3D(180, -180, 150), new Point3D(-250, 250, 150)),
+                new Triangle(Color.BLACK, new Material(0.4, 0.5, 30), new Point3D(180, -180, 150), new Point3D(250, 250, 145), new Point3D(-250, 250, 150)));
+        ImageWriter imageWriter = new ImageWriter("Two triangle with angle - SpotLight1", 500, 500, 500, 500);
+        Render render = new Render(imageWriter, scene);
+        render.renderImage();
+        // render.printGrid(50);
+        render.writeToImage();
+    }
+
 
 }

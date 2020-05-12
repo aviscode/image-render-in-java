@@ -127,7 +127,6 @@ public class RenderFromXml {
         return _render = new Render(imageWriter, test);
     }
 
-
     /**
      * @param str gets a string ant returning a list of the numbers in the string.
      */

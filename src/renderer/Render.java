@@ -52,7 +52,6 @@ public class Render {
         return _scene;
     }
 
-
     /**
      * Filling the buffer according to the geometries that are in the scene.
      * This function does not creating the picture file, but create the buffer pf pixels
@@ -69,12 +68,12 @@ public class Render {
         int height = (int) _imageWriter.getHeight();
 
         //Nx and Ny are the width and height of the image.
-        int Nx = _imageWriter.getNx();
-        int Ny = _imageWriter.getNy();
+        int nX = _imageWriter.getNx();
+        int nY = _imageWriter.getNy();
         Ray ray;
-        for (int row = 0; row < Ny; row++) {
-            for (int column = 0; column < Nx; column++) {
-                ray = camera.constructRayThroughPixel(Nx, Ny, column, row, distance, width, height);
+        for (int row = 0; row < nY; row++) {
+            for (int column = 0; column < nX; column++) {
+                ray = camera.constructRayThroughPixel(nX, nY, column, row, distance, width, height);
                 List<GeoPoint> intersectionPoints = geometries.findIntsersections(ray);
                 if (intersectionPoints == null) {
                     _imageWriter.writePixel(column, row, background);
@@ -85,7 +84,6 @@ public class Render {
             }
         }
     }
-
 
     private primitives.Color calcColor(GeoPoint gp) {
         primitives.Color result = new primitives.Color(_scene.getAmbientLight().getIntensity());

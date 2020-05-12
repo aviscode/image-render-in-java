@@ -4,14 +4,14 @@ package primitives;
  * Examines the factors of light reflected from the geometries.
  */
 public class Material {
-    double _kD;
-    double _kS;
-    int _nShininess;
+    private double _kD;
+    private double _kS;
+    private int _nShininess;
 
     /**
-     * @param _kD          the  _kD
-     * @param _kS          the  _kS
-     * @param _nShininess  the  _nShininess
+     * @param _kD         the  _kD
+     * @param _kS         the  _kS
+     * @param _nShininess the  _nShininess
      */
     public Material(double _kD, double _kS, int _nShininess) {
         this._kD = _kD;
@@ -27,12 +27,14 @@ public class Material {
     public double getKd() {
         return _kD;
     }
+
     /**
      * @return the _kS
      */
     public double getKs() {
         return _kS;
     }
+
     /**
      * @return the _nShininess
      */
