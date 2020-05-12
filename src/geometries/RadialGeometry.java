@@ -11,7 +11,6 @@ import static primitives.Util.isZero;
 public abstract class RadialGeometry extends Geometry {
     private final double _radius;
 
-
     /**
      * Instantiates a new Radial geometry.
      *

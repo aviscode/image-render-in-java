@@ -104,7 +104,6 @@ public class Polygon extends Geometry {
         return _plane.getNormal();
     }
 
-
     @Override
     public List<GeoPoint> findIntsersections(Ray ray) {
         List<GeoPoint> intersection = _plane.findIntsersections(ray);

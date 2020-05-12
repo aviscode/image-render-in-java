@@ -13,7 +13,6 @@ public class Sphere extends RadialGeometry {
 
     private final Point3D _center;
 
-
     /**
      * Instantiates a new Sphere.
      *

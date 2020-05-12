@@ -13,7 +13,6 @@ public class Plane extends Geometry {
     private Point3D _point;
     private Vector _normal;
 
-
     /**
      * Instantiates a new Plane.
      *
@@ -52,7 +51,6 @@ public class Plane extends Geometry {
         this(Color.BLACK, p1, p2, p3);
     }
 
-
     /**
      * Instantiates a new Plane.
      *
@@ -61,7 +59,7 @@ public class Plane extends Geometry {
      * @param emissionLight the emission light
      * @param material      the material
      */
-    public Plane(Vector normal, Point3D point, Color emissionLight, Material material) {
+    public Plane(Color emissionLight, Material material,Vector normal, Point3D point) {
         super(emissionLight, material);
         _point = new Point3D(point);
         _normal = new Vector(normal).normalize();
@@ -74,8 +72,8 @@ public class Plane extends Geometry {
      * @param point     the point
      * @param emmission the emmission
      */
-    public Plane(Vector normal, Point3D point, Color emmission) {
-        this(normal, point, emmission, new Material(0, 0, 0));
+    public Plane(Color emmission, Vector normal, Point3D point) {
+        this(emmission, new Material(0, 0, 0), normal, point);
 
     }
 
@@ -86,7 +84,7 @@ public class Plane extends Geometry {
      * @param normal the normal
      */
     public Plane(Point3D point, Vector normal) {
-        this(normal, point, Color.BLACK, new Material(0, 0, 0));
+        this(Color.BLACK, new Material(0, 0, 0), normal, point);
     }
 
     /**
@@ -111,7 +109,6 @@ public class Plane extends Geometry {
     public String toString() {
         return "Plane : " + _point + " Normal : " + _normal;
     }
-
 
     /**
      * Gets normal.
