@@ -1,6 +1,7 @@
 package geometries;
 
 import primitives.Color;
+import primitives.Material;
 
 import static primitives.Util.isZero;
 
@@ -11,7 +12,17 @@ public abstract class RadialGeometry extends Geometry {
     private final double _radius;
 
 
-
+    /**
+     * Instantiates a new Radial geometry.
+     *
+     * @param emissionLight the emission light
+     * @param material      the material
+     * @param radius        the radius
+     */
+    public RadialGeometry(Color emissionLight, Material material, double radius) {
+        super(emissionLight,material);
+        _radius = radius;
+    }
 
     /**
      * Instantiates a new Radial geometry.
@@ -20,10 +31,7 @@ public abstract class RadialGeometry extends Geometry {
      * @param radius        the radius
      */
     public RadialGeometry(Color emissionLight, double radius) {
-        super(emissionLight);
-//        if (isZero(radius) || (radius < 0.0))
-//            throw new IllegalArgumentException("radius " + radius + " is not valid");
-        _radius = radius;
+        this(emissionLight,new Material(0, 0, 0),radius);
     }
 
     /**
@@ -31,9 +39,8 @@ public abstract class RadialGeometry extends Geometry {
      *
      * @param other the other
      */
-    public RadialGeometry(RadialGeometry other){
-        super(Color.BLACK);
-        _radius= other._radius;
+    public RadialGeometry(RadialGeometry other) {
+        this(Color.BLACK,new Material(0, 0, 0),other._radius);
     }
 
     /**

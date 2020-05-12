@@ -19,6 +19,11 @@ public class Polygon extends Geometry {
      */
     protected List<Point3D> _vertices;
 
+    /**
+     * Gets plane.
+     *
+     * @return the plane
+     */
     public Plane getPlane() {
         return _plane;
     }
@@ -32,29 +37,13 @@ public class Polygon extends Geometry {
      * Polygon constructor based on vertices list. The list must be ordered by edge
      * path. The polygon must be convex.
      *
-     * @param vertices list of vertices according to their order by edge path
      * @param emissionLight the light color
-     * @param material the martial
-     * @throws IllegalArgumentException in any case of illegal combination of
-     *                                  vertices:
-     *                                  <ul>
-     *                                  <li>Less than 3 vertices</li>
-     *                                  <li>Consequent vertices are in the same
-     *                                  point
-     *                                  <li>The vertices are not in the same
-     *                                  plane</li>
-     *                                  <li>The order of vertices is not according
-     *                                  to edge path</li>
-     *                                  <li>Three consequent vertices lay in the
-     *                                  same line (180&#176; angle between two
-     *                                  consequent edges)
-     *                                  <li>The polygon is concave (not convex></li>
-     *                                  </ul>
+     * @param material      the martial
+     * @param vertices      list of vertices according to their order by edge path
+     * @throws IllegalArgumentException in any case of illegal combination of                                  vertices:                                  <ul>                                  <li>Less than 3 vertices</li>                                  <li>Consequent vertices are in the same                                  point                                  <li>The vertices are not in the same                                  plane</li>                                  <li>The order of vertices is not according                                  to edge path</li>                                  <li>Three consequent vertices lay in the                                  same line (180&#176; angle between two                                  consequent edges)                                  <li>The polygon is concave (not convex></li>                                  </ul>
      */
     public Polygon(Color emissionLight, Material material, Point3D... vertices) {
-
         super(emissionLight,material);
-
         if (vertices.length < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
         _vertices = List.of(vertices);
@@ -63,9 +52,7 @@ public class Polygon extends Geometry {
         // The plane holds the invariant normal (orthogonal unit) vector to the polygon
         _plane = new Plane(vertices[0], vertices[1], vertices[2]);
         if (vertices.length == 3) return; // no need for more tests for a Triangle
-
         Vector n = _plane.getNormal();
-
         // Subtracting any subsequent points will throw an IllegalArgumentException
         // because of Zero Vector if they are in the same point
         Vector edge1 = vertices[vertices.length - 1].subtract(vertices[vertices.length - 2]);
@@ -93,12 +80,23 @@ public class Polygon extends Geometry {
         }
     }
 
+    /**
+     * Instantiates a new Polygon.
+     *
+     * @param emissionLight the emission light
+     * @param vertices      the vertices
+     */
     public Polygon(Color emissionLight, Point3D... vertices) {
         this(emissionLight,new Material(0,0,0),vertices);
     }
+
+    /**
+     * Instantiates a new Polygon.
+     *
+     * @param vertices the vertices
+     */
     public Polygon(Point3D... vertices) {
         this(Color.BLACK,new Material(0,0,0),vertices);
-//        this(new Color(java.awt.Color.RED),new Material(0,0,0),vertices);
     }
 
     @Override

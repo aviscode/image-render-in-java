@@ -11,10 +11,10 @@ public class AmbientLight extends Light {
     /**
      * constructor for Ambient Light that receives two arguments:
      *
-     * @param Ia intensity of light
-     * @param Ka attenuation factor
+     * @param iA intensity of light
+     * @param kA attenuation factor
      */
-    public AmbientLight(Color Ia, double Ka) {
-        super(Ia.scale(Ka));
+    public AmbientLight(Color iA, double kA) {
+        super(iA.scale(kA));
     }
 }

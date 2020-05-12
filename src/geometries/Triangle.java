@@ -24,10 +24,25 @@ public class Triangle extends Polygon {
         super(emissionLight, material, p1, p2, p3);
     }
 
+    /**
+     * Instantiates a new Triangle.
+     *
+     * @param emissionLight the emission light
+     * @param p1            the p 1
+     * @param p2            the p 2
+     * @param p3            the p 3
+     */
     public Triangle(Color emissionLight, Point3D p1, Point3D p2, Point3D p3) {
         super(emissionLight, p1, p2, p3);
     }
 
+    /**
+     * Instantiates a new Triangle.
+     *
+     * @param p1 the p 1
+     * @param p2 the p 2
+     * @param p3 the p 3
+     */
     public Triangle(Point3D p1, Point3D p2, Point3D p3) {
         super(p1, p2, p3);
     }

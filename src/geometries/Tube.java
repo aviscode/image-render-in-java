@@ -22,20 +22,30 @@ public class Tube extends RadialGeometry {
      * @param ray           the ray
      */
     public Tube(Color emissionLight, Material material, double radius, Ray ray) {
-        super(emissionLight, radius);
-        _material = material;
+        super(emissionLight, material, radius);
         _axisRay = new Ray(ray);
-
     }
 
-    public Tube( Ray _ray,double _radius) {
+    /**
+     * Instantiates a new Tube.
+     *
+     * @param _ray    the ray
+     * @param _radius the radius
+     */
+    public Tube(Ray _ray, double _radius) {
         this(Color.BLACK, new Material(0, 0, 0), _radius, _ray);
     }
 
+    /**
+     * Instantiates a new Tube.
+     *
+     * @param emissionLight the emission light
+     * @param _radius       the radius
+     * @param _ray          the ray
+     */
     public Tube(Color emissionLight, double _radius, Ray _ray) {
         this(emissionLight, new Material(0, 0, 0), _radius, _ray);
     }
-
 
     /**
      * Gets the axis of the tube .
