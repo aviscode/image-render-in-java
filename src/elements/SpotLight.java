@@ -1,7 +1,8 @@
 package elements;
 
-import primitives.*;
 import static primitives.Util.*;
+
+import primitives.*;
 
 /**
  * The type Spot light.
@@ -26,9 +27,7 @@ public class SpotLight extends PointLight {
 
     @Override
     public Color getIntensity(Point3D p) {
-        Vector l = getL(p);
-        if(l==null)l=_direction;
-        double cosAngle = alignZero(l.dotProduct(_direction));
+        double cosAngle = alignZero(_direction.dotProduct(p.subtract(_position).normalize()));
         if (cosAngle < 0) return Color.BLACK;
         else return super.getIntensity(p).scale(cosAngle);
     }
