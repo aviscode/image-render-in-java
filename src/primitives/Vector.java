@@ -58,7 +58,6 @@ public class Vector {
             throw new IllegalArgumentException("vector 0 is not valid");
     }
 
-
     /**
      * Add a Vector To vector.
      *
@@ -153,7 +152,6 @@ public class Vector {
                 _head.getY().get() / divider,
                 _head.getZ().get() / divider));
     }
-
 
     /**
      * Gets head.

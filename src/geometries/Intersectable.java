@@ -59,7 +59,6 @@ public interface Intersectable {
         }
     }
 
-
     /**
      * List of Intersection points found in tests
      * Find intersections list between giving ray and geometries shapes.

@@ -58,7 +58,6 @@ public class GeometriesTests {
             fail("Error! Geometries found invalid amount of intersections");
         }
 
-
     }
 }
 
