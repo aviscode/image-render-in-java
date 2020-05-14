@@ -8,7 +8,7 @@ import primitives.Vector;
  * The interface Light source.
  */
 public interface LightSource {
-    /**TODO
+    /**
      * Gets intensity.
      *
      * @param p the p
@@ -18,7 +18,7 @@ public interface LightSource {
 
     /**
      * Gets l.
-     *TODO
+     *Gets the vector from light source to the given point.
      * @param p the p
      * @return the l
      */

@@ -15,7 +15,6 @@ import static org.junit.Assert.assertNull;
  */
 public class CylinderTest {
 
-
     /**
      * Test method for {@link geometries.Cylinder#getNormal(primitives.Point3D)}.
      */

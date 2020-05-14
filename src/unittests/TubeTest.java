@@ -16,7 +16,6 @@ import static org.junit.Assert.fail;
  */
 public class TubeTest {
 
-
     /**
      * Test method for {@link geometries.Tube#getNormal(Point3D)}.
      */

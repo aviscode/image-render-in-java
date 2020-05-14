@@ -4,13 +4,13 @@ import primitives.Color;
 
 /**
  * The type Light.
+ * abstract class extended by all of light sources.
  */
 abstract class Light {
     protected Color _intensity;
 
     /**
      * Instantiates a new Light.
-     *TODO
      * @param intensity the intensity
      */
     public Light(Color intensity) {
@@ -19,7 +19,7 @@ abstract class Light {
 
     /**
      * Gets intensity.
-     *
+     *each light source calculated difference
      * @return the intensity
      */
     public Color getIntensity() {
