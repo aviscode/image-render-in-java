@@ -22,6 +22,10 @@ import static primitives.Util.alignZero;
 public class Render {
     private ImageWriter _imageWriter;
     private Scene _scene;
+    /**
+     * @param DELTA moving beam size for shading rays
+     */
+    private static final double DELTA = 0.1;
 
     /**
      * Instantiates a new Render.
@@ -194,4 +198,29 @@ public class Render {
     public void writeToImage() {
         _imageWriter.writeToImage();
     }
+
+    /**
+     * Unshaded boolean.
+     *
+     * @param l  the vector from lithe source to the point
+     * @param n  the normal
+     * @param gp the geo point
+     * @return the boolean
+     */
+    private boolean unshaded(Vector l, Vector n, GeoPoint gp){
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
+        Point3D point = gp.point.add(delta);
+        Ray lightRay = new Ray(point, lightDirection);
+        List<GeoPoint> intersections = _scene.getGeometries().findIntersections(lightRay);
+        if(intersections==null) return true;
+        double distance = ls.getDistance(gp.point);
+        int count=0;
+        for (GeoPoint g:intersections) {
+            if(distance>g.point.distance(gp.point))
+                count++;
+        }
+        return count==0;
+    }
 }
+
