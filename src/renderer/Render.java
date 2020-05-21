@@ -22,6 +22,10 @@ import static primitives.Util.alignZero;
 public class Render {
     private ImageWriter _imageWriter;
     private Scene _scene;
+    /**
+     *  moving beam size for shading rays
+     */
+    private static final double DELTA = 0.1;
 
     /**
      * Instantiates a new Render.
@@ -177,9 +181,9 @@ public class Render {
      */
     public void printGrid(int interval, primitives.Color color) {
         double rows = this._imageWriter.getNx();
-        double collumns = _imageWriter.getNy();
+        double columns = _imageWriter.getNy();
         //Writing the lines.
-        for (int col = 0; col < collumns; col++) {
+        for (int col = 0; col < columns; col++) {
             for (int row = 0; row < rows; row++) {
                 if (col % interval == 0 || row % interval == 0) {
                     _imageWriter.writePixel(row, col, color.getColor());
@@ -194,4 +198,29 @@ public class Render {
     public void writeToImage() {
         _imageWriter.writeToImage();
     }
+
+    /**
+     * Unshaded boolean.
+     *
+     * @param l  the vector from lithe source to the point
+     * @param n  the normal
+     * @param gp the geo point
+     * @return the boolean
+     */
+    private boolean unshaded(LightSource ls, Vector l, Vector n, GeoPoint gp){
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
+        Point3D point = gp._point.add(delta);
+        Ray lightRay = new Ray(point, lightDirection);
+        List<GeoPoint> intersections = _scene.getGeometries().findIntsersections(lightRay);
+        if(intersections==null) return true;
+        double distance = ls.getDistance(gp._point);
+        int count=0;
+        for (GeoPoint g:intersections) {
+            if(distance>g._point.distance(gp._point))
+                count++;
+        }
+        return count==0;
+    }
 }
+
