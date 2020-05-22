@@ -9,21 +9,23 @@ import primitives.Vector;
  */
 public interface LightSource {
     /**
-     * Gets intensity.
+     * Get light source intensity as it reaches a point
      *
-     * @param p the p
-     * @return the intensity
+     * @param p the lighted point
+     * @return intensity
      */
     public Color getIntensity(Point3D p);
 
     /**
-     * Gets l.
-     *Gets the vector from light source to the given point.
+     * Get normalized vector in the direction from light source
+     * towards the lighted point*
+     *
      * @param p the p
      * @return the l
      */
     public Vector getL(Point3D p);
 
+    //TODO
     double getDistance(Point3D point);
 
 }

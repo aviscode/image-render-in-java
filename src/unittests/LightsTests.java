@@ -151,6 +151,7 @@ public class LightsTests {
         render.writeToImage();
     }
 
+
     /**
      * Produce a picture of a two triangles lighted by a spot light
      */

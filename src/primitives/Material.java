@@ -6,17 +6,37 @@ package primitives;
 public class Material {
     private double _kD;
     private double _kS;
+    private double _kT;
+    private double _kR;
     private int _nShininess;
 
+
     /**
-     * @param _kD         the  _kD
-     * @param _kS         the  _kS
-     * @param _nShininess the  _nShininess
+     * Instantiates a new Material.
+     *
+     * @param kD         the k d
+     * @param kS         the k s
+     * @param nShininess the n shininess
+     * @param kT         the k t
+     * @param kR         the k r
      */
-    public Material(double _kD, double _kS, int _nShininess) {
-        this._kD = _kD;
-        this._kS = _kS;
-        this._nShininess = _nShininess;
+    public Material(double kD, double kS, int nShininess, double kT, double kR) {
+        _kD = kD;
+        _kS = kS;
+        _nShininess = nShininess;
+        _kR = kR;
+        _kT = kT;
+    }
+
+    /**
+     * Instantiates a new Material.
+     *
+     * @param kD         the k d
+     * @param kS         the k s
+     * @param nShininess the n shininess
+     */
+    public Material(double kD, double kS, int nShininess) {
+        this(kD, kS, nShininess, 0, 0);
     }
 
     /**
@@ -29,6 +49,8 @@ public class Material {
     }
 
     /**
+     * Gets ks.
+     *
      * @return the _kS
      */
     public double getKs() {
@@ -36,6 +58,26 @@ public class Material {
     }
 
     /**
+     * Get kt double.
+     *
+     * @return the double
+     */
+    public double getKt() {
+        return _kT;
+    }
+
+    /**
+     * Get kr double.
+     *
+     * @return the double
+     */
+    public double getKr() {
+        return _kR;
+    }
+
+    /**
+     * Gets shininess.
+     *
      * @return the _nShininess
      */
     public int getnShininess() {

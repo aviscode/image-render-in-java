@@ -9,26 +9,44 @@ import primitives.*;
  */
 public class SpotLight extends PointLight {
     private Vector _direction;
+    private double _sharpsBeam;
+
+
+    public SpotLight(Color colorIntensity, Point3D position, Vector direction, double kC, double kL, double kQ, double sharpsBeam) {
+        super(colorIntensity, position, kC, kL, kQ);
+        _direction = new Vector(direction).normalized();
+        _sharpsBeam = sharpsBeam;
+    }
 
     /**
      * Instantiates a new Spot light.
      *
-     * @param direction the directio
-     * @param intensity the intensit
-     * @param kC        the kC
-     * @param kL        the kL
-     * @param kQ        the  kQ
-     * @param position  the  position
+     * @param colorIntensity the color intensity
+     * @param position       the  position
+     * @param direction      the directio
+     * @param kC             the kC
+     * @param kL             the kL
+     * @param kQ             the  kQ
      */
-    public SpotLight(Color intensity, Point3D position, Vector direction, double kC, double kL, double kQ) {
-        super(intensity, position, kC, kL, kQ);
-        _direction = new Vector(direction).normalized();
+    public SpotLight(Color colorIntensity, Point3D position, Vector direction, double kC, double kL, double kQ) {
+        this(colorIntensity, position, direction, kC, kL, kQ, 1.0);
     }
 
+
     @Override
-    public Color getIntensity(Point3D p) {
-        double cosAngle = alignZero(_direction.dotProduct(p.subtract(_position).normalize()));
-        if (cosAngle < 0) return Color.BLACK;
-        else return super.getIntensity(p).scale(cosAngle);
+    public Color getIntensity(Point3D point3D) {
+        double dirL = point3D.subtract(_position).normalized().dotProduct(_direction);
+        if (alignZero(dirL) <= 0) {
+            return Color.BLACK;
+        }
+        if (_sharpsBeam > 1) {
+            dirL = Math.pow(dirL, _sharpsBeam);
+        }
+        return super.getIntensity(point3D).scale(dirL);
     }
+
+    //@Override
+    // public Vector getL(Point3D p) {
+    //  return _direction;
+    //}
 }

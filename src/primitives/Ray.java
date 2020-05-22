@@ -6,9 +6,15 @@ import static primitives.Util.isZero;
  * The type Ray.
  */
 public class Ray {
+    private static final double DELTA = 0.1;
     private Point3D _point;
     private Vector _direction;
 
+    public Ray(Point3D poo, Vector direction, Vector n) {
+        Vector delta = n.scale(n.dotProduct(direction) > 0 ? DELTA : -DELTA);
+        _point = new Point3D(poo.add(delta));
+        _direction = direction.normalized();
+    }
     /**
      * Instantiates a new Ray.
      *
