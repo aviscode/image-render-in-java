@@ -90,7 +90,7 @@ public class ImageWriter {
     /**
      * Function writeToImage produces unoptimized jpeg file of
      * the image according to pixel color matrix in the directory
-     * of the project
+     * of the project.
      */
     public void writeToImage(){
         File ouFile = new File(PROJECT_PATH + "/images/" + _imageName + ".jpg");
