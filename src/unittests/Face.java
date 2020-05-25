@@ -100,8 +100,29 @@ public class Face {
                 new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-108, -140, 150), new Point3D(-103, -185, 150), new Point3D(-80, -180, 150)),
                 new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-80, -180, 150), new Point3D(-110, -140, 150), new Point3D(-110, -90, 150)),
                 new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-90, -150, 150), new Point3D(-119, -80, 150), new Point3D(-115, -70, 150)),
-                new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-110, -80, 150), new Point3D(-120, -80, 150), new Point3D(-120, -63, 150))
-        );
+                new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-110, -80, 150), new Point3D(-120, -80, 150), new Point3D(-120, -63, 150)),
+
+                //Eyes
+                new Triangle(new Color(255,255,255),new Material(0.2, 0.8, 40, 0, 0),new Point3D(-55,-73,150),new Point3D(-70,-73,150),new Point3D(-55,-68,150)),
+                new Triangle(new Color(255,255,255),new Material(0.2, 0.8, 40, 0, 0),new Point3D(-55,-73,150),new Point3D(-70,-73,150),new Point3D(-55,-78,150)),
+                new Triangle(new Color(255,255,255),new Material(0.2, 0.8, 40, 0, 0),new Point3D(-55,-73,150),new Point3D(-40,-73,150),new Point3D(-55,-68,150)),
+                new Triangle(new Color(255,255,255),new Material(0.2, 0.8, 40, 0, 0),new Point3D(-55,-73,150),new Point3D(-40,-73,150),new Point3D(-55,-78,150)),
+
+                //Pupil
+                new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-55, -78, 149.9), new Point3D(-62, -73, 149.9), new Point3D(-48, -73, 149.9)),
+                new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-55, -68, 149.9), new Point3D(-62, -73, 149.9), new Point3D(-48, -73, 149.9)),
+
+                //Eyebrows
+                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-55, -82, 150), new Point3D(-40, -87, 150), new Point3D(-60, -87, 150)),
+                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-60, -87, 150), new Point3D(-55, -82, 150), new Point3D(-65, -82, 150)),
+                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-60, -87, 150), new Point3D(-55, -82, 150), new Point3D(-45, -82, 150)),
+                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-60, -87, 150), new Point3D(-55, -82, 150), new Point3D(-45, -82, 150)),
+                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-60, -87, 150), new Point3D(-70, -87, 150), new Point3D(-65, -82, 150))
+
+
+
+
+                );
         //scene.addLights(new SpotLight(new Color(400, 240, 0), new Point3D(-100, 100, -200), new Vector(1, -1, 3), 1, 1E-5, 1.5E-7));
         ImageWriter imageWriter = new ImageWriter("Face image", 500, 500, 500, 500);
         Render render = new Render(imageWriter, scene);

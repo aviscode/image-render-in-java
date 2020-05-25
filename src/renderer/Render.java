@@ -137,12 +137,14 @@ public class Render {
         return color;
     }
 
-    //TODO comments
-    private boolean sign(double val) {
-        return (val > 0d);
-    }
-
-    //TODO comments
+    /**
+     * Unshaded boolean.
+     *
+     * @param l  the vector from light source to the point
+     * @param n  the normal
+     * @param gp the geo point
+     * @return the boolean
+     */
     private boolean unshaded(Vector l, Vector n, GeoPoint gp) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(gp._point, lightDirection, n);
@@ -155,19 +157,36 @@ public class Render {
         return count > 0;
     }
 
-    //TODO
+    /**
+     *
+     * @param n  the normal
+     * @param point the point
+     * @param inRay the ray sent to the element
+     * @return the reflected ray from element
+     */
     private Ray constructReflectedRay(Vector n, Point3D point, Ray inRay) {
         Vector v = inRay.getDirection();
         Vector r = v.add(n.scale(-2 * (v.dotProduct(n))));
         return new Ray(point, r, n);
     }
 
-    //TODO
+    /**
+     *
+     * @param n  the normal
+     * @param point the point
+     * @param inRay the ray sent to the element
+     * @return the ray that refracted on the element
+     */
     private Ray constructRefractedRay(Vector n, Point3D point, Ray inRay) {
         return new Ray(point, inRay.getDirection(), n);
     }
 
-    //TODO
+    /**
+     *Calculate the intersections closest to the beginning of the ray
+     *
+     * @param ray the ray
+     * @return the closest intersection point
+     */
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> intersectionsPoints = _scene.getGeometries().findIntsersections(ray);
         if (intersectionsPoints == null) return null;
@@ -262,7 +281,14 @@ public class Render {
         _imageWriter.writeToImage();
     }
 
-    //TODO
+    /**
+     *
+     * @param ls  the light source
+     * @param l   the direction of light
+     * @param n
+     * @param gp
+     * @return
+     */
     private double transparency(LightSource ls, Vector l, Vector n, GeoPoint gp) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(gp._point, lightDirection, n);
