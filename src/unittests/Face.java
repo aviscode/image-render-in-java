@@ -113,12 +113,16 @@ public class Face {
                 new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-55, -68, 149.9), new Point3D(-62, -73, 149.9), new Point3D(-48, -73, 149.9)),
 
                 //Eyebrows
-                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-55, -82, 150), new Point3D(-40, -87, 150), new Point3D(-60, -87, 150)),
-                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-60, -87, 150), new Point3D(-55, -82, 150), new Point3D(-65, -82, 150)),
-                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-60, -87, 150), new Point3D(-55, -82, 150), new Point3D(-45, -82, 150)),
-                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-60, -87, 150), new Point3D(-55, -82, 150), new Point3D(-45, -82, 150)),
-                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-60, -87, 150), new Point3D(-70, -87, 150), new Point3D(-65, -82, 150)),
-
+                new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-20, -85, 150), new Point3D(-40, -91, 150), new Point3D(-30, -76, 150)),
+                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-50, -86, 150), new Point3D(-40, -79, 150), new Point3D(-40, -90, 150)),
+                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-40, -79, 150), new Point3D(-40, -91, 150), new Point3D(-30, -76, 150)),
+                new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-80, -81, 150), new Point3D(-70, -81, 150), new Point3D(-65, -91, 150)),
+                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-60, -81, 150), new Point3D(-70, -81, 150), new Point3D(-65, -91, 150)),
+                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-50, -81, 150), new Point3D(-65, -90, 150), new Point3D(-40, -90, 150)),
+                new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-60, -81, 150), new Point3D(-50, -81, 150), new Point3D(-65, -91, 150)),
+                new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-20, -86, 150), new Point3D(-11, -75, 150), new Point3D(-30, -76, 150)),
+                new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-40, -80, 150), new Point3D(-50, -81, 150), new Point3D(-46, -87, 150)),
+                new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-82, -79, 150), new Point3D(-70, -80, 150), new Point3D(-70, -86, 150)),
                 // Noise
                 new Triangle(new Color(255, 178, 102), new Material(0.2, 0.8, 40, 0, 0), new Point3D(0, -80, 150), new Point3D(-10, -80, 150), new Point3D(-3, -60, 150)),
                 new Triangle(new Color(255, 178, 102), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-6, -35, 150), new Point3D(-12, -45, 150), new Point3D(-15, -30, 150)),
