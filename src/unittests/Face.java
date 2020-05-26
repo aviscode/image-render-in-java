@@ -116,10 +116,6 @@ public class Face {
                 new Triangle(new Color(224, 224, 224), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-41, -71, 150), new Point3D(-50, -65, 150), new Point3D(-68, -67, 150)),
                 new Triangle(new Color(224, 224, 224), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-55, -70, 150), new Point3D(-70, -70, 150), new Point3D(-55, -63, 150)),
 
-                //Pupil
-                new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-55, -78, 149.9), new Point3D(-62, -73, 149.9), new Point3D(-48, -73, 149.9)),
-                new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-55, -68, 149.9), new Point3D(-62, -73, 149.9), new Point3D(-48, -73, 149.9)),
-
                 //Eyebrows
                 new Triangle(new Color(89, 60, 31), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-20, -85, 150), new Point3D(-40, -91, 150), new Point3D(-30, -76, 150)),
                 new Triangle(new Color(115, 70, 50), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-50, -86, 150), new Point3D(-40, -79, 150), new Point3D(-40, -90, 150)),
