@@ -139,7 +139,7 @@ public class Face {
                 new Triangle(new Color(64, 64, 64), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-16, -60, 150), new Point3D(-20, -48, 150), new Point3D(-22, -58, 150)),
 
                 //Sunglasses
-                new Triangle(new Color(0, 0, 0), new Material(0.2, 0.8, 40, 0.9, 0), new Point3D(-20, -55, 149.9), new Point3D(-75, -55, 149.9), new Point3D(-20, -76, 149.9)),
+                new Triangle(new Color(0, 0, 0), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-20, -55, 149.9), new Point3D(-75, -55, 149.9), new Point3D(-20, -76, 149.9)),
 
                 // Noise
                 new Triangle(new Color(255, 178, 102), new Material(0.2, 0.8, 40, 0, 0), new Point3D(0, -80, 150), new Point3D(-10, -80, 150), new Point3D(-3, -60, 150)),
