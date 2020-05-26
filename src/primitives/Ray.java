@@ -10,6 +10,13 @@ public class Ray {
     private Point3D _point;
     private Vector _direction;
 
+    /**
+     * Instantiates a new Ray.
+     *
+     * @param poo       the poo
+     * @param direction the direction
+     * @param n         the n
+     */
     public Ray(Point3D poo, Vector direction, Vector n) {
         Vector delta = n.scale(n.dotProduct(direction) > 0 ? DELTA : -DELTA);
         _point = new Point3D(poo.add(delta));
@@ -27,10 +34,16 @@ public class Ray {
         _direction = direction.normalized();
     }
 
+    /**
+     * Instantiates a new Ray.
+     *
+     * @param other the other
+     */
     public Ray(Ray other) {
         _point = new Point3D(other._point);
         _direction = other._direction.normalized();
     }
+
     /**
      * Gets p.
      *
