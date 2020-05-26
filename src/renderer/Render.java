@@ -282,12 +282,13 @@ public class Render {
     }
 
     /**
+     * double transparency.
      *
-     * @param ls  the light source
-     * @param l   the direction of light
-     * @param n
-     * @param gp
-     * @return
+     * @param l  the vector from lithe source to the point
+     * @param n  the normal
+     * @param gp the geo point
+     * @param ls the light source
+     * @return the transparency
      */
     private double transparency(LightSource ls, Vector l, Vector n, GeoPoint gp) {
         Vector lightDirection = l.scale(-1); // from point to light source
