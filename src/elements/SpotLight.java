@@ -11,7 +11,17 @@ public class SpotLight extends PointLight {
     private Vector _direction;
     private double _sharpsBeam;
 
-
+    /**
+     * Instantiates a new Spot light.
+     *
+     * @param colorIntensity the color intensity
+     * @param position       the position
+     * @param direction      the direction
+     * @param kC             the k c
+     * @param kL             the k l
+     * @param kQ             the k q
+     * @param sharpsBeam     the sharps beam
+     */
     public SpotLight(Color colorIntensity, Point3D position, Vector direction, double kC, double kL, double kQ, double sharpsBeam) {
         super(colorIntensity, position, kC, kL, kQ);
         _direction = new Vector(direction).normalized();
@@ -32,7 +42,6 @@ public class SpotLight extends PointLight {
         this(colorIntensity, position, direction, kC, kL, kQ, 1.0);
     }
 
-
     @Override
     public Color getIntensity(Point3D point3D) {
         double dirL = point3D.subtract(_position).normalized().dotProduct(_direction);
@@ -44,9 +53,4 @@ public class SpotLight extends PointLight {
         }
         return super.getIntensity(point3D).scale(dirL);
     }
-
-    //@Override
-    // public Vector getL(Point3D p) {
-    //  return _direction;
-    //}
 }

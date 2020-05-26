@@ -16,14 +16,14 @@ import renderer.Render;
 import scene.Scene;
 
 /**
- * Testing basic shadows
+ * Testing
  *
  * @author Dan
  */
-public class Face {
+public class FaceTestSteve {
 
     /**
-     * Produce a picture of a sphere and triangle with point light and shade
+     * Produce a face picture of a  triangle
      */
     @Test
     public void SphereTriangleInitial() {
@@ -139,7 +139,9 @@ public class Face {
                 new Triangle(new Color(64, 64, 64), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-16, -60, 150), new Point3D(-20, -48, 150), new Point3D(-22, -58, 150)),
 
                 //Sunglasses
-                new Triangle(new Color(0, 0, 0), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-20, -55, 149.9), new Point3D(-75, -55, 149.9), new Point3D(-20, -76, 149.9)),
+                new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 30, new Point3D(-43, -60, 149.5)),
+                new Triangle( Color.BLACK, new Material(0.2, 0.8, 40, 0, 0), new Point3D(-75, -65, 149.9), new Point3D(-132, -100, 149.9), new Point3D(-132, -110, 149.9)),
+                new Triangle( Color.BLACK, new Material(0.2, 0.8, 40, 0, 0), new Point3D(-17, -65, 149.9), new Point3D(-17, -70, 149.9), new Point3D(0, -70, 149.9)),
 
                 // Noise
                 new Triangle(new Color(255, 178, 102), new Material(0.2, 0.8, 40, 0, 0), new Point3D(0, -80, 150), new Point3D(-10, -80, 150), new Point3D(-3, -60, 150)),
@@ -268,8 +270,8 @@ public class Face {
                 new Triangle(new Color(255, 224, 189), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-90, -40, 150), new Point3D(-112, -40, 150), new Point3D(-100, -68, 150))
 
         );
-        //scene.addLights(new SpotLight(new Color(400, 240, 0), new Point3D(-100, 100, -200), new Vector(1, -1, 3), 1, 1E-5, 1.5E-7));
-        ImageWriter imageWriter = new ImageWriter("Face image", 500, 500, 500, 500);
+       //scene.addLights(new SpotLight(new Color(400, 240, 0), new Point3D(-100, 100, -200), new Vector(1, -1, 3), 1, 1E-5, 1.5E-7));
+        ImageWriter imageWriter = new ImageWriter("Face image", 500, 500, 2500, 2500);
         Render render = new Render(imageWriter, scene);
         render.renderImage();
         render.writeToImage();

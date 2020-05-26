@@ -6,7 +6,6 @@ import static primitives.Util.*;
 
 import static java.lang.Math.sqrt;
 
-
 /**
  * The type Point 3 d.
  */

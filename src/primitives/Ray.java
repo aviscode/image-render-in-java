@@ -15,6 +15,7 @@ public class Ray {
         _point = new Point3D(poo.add(delta));
         _direction = direction.normalized();
     }
+
     /**
      * Instantiates a new Ray.
      *

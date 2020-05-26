@@ -10,7 +10,6 @@ public class Material {
     private double _kR;
     private int _nShininess;
 
-
     /**
      * Instantiates a new Material.
      *
