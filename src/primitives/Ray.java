@@ -4,6 +4,7 @@ import static primitives.Util.isZero;
 
 /**
  * The type Ray.
+ *
  */
 public class Ray {
     private static final double DELTA = 0.1;
@@ -11,7 +12,7 @@ public class Ray {
     private Vector _direction;
 
     /**
-     * Instantiates a new Ray.
+     * Instantiates a new Ray and moves the point by 0.1 in the normal direction
      *
      * @param poo       the poo
      * @param direction the direction
@@ -47,7 +48,7 @@ public class Ray {
     /**
      * Gets p.
      *
-     * @return the p
+     * @return the point
      */
     public Point3D getP() {
         return _point;
@@ -56,7 +57,7 @@ public class Ray {
     /**
      * Gets direction.
      *
-     * @return the direction
+     * @return the vector direction
      */
     public Vector getDirection() {
         return _direction;

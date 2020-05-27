@@ -33,7 +33,7 @@ public class SpotLight extends PointLight {
      *
      * @param colorIntensity the color intensity
      * @param position       the  position
-     * @param direction      the directio
+     * @param direction      the direction
      * @param kC             the kC
      * @param kL             the kL
      * @param kQ             the  kQ

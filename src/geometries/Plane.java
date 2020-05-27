@@ -74,7 +74,6 @@ public class Plane extends Geometry {
      */
     public Plane(Color emmission, Vector normal, Point3D point) {
         this(emmission, new Material(0, 0, 0), normal, point);
-
     }
 
     /**

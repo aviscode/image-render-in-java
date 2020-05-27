@@ -138,7 +138,7 @@ public class Render {
     }
 
     /**
-     * Unshaded boolean.
+     * Unshaded boolean Checks whether the given area is shaded.
      *
      * @param l  the vector from light source to the point
      * @param n  the normal
@@ -158,11 +158,12 @@ public class Render {
     }
 
     /**
+     *calculate the reflected rey from element
      *
      * @param n  the normal
      * @param point the point
      * @param inRay the ray sent to the element
-     * @return the reflected ray from element
+     * @return the reflected ray
      */
     private Ray constructReflectedRay(Vector n, Point3D point, Ray inRay) {
         Vector v = inRay.getDirection();
@@ -171,6 +172,7 @@ public class Render {
     }
 
     /**
+     *calculate the refracted rey on the element
      *
      * @param n  the normal
      * @param point the point
@@ -236,10 +238,10 @@ public class Render {
     }
 
     /**
-     * Get closest point point 3 d.
+     * Get closest point to the given point.
      *
      * @param points the points
-     * @return the point 3 d
+     * @return the point 3d
      */
     private GeoPoint getClosestPoint(List<GeoPoint> points) {
         GeoPoint result = new GeoPoint(points.get(0).getGeometry(), points.get(0).getPoint());
@@ -282,7 +284,7 @@ public class Render {
     }
 
     /**
-     * double transparency.
+     * The level of transparency of the element
      *
      * @param l  the vector from lithe source to the point
      * @param n  the normal
