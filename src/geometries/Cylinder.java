@@ -17,11 +17,11 @@ public class Cylinder extends Tube {
      * Instantiates a new Cylinder.
      *
      * @param height the height
-     * @param r      the radius
-     * @param _ray   the ray
+     * @param radius      the radius
+     * @param ray   the ray
      */
-    public Cylinder(double height, double r, Ray ray) {
-        super(ray, r);
+    public Cylinder(double height, double radius, Ray ray) {
+        super(ray, radius);
         _height = height;
     }
 

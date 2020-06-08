@@ -1,6 +1,7 @@
 package primitives;
 
 import elements.LightSource;
+import geometries.Intersectable;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Ray {
     private static final double DELTA = 0.1;
     private Point3D _point;
     private Vector _direction;
+    private Random _random = null;
 
     /**
      * Instantiates a new Ray and moves the point by 0.1 in the normal direction
@@ -89,7 +91,10 @@ public class Ray {
     }
 
     /**
-     * Create beam rays list.
+     * Create beam rays list of the given size and base on a point and an radius of the distance from the given point
+     * and creating the rays based on the random points that ace creating in a help function
+     * and so we get random rays a round the given point and the direction of it (light source ).
+     * inside the function will be more explanations
      *
      * @param ls      the LightSource
      * @param point   the point i want to calculate its color
@@ -99,62 +104,59 @@ public class Ray {
      */
     public List<Ray> createRaysBeam(LightSource ls, Point3D point, Vector normal, int numRays) {
         List<Ray> rayList = new LinkedList<Ray>();
-        rayList.add(this);
+        rayList.add(this);                          // adding the original ray
         List<Point3D> pointList = ls.getPoints();   //in spot light i have already random points
         Vector lightDirection = ls.getDirection();  //only spot light return vector, other return null
-        if (pointList == null && ls.getRadius() > 0) {//it is not directional light and it has a radius
-            if (lightDirection != null) {//case spot light in first time
+        if (pointList == null && ls.getRadius() > 0)//it is not directional light and it has a radius
+            if (lightDirection != null) {           //case spot light in first time so it doesn't have a pint list
                 ls.setPoints(createRandomPoints(ls.getPosition(), lightDirection, ls.getRadius(), numRays));
-                pointList = ls.getPoints();
-            } else//case point light
+                pointList = ls.getPoints();         //getting the point list after creating the first time
+            } else                                  //case point light
                 pointList = createRandomPoints(ls.getPosition(), _direction.normalize(), ls.getRadius(), numRays);
-        }
-        if (pointList != null) {
-            for (Point3D p : pointList)
+        if (pointList != null)                      //if the point list is not empty so we will make the rays list
+            for (Point3D p : pointList)             //from every point in the point list we make a ray
                 rayList.add(new Ray(point, p.subtract(point).normalize(), normal));
-        }
         return rayList;
     }
 
     /**
      * Create random points surround the point by given normal and radius.
+     * the random point are getting created in radius distance from a given point
+     * so it becomes like a circle aa round the point an than making a list oo random points in the circle
      *
      * @param centerPoint the center point
      * @param direction   the direction
      * @param radius      the radius
      * @param numRays     the num of rays
-     * @return the list
+     * @return the list of the rays
      */
     private List<Point3D> createRandomPoints(Point3D centerPoint, Vector direction, double radius, int numRays) {
         List<Point3D> randomPoints = new LinkedList<Point3D>();
-        Vector vX = direction.normalize().createNormal();
-        Vector vY = vX.crossProduct(direction.normalize());
+        Vector vX = direction.normalize().createNormal(), vY = vX.crossProduct(direction.normalize());
         double x, y;
+        _random = new Random();
         for (int i = 0; i < numRays; i++) {
             x = getRandom(-1, 1);
             y = Math.sqrt(1 - x * x);
             Point3D p = centerPoint;
             x = alignZero(x * (getRandom(-radius, radius)));
             y = alignZero(y * (getRandom(-radius, radius)));
-            if (x != 0)
-                p = p.add(vX.scale(x));
-            if (y != 0)
-                p = p.add(vY.scale(y));
+            if (x != 0) p = p.add(vX.scale(x));
+            if (y != 0) p = p.add(vY.scale(y));
             randomPoints.add(p);
         }
         return randomPoints;
     }
 
     /**
-     * return a random number
+     * return a random number in range of max in min values
      *
-     * @param min  the min value
-     * @param max  the max value
-     * @return the random
+     * @param min the min value
+     * @param max the max value
+     * @return the random between the max in the min val.
      */
     private double getRandom(double min, double max) {
-        Random random = new Random();
-        return random.nextDouble() * (max - min) + min;
+        return _random.nextDouble() * (max - min) + min;
     }
 
     @Override

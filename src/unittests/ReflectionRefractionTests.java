@@ -1,6 +1,3 @@
-/**
- *
- */
 package unittests;
 
 import geometries.Plane;
@@ -19,7 +16,6 @@ import scene.Scene;
  * (with transparency)
  *
  * @author dzilb
- *
  */
 public class ReflectionRefractionTests {
 
@@ -67,7 +63,7 @@ public class ReflectionRefractionTests {
 
     /**
      * Produce a picture of a two triangles lighted by a spot light with a partially transparent Sphere
-     *  producing partial shadow
+     * producing partial shadow
      */
     @Test
     public void trianglesTransparentSphere() {
@@ -79,12 +75,18 @@ public class ReflectionRefractionTests {
         scene.addGeometries( //
                 new Triangle(Color.BLACK, new Material(0.5, 0.5, 60), new Point3D(-150, 150, 115), new Point3D(150, 150, 135), new Point3D(75, -75, 150)), //
                 new Triangle(Color.BLACK, new Material(0.5, 0.5, 60), new Point3D(-150, 150, 115), new Point3D(-70, -70, 140), new Point3D(75, -75, 150)), //
-                new Sphere(new Color(java.awt.Color.BLUE), new Material(0.2, 0.2, 30, 0.4, 0), 30, new Point3D(60, -50, 50)));
-        scene.addLights(new SpotLight(new Color(700, 400, 400), new Point3D(60, -50, 0), new Vector(0, 0, 1), 1, 4E-5, 2E-7).setRadius(12));
+                new Triangle(new Color(java.awt.Color.BLUE), new Material(0.5, 0.5, 60), new Point3D(-90, 45, 20), new Point3D(-50, 90, 20), new Point3D(-50, 45, 135)), //
+                new Triangle(new Color(java.awt.Color.BLUE), new Material(0.5, 0.5, 60), new Point3D(0, 30, 0), new Point3D(80, 60, 135), new Point3D(50, 90, 135)), //
+                new Polygon(new Color(900, 0, 0), new Material(0.2, 0.2, 200, 0.4, 0), new Point3D(-50, -20, 20), new Point3D(-50, 20, 135), new Point3D(-70, 20, 135), new Point3D(-70, -20, 20)),
+                new Sphere(new Color(java.awt.Color.BLUE), new Material(0.2, 0.2, 30, 0.6, 0), 20, new Point3D(60, -50, 50)),
+                new Sphere(new Color(java.awt.Color.BLUE), new Material(0.2, 0.2, 30, 0.4, 0), 13, new Point3D(0, 0, 30)));
+        scene.addLights(new SpotLight(new Color(700, 400, 400), new Point3D(60, -50, 0), new Vector(0, 0, 1), 1, 4E-5, 2E-7).setRadius(7),
+                new SpotLight(new Color(700, 400, 400), new Point3D(-150, 200, 30), new Vector(0, 0, 1), 1, 4E-5, 2E-7).setRadius(7),
+                new PointLight(new Color(200, 200, 200), new Point3D(150, 300, 20), 1, 4E-5, 2E-7).setRadius(7));
         ImageWriter imageWriter = new ImageWriter("shadow with transparency", 200, 200, 600, 600);
-        Render render = new Render(imageWriter, scene).setSuperSampling(1000);
-        //render.renderImage();
-        //render.writeToImage();
+        Render render = new Render(imageWriter, scene).setSuperSampling(400);
+        render.renderImage();
+        render.writeToImage();
     }
 
     /**
@@ -171,15 +173,14 @@ public class ReflectionRefractionTests {
                 new Triangle(new Color(100, 300, 100), new Material(0.5, 0.5, 100, 0.5, 0),
                         new Point3D(-100, 400, 150), new Point3D(100, 400, 350), new Point3D(0, 200, 250)));
 
-        scene.addLights(new SpotLight(new Color(700, 400, 400), //no. 1
-                        new Point3D(0, 0, -1500),new Vector(0, 0, 1), 1, 4E-5, 2E-7 ).setRadius(7),
+        scene.addLights(new SpotLight(new Color(700, 400, 400), new Point3D(0, 0, -1500), new Vector(0, 0, 1), 1, 4E-5, 2E-7).setRadius(7),//no. 1
                 new PointLight(new Color(200, 600, 200), new Point3D(0.001, -100, 499), 1, 4E-5, 2E-7).setRadius(7),//no.2
                 new PointLight(new Color(200, 200, 600), new Point3D(0.001, -50, 1000), 1, 4E-5, 2E-7).setRadius(7));//no.3
 
-        ImageWriter imageWriter = new ImageWriter("The magical room moving camera to right - soft shadow 2", 200, 200, 1000, 1000);
-        Render render = new Render(imageWriter, scene).setSuperSampling(800);
+        ImageWriter imageWriter = new ImageWriter("The magical room moving camera to right - soft shadow 2", 200, 200, 500, 500);
+        Render render = new Render(imageWriter, scene).setSuperSampling(200);
 
-        render.renderImage();
-        render.writeToImage();
+        //render.renderImage();
+        //render.writeToImage();
     }
 }

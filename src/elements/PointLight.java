@@ -57,6 +57,9 @@ public class PointLight extends Light implements LightSource {
         return this;
     }
 
+    /**
+     * in use for the spot light
+     */
     @Override
     public void setPoints(List<Point3D> list) {
     }

@@ -143,7 +143,7 @@ public class Render {
 
     /**
      * Unshaded boolean Checks whether the given area is shaded.
-     *
+     * not in use any more.
      * @param l  the vector from light source to the point
      * @param n  the normal
      * @param gp the geo point
