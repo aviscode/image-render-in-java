@@ -140,8 +140,8 @@ public class FaceTestSteve {
 
                 //Sunglasses
                 new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 30, new Point3D(-43, -60, 149.5)),
-                new Triangle( Color.BLACK, new Material(0.2, 0.8, 40, 0, 0), new Point3D(-75, -65, 149.9), new Point3D(-132, -100, 149.9), new Point3D(-132, -110, 149.9)),
-                new Triangle( Color.BLACK, new Material(0.2, 0.8, 40, 0, 0), new Point3D(-17, -65, 149.9), new Point3D(-17, -70, 149.9), new Point3D(0, -70, 149.9)),
+                new Triangle(Color.BLACK, new Material(0.2, 0.8, 40, 0, 0), new Point3D(-75, -65, 149.9), new Point3D(-132, -100, 149.9), new Point3D(-132, -110, 149.9)),
+                new Triangle(Color.BLACK, new Material(0.2, 0.8, 40, 0, 0), new Point3D(-17, -65, 149.9), new Point3D(-17, -70, 149.9), new Point3D(0, -70, 149.9)),
 
                 // Noise
                 new Triangle(new Color(255, 178, 102), new Material(0.2, 0.8, 40, 0, 0), new Point3D(0, -80, 150), new Point3D(-10, -80, 150), new Point3D(-3, -60, 150)),
@@ -268,12 +268,11 @@ public class FaceTestSteve {
                 new Triangle(new Color(234, 192, 134), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-80, -80, 150), new Point3D(-118, -55, 150), new Point3D(-115, -70, 150)),
                 new Triangle(new Color(255, 224, 189), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-118, -56, 150), new Point3D(-112, -38, 150), new Point3D(-100, -68, 150)),
                 new Triangle(new Color(255, 224, 189), new Material(0.2, 0.8, 40, 0, 0), new Point3D(-90, -40, 150), new Point3D(-112, -40, 150), new Point3D(-100, -68, 150))
-
         );
-       //scene.addLights(new SpotLight(new Color(400, 240, 0), new Point3D(-100, 100, -200), new Vector(1, -1, 3), 1, 1E-5, 1.5E-7));
-        ImageWriter imageWriter = new ImageWriter("Face image", 500, 500, 2500, 2500);
+        //scene.addLights(new SpotLight(new Color(400, 240, 0), new Point3D(-100, 100, -200), new Vector(1, -1, 3), 1, 1E-5, 1.5E-7));
+        ImageWriter imageWriter = new ImageWriter("Face image1", 500, 500, 500, 500);
         Render render = new Render(imageWriter, scene);
-       // render.renderImage();
+        //render.renderImage();
         //render.writeToImage();
     }
 }

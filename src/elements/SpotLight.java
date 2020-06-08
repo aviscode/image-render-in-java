@@ -4,12 +4,16 @@ import static primitives.Util.*;
 
 import primitives.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * The type Spot light.
  */
 public class SpotLight extends PointLight {
     private Vector _direction;
     private double _sharpsBeam;
+    public List<Point3D> _randomPoints = null;
 
     /**
      * Instantiates a new Spot light.
@@ -53,4 +57,20 @@ public class SpotLight extends PointLight {
         }
         return super.getIntensity(point3D).scale(dirL);
     }
+
+    @Override
+    public void setPoints(List<Point3D> list) {
+        _randomPoints = list;
+    }
+
+    @Override
+    public Vector getDirection() {
+        return _direction;
+    }
+
+    @Override
+    public List<Point3D> getPoints() {
+        return _randomPoints;
+    }
+
 }

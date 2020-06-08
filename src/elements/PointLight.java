@@ -4,6 +4,8 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * The type Point light.
  */
@@ -12,6 +14,7 @@ public class PointLight extends Light implements LightSource {
     protected double _kC;
     protected double _kL;
     protected double _kQ;
+    protected double _radius;
 
     /**
      * Instantiates a new Point light.
@@ -45,6 +48,36 @@ public class PointLight extends Light implements LightSource {
 
     @Override
     public double getDistance(Point3D point) {
-      return point.distance(_position);
+        return point.distance(_position);
+    }
+
+    @Override
+    public LightSource setRadius(double radius) {
+        _radius = radius;
+        return this;
+    }
+
+    @Override
+    public void setPoints(List<Point3D> list) {
+    }
+
+    @Override
+    public double getRadius() {
+        return _radius;
+    }
+
+    @Override
+    public Vector getDirection() {
+        return null;
+    }
+
+    @Override
+    public List<Point3D> getPoints() {
+        return null;
+    }
+
+    @Override
+    public Point3D getPosition() {
+        return _position;
     }
 }

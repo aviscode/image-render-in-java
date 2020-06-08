@@ -7,10 +7,13 @@ import primitives.*;
 import scene.Scene;
 import geometries.Intersectable.GeoPoint;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import static primitives.Util.alignZero;
 import static primitives.Color.*;
+import static primitives.Util.isZero;
 
 /**
  * The type Render.
@@ -18,9 +21,9 @@ import static primitives.Color.*;
 public class Render {
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
-
     private ImageWriter _imageWriter;
     private Scene _scene;
+    private int _superSampling;
 
     /**
      * Instantiates a new Render.
@@ -81,6 +84,7 @@ public class Render {
             }
         }
     }
+
     /**
      * Filling the buffer according to the geometries that are in the scene.
      * This function does not creating the picture file, but create the buffer pf pixels
@@ -104,13 +108,13 @@ public class Render {
         Vector n = p._geometry.getNormal(p._point);
         Material material = p._geometry.getMaterial();
         int nShininess = material.getnShininess();
-        double kd = material.getKd();
-        double ks = material.getKs();
+        double kd = alignZero(material.getKd());
+        double ks = alignZero(material.getKs());
         double nv = v.dotProduct(n);
         for (LightSource lightSource : _scene.getLightSources()) {
             Vector l = lightSource.getL(p._point);
             double nl = l.dotProduct(n);
-            if ((nl > 0d && nv > 0d) || (nl <= 0d && nv <= 0d)) {
+            if ((nl > 0d && nv > 0d) || (nl < 0d && nv < 0d)) {
                 double ktr = transparency(lightSource, l, n, p);
                 if (ktr * k > MIN_CALC_COLOR_K) {
                     Color lightIntensity = lightSource.getIntensity(p._point).scale(ktr);
@@ -158,9 +162,9 @@ public class Render {
     }
 
     /**
-     *calculate the reflected rey from element
+     * calculate the reflected rey from element
      *
-     * @param n  the normal
+     * @param n     the normal
      * @param point the point
      * @param inRay the ray sent to the element
      * @return the reflected ray
@@ -172,9 +176,9 @@ public class Render {
     }
 
     /**
-     *calculate the refracted rey on the element
+     * calculate the refracted rey on the element
      *
-     * @param n  the normal
+     * @param n     the normal
      * @param point the point
      * @param inRay the ray sent to the element
      * @return the ray that refracted on the element
@@ -184,7 +188,7 @@ public class Render {
     }
 
     /**
-     *Calculate the intersections closest to the beginning of the ray
+     * Calculate the intersections closest to the beginning of the ray
      *
      * @param ray the ray
      * @return the closest intersection point
@@ -295,16 +299,97 @@ public class Render {
     private double transparency(LightSource ls, Vector l, Vector n, GeoPoint gp) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(gp._point, lightDirection, n);
-        List<GeoPoint> intersections = _scene.getGeometries().findIntsersections(lightRay);
-        if (intersections == null) return 1.0;
-        double distance = ls.getDistance(gp._point);
-        double ktr = 1.0;
-        for (GeoPoint g : intersections) {
-            if (alignZero(g._point.distance(gp._point) - distance) <= 0) {
-                if (ktr < MIN_CALC_COLOR_K) return 0.0;
-                ktr *= g._geometry.getMaterial().getKt();
+        double ktr, sumKtrAll = 0, distance = ls.getDistance(gp._point);
+        List<Ray> beamRays = lightRay.createRaysBeam(ls, gp.getPoint(), n, getSuperSampling());
+        for (Ray ray : beamRays) {
+            List<GeoPoint> intersections = _scene.getGeometries().findIntsersections(ray);
+            if (intersections == null) {
+                sumKtrAll += 1.0;
+                continue;
             }
+            ktr = 1d;
+            for (GeoPoint g : intersections) {
+                if (alignZero(g._point.distance(gp._point) - distance) <= 0) {
+                    if (ktr < MIN_CALC_COLOR_K) {
+                        ktr = 0d;
+                        break;
+                    }
+                    ktr *= g._geometry.getMaterial().getKt();
+                }
+            }
+            sumKtrAll += ktr;
         }
-        return ktr;
+        return sumKtrAll / beamRays.size();
     }
+
+    /**
+     * @ returns the superSampling number of rays
+     * */
+    private int getSuperSampling() {
+        return _superSampling;
+    }
+
+    public Render setSuperSampling(int numRays){
+        _superSampling= numRays;
+        return this;
+    }
+
+//    /**
+//     * Calculate list of points around some point  in radius
+//     *
+//     * @param geoPoint start point of the ray
+//     * @param ray      the ray
+//     * @param radius   the radius
+//     * @return list
+//     */
+//    private List<Point3D> getListOfConusRays(GeoPoint geoPoint, Ray ray, double radius) {
+//        List<Point3D> list = new LinkedList<Point3D>();
+//        Point3D startPoint = geoPoint._point, currPoint;
+//        Vector dir = ray.getDirection().scale(DISTANCE_OF_CONUS); // Put the circle at 0.9 distance
+//        Vector ort1, ort2, temp1, temp2, finalDir, tempRayVector;
+//        double x = dir.getHead().getX().get(), y = dir.getHead().getY().get(), z = dir.getHead().getZ().get();
+//        if (x < y && x < z) ort1 = new Vector(0, -z, y).normalized(); // Two orthogonal
+//        else if (y < x && y < z) ort1 = new Vector(z, 0, -x).normalized();
+//        else ort1 = new Vector(-y, x, 0).normalized();
+//        ort2 = dir.crossProduct(ort1);
+//        double rand1, rand2, randRadius;
+//
+//        for (int i = 0; i < NUM_OF_RAYS; ++i) {
+//            do {
+//                rand1 = rand.nextInt(50) * Math.pow(-1, rand.nextInt(2) + 1);
+//            } while (isZero(rand1));
+//            do {
+//                rand2 = rand.nextInt(50) * Math.pow(-1, rand.nextInt(2) + 1);
+//            } while (isZero(rand2));
+//            temp1 = ort1.scale(rand1); // Scale the orthogonal at rand number
+//            temp2 = ort2.scale(rand2);
+//            finalDir = (temp1.add(temp2)).normalized();
+//            do {
+//                randRadius = radius * rand.nextDouble(); // Randomize radius
+//            } while (isZero(randRadius));
+//            finalDir = finalDir.scale(randRadius);
+//            currPoint = (startPoint.add(dir)).add(finalDir); // CurrPoint is random point
+//            list.add(currPoint);
+//        }
+//        return list;
+//    }
+
+//    /**
+//     * Calculate Color for list of rays
+//     *
+//     * @param list  of the Rays
+//     * @param level of recursion
+//     * @param k
+//     * @param kx
+//     * @return the color
+//     */
+//    private Color calcColorOfListRay(List<Ray> list, int level, double k, double kx) {
+//        Color reflactionColor = Color.BLACK;
+//        for (Ray ray : list) {
+//            GeoPoint geo = findClosestIntersection(ray);
+//            if (geo != null)
+//                reflactionColor = reflactionColor.add(calcColor(geo, ray, level - 1, k * kx).scale(kx));
+//        }
+//        return reflactionColor.reduce(NUM_OF_RAYS);
+//    }
 }
