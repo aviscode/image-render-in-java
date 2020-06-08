@@ -13,7 +13,6 @@ import static java.lang.Math.sqrt;
 public class Vector {
     private Point3D _head;
 
-
     /**
      * Instantiates a new Vector.
      *
@@ -179,7 +178,11 @@ public class Vector {
         return "Vector : (" + _head + ')';
     }
 
-    //TODO comments
+    /**
+     * The function calculates a normal vector by changing the order
+     * Two given vector coordinates and multiplying one by minus and making the third coordinate zero
+     * @return the normal
+     */
     public Vector createNormal() {
         double x = _head.getX().get(), y = _head.getY().get(), z = _head.getZ().get(), minVal = x > 0 ? x : -x;
         int check = 1;

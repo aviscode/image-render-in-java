@@ -55,7 +55,6 @@ public interface LightSource {
      */
     double getRadius();
 
-
     /**
      * Gets direction.
      *

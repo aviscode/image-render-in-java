@@ -88,7 +88,6 @@ public class Ray {
         return isZero(length) ? _point : _point.add(_direction.scale(length));
     }
 
-
     /**
      * Create beam rays list.
      *
@@ -123,7 +122,7 @@ public class Ray {
      * @param centerPoint the center point
      * @param direction   the direction
      * @param radius      the radius
-     * @param numRays     the num rays
+     * @param numRays     the num of rays
      * @return the list
      */
     private List<Point3D> createRandomPoints(Point3D centerPoint, Vector direction, double radius, int numRays) {
@@ -146,6 +145,13 @@ public class Ray {
         return randomPoints;
     }
 
+    /**
+     * return a random number
+     *
+     * @param min  the min value
+     * @param max  the max value
+     * @return the random
+     */
     private double getRandom(double min, double max) {
         Random random = new Random();
         return random.nextDouble() * (max - min) + min;
