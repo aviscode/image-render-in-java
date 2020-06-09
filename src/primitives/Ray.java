@@ -138,8 +138,9 @@ public class Ray {
             x = getRandom(-1, 1);
             y = Math.sqrt(1 - x * x);
             Point3D p = centerPoint;
-            x = alignZero(x * (getRandom(-radius, radius)));
-            y = alignZero(y * (getRandom(-radius, radius)));
+            double d= getRandom(-radius, radius);
+            x = alignZero(x * d);
+            y = alignZero(y * d);
             if (x != 0) p = p.add(vX.scale(x));
             if (y != 0) p = p.add(vY.scale(y));
             randomPoints.add(p);
