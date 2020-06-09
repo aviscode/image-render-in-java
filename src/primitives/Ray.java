@@ -9,6 +9,7 @@ import java.util.Random;
 
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
+import static primitives.Util.getRandom;
 
 /**
  * The type Ray.
@@ -17,7 +18,6 @@ public class Ray {
     private static final double DELTA = 0.1;
     private Point3D _point;
     private Vector _direction;
-    private Random _random = null;
 
     /**
      * Instantiates a new Ray and moves the point by 0.1 in the normal direction
@@ -134,7 +134,6 @@ public class Ray {
         List<Point3D> randomPoints = new LinkedList<Point3D>();
         Vector vX = direction.normalize().createNormal(), vY = vX.crossProduct(direction.normalize());
         double x, y;
-        _random = new Random();
         for (int i = 0; i < numRays; i++) {
             x = getRandom(-1, 1);
             y = Math.sqrt(1 - x * x);
@@ -146,17 +145,6 @@ public class Ray {
             randomPoints.add(p);
         }
         return randomPoints;
-    }
-
-    /**
-     * return a random number in range of max in min values
-     *
-     * @param min the min value
-     * @param max the max value
-     * @return the random between the max in the min val.
-     */
-    private double getRandom(double min, double max) {
-        return _random.nextDouble() * (max - min) + min;
     }
 
     @Override

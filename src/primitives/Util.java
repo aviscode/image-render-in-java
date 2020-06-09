@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.Random;
+
 /**
  * Util class is used for some internal utilities, e.g. controlling accuracy
  *
@@ -8,6 +10,7 @@ package primitives;
 public abstract class Util {
     // It is binary, equivalent to ~1/1,000,000,000,000 in decimal (12 digits)
     private static final int ACCURACY = -40;
+    private static Random _random = new Random();
 
     // double store format (bit level): seee eeee eeee (1.)mmmm   mmmm
     // 1 bit sign, 11 bits exponent, 53 bits (52 stored) normalized mantissa
@@ -39,5 +42,16 @@ public abstract class Util {
      */
     public static double alignZero(double number) {
         return getExp(number) < ACCURACY ? 0.0 : number;
+    }
+
+    /**
+     * return a random number in range of max in min values
+     *
+     * @param min the min value
+     * @param max the max value
+     * @return the random between the max in the min val.
+     */
+    public static double getRandom(double min, double max) {
+        return _random.nextDouble() * (max - min) + min;
     }
 }
