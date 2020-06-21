@@ -6,7 +6,7 @@ import primitives.*;
 /**
  * The interface Geometry.
  */
-public abstract class Geometry implements Intersectable {
+public abstract class Geometry extends Intersectable {
     protected Color _emmission;
     protected Material _material;
 
@@ -57,7 +57,8 @@ public abstract class Geometry implements Intersectable {
 
     /**
      * Gets the normal vector
+     *
      * @param p the point
-     * */
+     */
     public abstract Vector getNormal(Point3D p);
 }

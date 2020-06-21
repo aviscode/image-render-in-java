@@ -43,7 +43,7 @@ public class Polygon extends Geometry {
      * @throws IllegalArgumentException in any case of illegal combination of                                  vertices:                                  <ul>                                  <li>Less than 3 vertices</li>                                  <li>Consequent vertices are in the same                                  point                                  <li>The vertices are not in the same                                  plane</li>                                  <li>The order of vertices is not according                                  to edge path</li>                                  <li>Three consequent vertices lay in the                                  same line (180&#176; angle between two                                  consequent edges)                                  <li>The polygon is concave (not convex></li>                                  </ul>
      */
     public Polygon(Color emissionLight, Material material, Point3D... vertices) {
-        super(emissionLight,material);
+        super(emissionLight, material);
         if (vertices.length < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
         _vertices = List.of(vertices);
@@ -78,6 +78,20 @@ public class Polygon extends Geometry {
             if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
                 throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
         }
+        _minX = vertices[0].getX().get();
+        _minY = vertices[0].getY().get();
+        _minZ = vertices[0].getZ().get();
+        _maxX = vertices[0].getX().get();
+        _maxY = vertices[0].getY().get();
+        _maxZ = vertices[0].getZ().get();
+        for (Point3D point  : _vertices) {
+            if(point.getX().get() < _minX)_minX=point.getX().get();
+            if(point.getX().get() > _maxX)_maxX=point.getX().get();
+            if(point.getY().get() < _minY)_minY=point.getY().get();
+            if(point.getY().get() > _maxY)_maxY=point.getY().get();
+            if(point.getZ().get() < _minX)_minZ=point.getZ().get();
+            if(point.getZ().get() < _maxX)_maxZ=point.getZ().get();
+        }
     }
 
     /**
@@ -87,7 +101,7 @@ public class Polygon extends Geometry {
      * @param vertices      the vertices
      */
     public Polygon(Color emissionLight, Point3D... vertices) {
-        this(emissionLight,new Material(0,0,0),vertices);
+        this(emissionLight, new Material(0, 0, 0), vertices);
     }
 
     /**
@@ -96,7 +110,7 @@ public class Polygon extends Geometry {
      * @param vertices the vertices
      */
     public Polygon(Point3D... vertices) {
-        this(Color.BLACK,new Material(0,0,0),vertices);
+        this(Color.BLACK, new Material(0, 0, 0), vertices);
     }
 
     @Override
