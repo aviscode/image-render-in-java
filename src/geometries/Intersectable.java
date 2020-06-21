@@ -7,7 +7,7 @@ import java.util.*;
 
 
 /**
- * The interface Intersectable.
+ * The abstract class Intersectable.
  */
 public abstract class Intersectable {
     /**

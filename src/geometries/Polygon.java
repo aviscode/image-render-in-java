@@ -78,6 +78,7 @@ public class Polygon extends Geometry {
             if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
                 throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
         }
+        //calculate the max/min points to create a bounding box.
         _minX = vertices[0].getX().get();
         _minY = vertices[0].getY().get();
         _minZ = vertices[0].getZ().get();

@@ -4,7 +4,7 @@ import primitives.*;
 
 
 /**
- * The interface Geometry.
+ * The abstract class Geometry.
  */
 public abstract class Geometry extends Intersectable {
     protected Color _emmission;

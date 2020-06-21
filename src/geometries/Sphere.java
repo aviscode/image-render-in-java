@@ -14,7 +14,7 @@ public class Sphere extends RadialGeometry {
     private final Point3D _center;
 
     /**
-     * Instantiates a new Sphere.
+     * Instantiates a new Sphere and define a min\max points for the bounding box.
      *
      * @param emission the emission
      * @param material the material
