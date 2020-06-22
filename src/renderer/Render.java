@@ -474,7 +474,7 @@ public class Render {
     /**
      * setting the of number of rays
      *
-     * @param numRays the tee number of rays
+     * @param numRays the  number of rays
      */
     public Render setSuperSampling(int numRays) {
         _superSampling = numRays;

@@ -238,7 +238,6 @@ public class FaceTestSteve {
                 new Triangle(new Color(64, 64, 64), new Material(0.2, 0.8, 40, 0, 0), new Point3D(30, -46, 150), new Point3D(20, -48, 150), new Point3D(22, -58, 150)),
                 new Triangle(new Color(64, 64, 64), new Material(0.2, 0.8, 40, 0, 0), new Point3D(16, -60, 150), new Point3D(20, -48, 150), new Point3D(22, -58, 150)),
 
-
                 //Sunglasses
                 new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 30, new Point3D(-43, -60, 149.5)),
                 new Triangle(Color.BLACK, new Material(0.2, 0.8, 40, 0, 0), new Point3D(-75, -65, 149.9), new Point3D(-132, -100, 149.9), new Point3D(-132, -110, 149.9)),
