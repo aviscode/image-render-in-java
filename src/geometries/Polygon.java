@@ -78,19 +78,23 @@ public class Polygon extends Geometry {
             if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
                 throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
         }
-        _minX = vertices[0].getX().get();
-        _minY = vertices[0].getY().get();
-        _minZ = vertices[0].getZ().get();
-        _maxX = vertices[0].getX().get();
-        _maxY = vertices[0].getY().get();
-        _maxZ = vertices[0].getZ().get();
-        for (Point3D point  : _vertices) {
-            if(point.getX().get() < _minX)_minX=point.getX().get();
-            if(point.getX().get() > _maxX)_maxX=point.getX().get();
-            if(point.getY().get() < _minY)_minY=point.getY().get();
-            if(point.getY().get() > _maxY)_maxY=point.getY().get();
-            if(point.getZ().get() < _minX)_minZ=point.getZ().get();
-            if(point.getZ().get() < _maxX)_maxZ=point.getZ().get();
+    }
+
+    @Override
+    public void setBox() {
+        _minX = Double.POSITIVE_INFINITY;
+        _minY = Double.POSITIVE_INFINITY;
+        _minZ = Double.POSITIVE_INFINITY;
+        _maxX = Double.NEGATIVE_INFINITY;
+        _maxY = Double.NEGATIVE_INFINITY;
+        _maxZ = Double.NEGATIVE_INFINITY;
+        for (Point3D point : _vertices) {
+            if (point.getX() < _minX) _minX = point.getX();
+            if (point.getX() > _maxX) _maxX = point.getX();
+            if (point.getY() < _minY) _minY = point.getY();
+            if (point.getY() > _maxY) _maxY = point.getY();
+            if (point.getZ() < _minX) _minZ = point.getZ();
+            if (point.getZ() < _maxX) _maxZ = point.getZ();
         }
     }
 

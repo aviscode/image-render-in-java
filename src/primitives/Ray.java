@@ -16,8 +16,8 @@ import static primitives.Util.getRandom;
  */
 public class Ray {
     private static final double DELTA = 0.1;
-    private Point3D _point;
-    private Vector _direction;
+    final private Point3D _point;
+    final private Vector _direction;
 
     /**
      * Instantiates a new Ray and moves the point by 0.1 in the normal direction
@@ -28,7 +28,7 @@ public class Ray {
      */
     public Ray(Point3D poo, Vector direction, Vector n) {
         Vector delta = n.scale(n.dotProduct(direction) > 0 ? DELTA : -DELTA);
-        _point = new Point3D(poo.add(delta));
+        _point = poo.add(delta);
         _direction = direction.normalized();
     }
 
@@ -49,8 +49,8 @@ public class Ray {
      * @param other the other
      */
     public Ray(Ray other) {
-        _point = new Point3D(other._point);
-        _direction = other._direction.normalized();
+        _point = other._point;
+        _direction = other._direction;
     }
 
     /**

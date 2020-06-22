@@ -9,7 +9,7 @@ import static primitives.Util.isZero;
  * The type Radial geometry.
  */
 public abstract class RadialGeometry extends Geometry {
-    private final double _radius;
+    protected final double _radius;
 
     /**
      * Instantiates a new Radial geometry.

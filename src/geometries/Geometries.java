@@ -63,7 +63,7 @@ public class Geometries extends Intersectable {
             _lastAdded = geometry;
             updateBoxSize();
         }
-        Collections.addAll(_shapes, geometries);
+        //Collections.addAll(_shapes, geometries);
     }
 
     /**
@@ -88,6 +88,25 @@ public class Geometries extends Intersectable {
     }
 
     @Override
+    public void setBox() {
+        _minX = Double.POSITIVE_INFINITY;
+        _minY = Double.POSITIVE_INFINITY;
+        _minZ = Double.POSITIVE_INFINITY;
+        _maxX = Double.NEGATIVE_INFINITY;
+        _maxY = Double.NEGATIVE_INFINITY;
+        _maxZ = Double.NEGATIVE_INFINITY;
+        for (Intersectable geo : _shapes) {
+            geo.setBox();
+            if (geo._minX < _minX) _minX = geo._minX;
+            if (geo._maxX > _minX) _maxX = geo._maxX;
+            if (geo._minY < _minY) _minY = geo._minY;
+            if (geo._maxY > _minY) _maxY = geo._maxY;
+            if (geo._minZ < _minZ) _minZ = geo._minZ;
+            if (geo._maxZ > _minZ) _maxZ = geo._maxZ;
+        }
+    }
+
+    @Override
     public List<GeoPoint> findIntsersections(Ray ray) {
         List<GeoPoint> intersections = null;
         for (Intersectable shape : _shapes) {
@@ -101,19 +120,4 @@ public class Geometries extends Intersectable {
         return intersections;
     }
 
-    @Override
-    public List<GeoPoint> findIntsersectionsBound(Ray ray) {
-        List<GeoPoint> intersections = null;
-        for (Intersectable shape : _shapes) {
-            if (shape.isIntersect(ray)) {
-                List<GeoPoint> tempIntersections = shape.findIntsersections(ray);
-                if (tempIntersections != null) {
-                    if (intersections == null)
-                        intersections = new LinkedList<>();
-                    intersections.addAll(tempIntersections);
-                }
-            }
-        }
-        return intersections;
-    }
 }

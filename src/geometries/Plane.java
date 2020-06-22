@@ -121,6 +121,11 @@ public class Plane extends Geometry {
     }
 
     @Override
+    public void setBox() {
+
+    }
+
+    @Override
     public List<GeoPoint> findIntsersections(Ray ray) {
         Vector p;
         try {

@@ -27,7 +27,6 @@ public class Render {
     private int _threads = 1;
     private final int SPARE_THREADS = 2;
     private boolean _print = false;
-    private boolean _bounding = false;
 
     /**
      * Pixel is an internal helper class whose objects are associated with a Render object that
@@ -144,18 +143,6 @@ public class Render {
     }
 
     /**
-     * Set bounding on or off <br>
-     *if on so calling the make tree function.
-     * @param flag the boolean flag
-     * @return the Render object itself
-     */
-    public Render setBounding(boolean flag) {
-        _bounding = flag;
-        if (_bounding) _scene.makeTree();
-        return this;
-    }
-
-    /**
      * Set debug printing on
      *
      * @return the Render object itself
@@ -222,7 +209,7 @@ public class Render {
                         } else {//paint in the color of the geometry in the closest point
                             _imageWriter.writePixel(pixel.col, pixel.row, calcColor(closestPoint, ray).getColor());
                         }
-                    }else
+                    } else
                         _imageWriter.writePixel(pixel.col, pixel.row, background);
                 }
             });
@@ -306,7 +293,7 @@ public class Render {
     private boolean unshaded(Vector l, Vector n, GeoPoint gp) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(gp._point, lightDirection, n);
-        List<GeoPoint> intersections = _scene.getGeometries().findIntsersections(lightRay);
+        List<GeoPoint> intersections = _scene.getGeometries().findIntsersectionsBound(lightRay);
         int count = 0;
         for (GeoPoint g : intersections) {
             if (g._geometry.getMaterial().getKt() > 0)
@@ -349,9 +336,8 @@ public class Render {
      */
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> intersectionsPoints;
-        if (_bounding) intersectionsPoints = _scene.getGeometries().findIntsersectionsBound(ray);
-        else intersectionsPoints = _scene.getGeometries().findIntsersections(ray);
-        if (intersectionsPoints == null || intersectionsPoints.isEmpty()) return null;
+        intersectionsPoints = _scene.getGeometries().findIntsersectionsBound(ray);
+        if (intersectionsPoints == null) return null;
         Point3D rayStart = ray.getP();
         double min = Double.MAX_VALUE;
         GeoPoint closest = null;
@@ -458,7 +444,7 @@ public class Render {
         double ktr, sumKtrAll = 0, distance = ls.getDistance(gp._point);
         List<Ray> beamRays = lightRay.createRaysBeam(ls, gp.getPoint(), n, getSuperSampling());
         for (Ray ray : beamRays) {
-            List<GeoPoint> intersections = _scene.getGeometries().findIntsersections(ray);
+            List<GeoPoint> intersections = _scene.getGeometries().findIntsersectionsBound(ray);
             if (intersections == null) {
                 sumKtrAll += 1d;
                 continue;

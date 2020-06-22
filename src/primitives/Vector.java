@@ -19,7 +19,7 @@ public class Vector {
      * @param other the other
      */
     public Vector(Vector other) {
-        _head = new Point3D(other._head);
+        _head = other._head;
     }
 
     /**
@@ -77,7 +77,7 @@ public class Vector {
      * @return the vector
      */
     public Vector subtract(Vector other) {
-        return new Vector(_head.subtract(other._head));
+        return _head.subtract(other._head);
     }
 
     /**
@@ -87,7 +87,7 @@ public class Vector {
      * @return the scaled vector
      */
     public Vector scale(double num) {
-        return new Vector(_head.getX().get() * num, _head.getY().get() * num, _head.getZ().get() * num);
+        return new Vector(_head._x._coord * num, _head._y._coord * num, _head._z._coord * num);
     }
 
     /**
@@ -97,9 +97,9 @@ public class Vector {
      * @return the double of a Dot product  vector.
      */
     public double dotProduct(Vector other) {
-        return _head.getX().get() * other._head.getX().get() +
-                _head.getY().get() * other._head.getY().get() +
-                _head.getZ().get() * other._head.getZ().get();
+        return _head._x._coord * other._head._x._coord +
+                _head._y._coord * other._head._y._coord +
+                _head._z._coord * other._head._z._coord;
     }
 
     /**
@@ -109,10 +109,9 @@ public class Vector {
      * @return the vector
      */
     public Vector crossProduct(Vector v2) {
-
-        return new Vector(_head.getY().get() * v2._head.getZ().get() - _head.getZ().get() * v2._head.getY().get(),
-                _head.getZ().get() * v2._head.getX().get() - _head.getX().get() * v2._head.getZ().get(),
-                _head.getX().get() * v2._head.getY().get() - _head.getY().get() * v2._head.getX().get());
+        return new Vector(_head._y._coord * v2._head._z._coord - _head._z._coord * v2._head._y._coord,
+                _head._z._coord * v2._head._x._coord - _head._x._coord * v2._head._z._coord,
+                _head._x._coord * v2._head._y._coord - _head._y._coord * v2._head._x._coord);
     }
 
     /**
@@ -121,7 +120,10 @@ public class Vector {
      * @return the double
      */
     public double lengthSquared() {
-        return (_head.getX().get()) * (_head.getX().get()) + (_head.getY().get()) * (_head.getY().get()) + (_head.getZ().get()) * (_head.getZ().get());
+        double x = _head._x._coord;
+        double y = _head._y._coord;
+        double z = _head._z._coord;
+        return x * x + y * y + z + z;
     }
 
     /**
@@ -150,9 +152,9 @@ public class Vector {
      */
     public Vector normalized() {
         double divider = this.length();
-        return new Vector(new Point3D(_head.getX().get() / divider,
-                _head.getY().get() / divider,
-                _head.getZ().get() / divider));
+        return new Vector(new Point3D(_head._x._coord / divider,
+                _head._y._coord / divider,
+                _head._z._coord / divider));
     }
 
     /**
@@ -181,10 +183,11 @@ public class Vector {
     /**
      * The function calculates a normal vector by changing the order
      * Two given vector coordinates and multiplying one by minus and making the third coordinate zero
+     *
      * @return the normal
      */
     public Vector createNormal() {
-        double x = _head.getX().get(), y = _head.getY().get(), z = _head.getZ().get(), minVal = x > 0 ? x : -x;
+        double x = _head._x._coord, y = _head._y._coord, z = _head._z._coord, minVal = x > 0 ? x : -x;
         int check = 1;
         if (Math.abs(y) < minVal) {
             minVal = y > 0 ? y : -y;

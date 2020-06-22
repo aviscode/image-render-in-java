@@ -78,6 +78,11 @@ public class Tube extends RadialGeometry {
     }
 
     @Override
+    public void setBox() {
+
+    }
+
+    @Override
     public List<GeoPoint> findIntsersections(Ray ray) {
         return null;
     }

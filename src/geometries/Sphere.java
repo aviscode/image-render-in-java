@@ -24,12 +24,16 @@ public class Sphere extends RadialGeometry {
     public Sphere(Color emission, Material material, double radius, Point3D center) {
         super(emission, material, radius);
         _center = new Point3D(center);
-        _minX = _center.getX().get() - radius;
-        _maxX = _center.getX().get() + radius;
-        _minY = _center.getY().get() - radius;
-        _maxY = _center.getY().get() + radius;
-        _minZ = _center.getZ().get() - radius;
-        _maxZ = _center.getZ().get() + radius;
+    }
+
+    @Override
+    public void setBox() {
+        _minX = _center.getX() - _radius;
+        _maxX = _center.getX() + _radius;
+        _minY = _center.getY() - _radius;
+        _maxY = _center.getY() + _radius;
+        _minZ = _center.getZ() - _radius;
+        _maxZ = _center.getZ() + _radius;
     }
 
     /**

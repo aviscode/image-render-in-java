@@ -46,7 +46,7 @@ public class SphereTest {
         // TC02: Ray starts before and crosses the sphere (2 points)
         List<Intersectable.GeoPoint> result = sphere.findIntsersections(new Ray(new Point3D(-1, 0, 0), new Vector(3, 1, 0)));
         assertEquals( "Wrong number of points",2, result.size());
-        if (result.get(0)._point.getX().get() > result.get(1)._point.getX().get()) {
+        if (result.get(0)._point.getX() > result.get(1)._point.getX()) {
             result = List.of(result.get(1), result.get(0));
         }
         assertEquals("Ray crosses sphere", exp.get(0), result.get(0)._point);
@@ -70,7 +70,7 @@ public class SphereTest {
         // TC13: Ray starts before the sphere (2 points)
         result = sphere.findIntsersections(new Ray(new Point3D(1, -2, 0), new Vector(0, 1, 0)));
         assertEquals( "Wrong number of points",2, result.size());
-        if (result.get(0)._point.getY().get() > result.get(1)._point.getY().get()) {
+        if (result.get(0)._point.getY() > result.get(1)._point.getY()) {
             result = List.of(result.get(1), result.get(0));
         }
         assertEquals("Line through O, ray crosses sphere", new Point3D(1, -1, 0), result.get(0)._point);

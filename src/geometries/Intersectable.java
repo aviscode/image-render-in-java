@@ -10,6 +10,17 @@ import java.util.*;
  * The interface Intersectable.
  */
 public abstract class Intersectable {
+    private static boolean _boudingVolume = false;
+    protected double _minX, _minY, _minZ, _maxX, _maxY, _maxZ;
+
+    /**
+     *
+     */
+    public static void enableBoundingVolume() {
+        _boudingVolume = true;
+    }
+
+    public abstract void setBox();
     /**
      * The type Geo point.
      */
@@ -66,26 +77,6 @@ public abstract class Intersectable {
             return Objects.hash(_geometry, _point);
         }
     }
-
-    /**
-     * The Min x.
-     */
-    protected double _minX, /**
-     * The Min y.
-     */
-    _minY, /**
-     * The Min z.
-     */
-    _minZ, /**
-     * The Max x.
-     */
-    _maxX, /**
-     * The Max y.
-     */
-    _maxY, /**
-     * The Max z.
-     */
-    _maxZ;
 
     /**
      * Gets min x.
@@ -148,23 +139,26 @@ public abstract class Intersectable {
      * @return true if intersect
      */
     public boolean isIntersect(Ray ray) {
-        Vector v = ray.getDirection();
+        Point3D head = ray.getDirection().getHead();
         Point3D p = ray.getP();
-        double dirX = v.getHead().getX().get(), dirY = v.getHead().getY().get(), dirZ = v.getHead().getZ().get();
-        double origX = p.getX().get(), origY = p.getY().get(), origZ = p.getZ().get();
-        double tmin = (_minX - origX) / dirX, tmax = (_maxX - origX) / dirX;
-        if (tmin > tmax) tmin += (tmax - (tmax = tmin));        //swap
-        double tymin = (_minY - origY) / dirY, tymax = (_maxY - origY) / dirY;
-        if (tymin > tymax) tymin += (tymax - (tymax = tymin));  //swap
-        if ((tmin > tymax) || (tymin > tmax)) return false;
-        if (tymin > tmin) tmin = tymin;
-        if (tymax < tmax) tmax = tymax;
-        double tzmin = (_minZ - origZ) / dirZ, tzmax = (_maxZ - origZ) / dirZ;
-        if (tzmin > tzmax) tzmin = (tzmax - (tzmax = tzmin));          //swap
-        if ((tmin > tzmax) || (tzmin > tmax)) return false;
-        if (tzmin > tmin) tmin = tzmin;
-        if (tzmax < tmax) tmax = tzmax;
-        return true;
+        double temp;
+
+        double dirX = head.getX(), dirY = head.getY(), dirZ = head.getZ();
+        double origX = p.getX(), origY = p.getY(), origZ = p.getZ();
+
+        // Min/Max starts with X
+        double tMin = (_minX - origX) / dirX, tMax = (_maxX - origX) / dirX;
+        if (tMin > tMax) { temp = tMin; tMin = tMax; tMax = temp; }        //swap
+
+        double tYMin = (_minY - origY) / dirY, tYMax = (_maxY - origY) / dirY;
+        if (tYMin > tYMax) { temp = tYMin; tYMin = tYMax; tYMax = temp; }  //swap
+        if ((tMin > tYMax) || (tYMin > tMax)) return false;
+        if (tYMin > tMin) tMin = tYMin;
+        if (tYMax < tMax) tMax = tYMax;
+
+        double tZMin = (_minZ - origZ) / dirZ, tZMax = (_maxZ - origZ) / dirZ;
+        if (tZMin > tZMax){ temp = tZMin; tZMin = tZMax; tZMax = temp; }          //swap
+        return tMin <= tZMax && tZMin <= tMax;
     }
 
     /**
@@ -186,8 +180,7 @@ public abstract class Intersectable {
      * @return the list of Points 3D Intersections or a empty list in case the ray is not in the box.
      */
     public List<GeoPoint> findIntsersectionsBound(Ray ray) {
-        if (isIntersect(ray)) return findIntsersections(ray);
-        else return new ArrayList<GeoPoint>();//in case the ray is not in the box
+        return _boudingVolume && !isIntersect(ray) ? null : findIntsersections(ray);
     }
 
     /**

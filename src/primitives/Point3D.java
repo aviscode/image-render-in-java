@@ -10,7 +10,7 @@ import static java.lang.Math.sqrt;
  * The type Point 3 d.
  */
 public class Point3D {
-    private Coordinate _x, _y, _z;
+    final Coordinate _x, _y, _z;
     /**
      * The point ZERO.
      */
@@ -24,9 +24,9 @@ public class Point3D {
      * @param z the z
      */
     public Point3D(Coordinate x, Coordinate y, Coordinate z) {
-        _x = new Coordinate(x);
-        _y = new Coordinate(y);
-        _z = new Coordinate(z);
+        _x = x;
+        _y = y;
+        _z = z;
     }
 
     /**
@@ -48,9 +48,9 @@ public class Point3D {
      * @param other the other
      */
     public Point3D(Point3D other) {
-        _x = new Coordinate(other.getX());
-        _y = new Coordinate(other.getY());
-        _z = new Coordinate(other.getZ());
+        _x = other._x;
+        _y = other._y;
+        _z = other._z;
     }
 
     /**
@@ -58,8 +58,8 @@ public class Point3D {
      *
      * @return the x
      */
-    public Coordinate getX() {
-        return _x;
+    public double getX() {
+        return _x._coord;
     }
 
     /**
@@ -67,8 +67,8 @@ public class Point3D {
      *
      * @return the Coordinate y
      */
-    public Coordinate getY() {
-        return _y;
+    public double getY() {
+        return _y._coord;
     }
 
     /**
@@ -76,8 +76,8 @@ public class Point3D {
      *
      * @return the z
      */
-    public Coordinate getZ() {
-        return _z;
+    public double getZ() {
+        return _z._coord;
     }
 
     /**
@@ -87,7 +87,7 @@ public class Point3D {
      * @return the vector
      */
     public Vector subtract(Point3D other) {
-        return new Vector(_x.get() - other._x.get(), _y.get() - other._y.get(), _z.get() - other._z.get());
+        return new Vector(_x._coord - other._x._coord, _y._coord - other._y._coord, _z._coord - other._z._coord);
     }
 
     /**
@@ -97,7 +97,8 @@ public class Point3D {
      * @return the new point 3D
      */
     public Point3D add(Vector vec) {
-        return new Point3D(_x.get() + vec.getHead()._x.get(), _y.get() + vec.getHead()._y.get(), _z.get() + vec.getHead()._z.get());
+        Point3D head = vec.getHead();
+        return new Point3D(_x._coord + head._x._coord, _y._coord + head._y._coord, _z._coord + head._z._coord);
     }
 
     /**
@@ -107,11 +108,10 @@ public class Point3D {
      * @return the squared double as a double
      */
     public double distanceSquared(Point3D other) {
-        Vector temp = other.subtract(this);
-        double x = temp.getHead()._x.get();
-        double y = temp.getHead()._y.get();
-        double z = temp.getHead()._z.get();
-        return x * x + y * y + z * z;
+        double dx = _x._coord - other._x._coord;
+        double dy = _y._coord - other._y._coord;
+        double dz = _z._coord - other._z._coord;
+        return dx * dx + dy * dy + dz * dz;
     }
 
     /**

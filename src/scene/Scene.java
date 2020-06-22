@@ -35,6 +35,7 @@ public class Scene {
         _name = name;
         _geometries = new Geometries();
         _lights = new LinkedList<LightSource>();
+        Intersectable.enableBoundingVolume();
     }
 
     /**
