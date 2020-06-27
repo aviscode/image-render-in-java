@@ -1,37 +1,37 @@
 package geometries;
 
 import primitives.*;
-import primitives.Vector;
 
 import java.util.*;
 
-
 /**
- * The abstract class Intersectable.
+ * The interface Intersectable.
  */
 public abstract class Intersectable {
-    private static boolean _boudingVolume = false;
+    protected boolean _boudingVolume = false;
     protected double _minX, _minY, _minZ, _maxX, _maxY, _maxZ;
+    protected Point3D _middlePoint;
+    protected boolean _finity = false;
+
 
     /**
-     *
+     * creating boxes for all shapes in the geometries list and setting the bounding to be true
      */
-    public static void enableBoundingVolume() {
+    public void createBox() {
         _boudingVolume = true;
+        setBox();
     }
 
-    public abstract void setBox();
+    /**
+     * abstract function to sat boxes for all shapes
+     */
+    protected abstract void setBox();
+
     /**
      * The type Geo point.
      */
     public static class GeoPoint {
-        /**
-         * The Geometry.
-         */
         public Geometry _geometry;
-        /**
-         * The Point.
-         */
         public Point3D _point;
 
         /**
@@ -79,60 +79,6 @@ public abstract class Intersectable {
     }
 
     /**
-     * Gets min x.
-     *
-     * @return the min x
-     */
-    public double getMinX() {
-        return _minX;
-    }
-
-    /**
-     * Gets min y.
-     *
-     * @return the min y
-     */
-    public double getMinY() {
-        return _minY;
-    }
-
-    /**
-     * Gets min z.
-     *
-     * @return the min z
-     */
-    public double getMinZ() {
-        return _minZ;
-    }
-
-    /**
-     * Gets max x.
-     *
-     * @return the max x
-     */
-    public double getMaxX() {
-        return _maxX;
-    }
-
-    /**
-     * Gets max y.
-     *
-     * @return the max y
-     */
-    public double getMaxY() {
-        return _maxY;
-    }
-
-    /**
-     * Gets max z.
-     *
-     * @return the max z
-     */
-    public double getMaxZ() {
-        return _maxZ;
-    }
-
-    /**
      * check if ray intersect with the box
      *
      * @param ray the ray
@@ -148,16 +94,28 @@ public abstract class Intersectable {
 
         // Min/Max starts with X
         double tMin = (_minX - origX) / dirX, tMax = (_maxX - origX) / dirX;
-        if (tMin > tMax) { temp = tMin; tMin = tMax; tMax = temp; }        //swap
+        if (tMin > tMax) {
+            temp = tMin;
+            tMin = tMax;
+            tMax = temp;
+        }        //swap
 
         double tYMin = (_minY - origY) / dirY, tYMax = (_maxY - origY) / dirY;
-        if (tYMin > tYMax) { temp = tYMin; tYMin = tYMax; tYMax = temp; }  //swap
+        if (tYMin > tYMax) {
+            temp = tYMin;
+            tYMin = tYMax;
+            tYMax = temp;
+        }  //swap
         if ((tMin > tYMax) || (tYMin > tMax)) return false;
         if (tYMin > tMin) tMin = tYMin;
         if (tYMax < tMax) tMax = tYMax;
 
         double tZMin = (_minZ - origZ) / dirZ, tZMax = (_maxZ - origZ) / dirZ;
-        if (tZMin > tZMax){ temp = tZMin; tZMin = tZMax; tZMax = temp; }          //swap
+        if (tZMin > tZMax) {
+            temp = tZMin;
+            tZMin = tZMax;
+            tZMax = temp;
+        }          //swap
         return tMin <= tZMax && tZMin <= tMax;
     }
 
@@ -184,11 +142,9 @@ public abstract class Intersectable {
     }
 
     /**
-     * get the box size
-     *
-     * @return box size
-     */
-    public double getBoxSize() {
-        return (_maxX - _minX) * (_maxY - _minY) * (_maxZ - _minZ);
+     * @return the middle point of a bvh box.
+     * */
+    public Point3D getMiddlePoint() {
+        return new Point3D(_minX + ((_maxX - _minX) / 2), _minY + ((_maxY - _minY) / 2), _minZ + ((_maxZ - _minZ) / 2));
     }
 }

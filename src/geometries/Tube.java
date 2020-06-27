@@ -78,8 +78,7 @@ public class Tube extends RadialGeometry {
     }
 
     @Override
-    public void setBox() {
-
+    protected void setBox() {
     }
 
     @Override

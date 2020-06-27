@@ -120,10 +120,10 @@ public class Vector {
      * @return the double
      */
     public double lengthSquared() {
-        double x = _head._x._coord;
-        double y = _head._y._coord;
-        double z = _head._z._coord;
-        return x * x + y * y + z + z;
+        double x = _head.getX();
+        double y = _head.getY();
+        double z = _head.getZ();
+        return x * x + y * y + z * z;
     }
 
     /**

@@ -59,7 +59,7 @@ public class Plane extends Geometry {
      * @param emissionLight the emission light
      * @param material      the material
      */
-    public Plane(Color emissionLight, Material material,Vector normal, Point3D point) {
+    public Plane(Color emissionLight, Material material, Vector normal, Point3D point) {
         super(emissionLight, material);
         _point = new Point3D(point);
         _normal = new Vector(normal).normalize();
@@ -120,9 +120,30 @@ public class Plane extends Geometry {
         return _normal;
     }
 
+    private static double DELTA = 0.1;
     @Override
-    public void setBox() {
-
+    protected void setBox() {
+        if (_normal.getHead().getY() == 0 && _normal.getHead().getZ() == 0) {
+            _minX = _maxX = _point.getX();
+            _minX -= DELTA; _maxX += DELTA;
+        } else {
+            _minX = Double.NEGATIVE_INFINITY;
+            _maxX = Double.POSITIVE_INFINITY;
+        }
+        if (_normal.getHead().getX() == 0 && _normal.getHead().getZ() == 0) {
+            _minY = _maxY = _point.getY();
+            _minY -= DELTA; _maxY += DELTA;
+        } else {
+            _minY = Double.NEGATIVE_INFINITY;
+            _maxY = Double.POSITIVE_INFINITY;
+        }
+        if (_normal.getHead().getX() == 0 && _normal.getHead().getY() == 0) {
+            _minZ = _maxZ = _point.getZ();
+            _minZ -= DELTA; _maxZ += DELTA;
+        } else {
+            _minZ = Double.NEGATIVE_INFINITY;
+            _maxZ = Double.POSITIVE_INFINITY;
+        }
     }
 
     @Override
@@ -136,6 +157,7 @@ public class Plane extends Geometry {
         double nv = _normal.dotProduct(ray.getDirection());
         if (isZero(nv)) return null;
         double temp = alignZero(_normal.dotProduct(p) / nv);
-        return temp <= 0 ? null : List.of(new GeoPoint(this, (ray.getTargetPoint(temp))));
+        return temp <= 0 ? null :
+                List.of(new GeoPoint(this, (ray.getTargetPoint(temp))));
     }
 }

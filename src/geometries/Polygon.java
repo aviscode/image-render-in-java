@@ -80,24 +80,6 @@ public class Polygon extends Geometry {
         }
     }
 
-    @Override
-    public void setBox() {
-        _minX = Double.POSITIVE_INFINITY;
-        _minY = Double.POSITIVE_INFINITY;
-        _minZ = Double.POSITIVE_INFINITY;
-        _maxX = Double.NEGATIVE_INFINITY;
-        _maxY = Double.NEGATIVE_INFINITY;
-        _maxZ = Double.NEGATIVE_INFINITY;
-        for (Point3D point : _vertices) {
-            if (point.getX() < _minX) _minX = point.getX();
-            if (point.getX() > _maxX) _maxX = point.getX();
-            if (point.getY() < _minY) _minY = point.getY();
-            if (point.getY() > _maxY) _maxY = point.getY();
-            if (point.getZ() < _minX) _minZ = point.getZ();
-            if (point.getZ() < _maxX) _maxZ = point.getZ();
-        }
-    }
-
     /**
      * Instantiates a new Polygon.
      *
@@ -144,5 +126,24 @@ public class Polygon extends Geometry {
             return intersection;
         }
         return null;//no points
+    }
+
+    @Override
+    public void setBox() {
+        _minX = Double.MAX_VALUE;
+        _minY = Double.MAX_VALUE;
+        _minZ = Double.MAX_VALUE;
+        _maxX = Double.MIN_VALUE;
+        _maxY = Double.MIN_VALUE;
+        _maxZ = Double.MIN_VALUE;
+        for (Point3D point : _vertices) {
+            if (point.getX() < _minX) _minX = point.getX();
+            if (point.getX() > _maxX) _maxX = point.getX();
+            if (point.getY() < _minY) _minY = point.getY();
+            if (point.getY() > _maxY) _maxY = point.getY();
+            if (point.getZ() < _minZ) _minZ = point.getZ();
+            if (point.getZ() < _maxZ) _maxZ = point.getZ();
+        }
+        _middlePoint = getMiddlePoint();
     }
 }

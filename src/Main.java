@@ -11,15 +11,9 @@ import static java.lang.System.setIn;
 import static org.junit.Assert.assertEquals;
 import static primitives.Util.*;
 
-/**
- * Test program for the 1st stage
- *
- * @author Dan Zilberstein
- */
-public final class Main {
-    static void swapFun(AtomicInteger a, AtomicInteger  b) {
-        a.set(b.getAndSet(a.get()));
-    }
+public class Main {
+
+
 
     /**
      * Main program to tests initial functionality of the 1st stage
@@ -27,7 +21,8 @@ public final class Main {
      * @param args irrelevant here
      */
     public static void main(String[] args) {
-
+        C t1 = new C(1,2,3);
+//        out.println("ok");
 //        try { // test zero vector
 //            new Vector(0, 0, 0);
 //            out.println("ERROR: zero vector does not throw an exception");
@@ -83,7 +78,7 @@ public final class Main {
 //            out.println("ERROR: Point - Point does not work correctly");
 //
 //        out.println("If there were no any other outputs - all tests succeeded!");
-
+//
 
     }
 

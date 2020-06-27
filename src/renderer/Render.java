@@ -92,6 +92,8 @@ public class Render {
             ++row;
             if (row < _maxRows) {
                 col = 0;
+                target.row = this.row;
+                target.col = this.col;
                 if (_counter == _nextCounter) {
                     ++_percents;
                     _nextCounter = _pixels * (_percents + 1) / 100;
@@ -112,10 +114,16 @@ public class Render {
         public boolean nextPixel(Pixel target) {
             int percents = nextP(target);
             if (percents > 0)
-                if (Render.this._print) System.out.printf("\r %02d%%", percents);
+                if (Render.this._print) {
+                    System.out.printf("\r %02d%%", percents);
+                    System.out.println();
+                }
             if (percents >= 0)
                 return true;
-            if (Render.this._print) System.out.printf("\r %02d%%", 100);
+            if (Render.this._print) {
+                System.out.printf("\r %02d%%", 100);
+                System.out.println();
+            }
             return false;
         }
     }
@@ -202,18 +210,13 @@ public class Render {
                 Pixel pixel = new Pixel();
                 while (thePixel.nextPixel(pixel)) {
                     Ray ray = camera.constructRayThroughPixel(nX, nY, pixel.col, pixel.row, dist, width, height);
-                    if (_scene.getGeometries().isIntersect(ray)) {
-                        GeoPoint closestPoint = findClosestIntersection(ray);
-                        if (closestPoint == null) {
-                            _imageWriter.writePixel(pixel.col, pixel.row, background);
-                        } else {//paint in the color of the geometry in the closest point
-                            _imageWriter.writePixel(pixel.col, pixel.row, calcColor(closestPoint, ray).getColor());
-                        }
-                    } else
-                        _imageWriter.writePixel(pixel.col, pixel.row, background);
+                    GeoPoint closestPoint = findClosestIntersection(ray);
+                    _imageWriter.writePixel(pixel.col, pixel.row,
+                            closestPoint == null ? background : calcColor(closestPoint, ray).getColor());
                 }
             });
         }
+
         // Start threads
         for (Thread thread : threads) thread.start();
         // Wait for all threads to finish
@@ -223,6 +226,10 @@ public class Render {
             } catch (Exception e) {
             }
         if (_print) System.out.printf("\r100%%\n");
+    }
+
+    private boolean inRange(int num, int min, int max) {
+        return (num >= min && num <= max);
     }
 
     /**
@@ -250,11 +257,12 @@ public class Render {
         int nShininess = material.getnShininess();
         double kd = alignZero(material.getKd());
         double ks = alignZero(material.getKs());
-        double nv = v.dotProduct(n);
+        double nv = alignZero(v.dotProduct(n));
+        if (nv == 0) return color;
         for (LightSource lightSource : _scene.getLightSources()) {
             Vector l = lightSource.getL(p._point);
-            double nl = l.dotProduct(n);
-            if ((nl > 0d && nv > 0d) || (nl < 0d && nv < 0d)) {
+            double nl = alignZero(l.dotProduct(n));
+            if (nl * nv > 0) {
                 double ktr = transparency(lightSource, l, n, p);
                 if (ktr * k > MIN_CALC_COLOR_K) {
                     Color lightIntensity = lightSource.getIntensity(p._point).scale(ktr);
@@ -283,7 +291,6 @@ public class Render {
 
     /**
      * Unshaded boolean Checks whether the given area is shaded.
-     * not in use any more.
      *
      * @param l  the vector from light source to the point
      * @param n  the normal
@@ -293,7 +300,7 @@ public class Render {
     private boolean unshaded(Vector l, Vector n, GeoPoint gp) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(gp._point, lightDirection, n);
-        List<GeoPoint> intersections = _scene.getGeometries().findIntsersectionsBound(lightRay);
+        List<GeoPoint> intersections = _scene.getGeometries().findIntsersections(lightRay);
         int count = 0;
         for (GeoPoint g : intersections) {
             if (g._geometry.getMaterial().getKt() > 0)
@@ -335,8 +342,7 @@ public class Render {
      * @return the closest intersection point
      */
     private GeoPoint findClosestIntersection(Ray ray) {
-        List<GeoPoint> intersectionsPoints;
-        intersectionsPoints = _scene.getGeometries().findIntsersectionsBound(ray);
+        List<GeoPoint> intersectionsPoints = _scene.getGeometries().findIntsersectionsBound(ray);
         if (intersectionsPoints == null) return null;
         Point3D rayStart = ray.getP();
         double min = Double.MAX_VALUE;
@@ -439,14 +445,14 @@ public class Render {
      * @return the transparency
      */
     private double transparency(LightSource ls, Vector l, Vector n, GeoPoint gp) {
-        Vector lightDirection = l.scale(-1);
+        Vector lightDirection = l.scale(-1); // from point to light source
         Ray lightRay = new Ray(gp._point, lightDirection, n);
         double ktr, sumKtrAll = 0, distance = ls.getDistance(gp._point);
         List<Ray> beamRays = lightRay.createRaysBeam(ls, gp.getPoint(), n, getSuperSampling());
         for (Ray ray : beamRays) {
             List<GeoPoint> intersections = _scene.getGeometries().findIntsersectionsBound(ray);
             if (intersections == null) {
-                sumKtrAll += 1d;
+                sumKtrAll += 1.0;
                 continue;
             }
             ktr = 1d;
@@ -471,11 +477,6 @@ public class Render {
         return _superSampling;
     }
 
-    /**
-     * setting the of number of rays
-     *
-     * @param numRays the  number of rays
-     */
     public Render setSuperSampling(int numRays) {
         _superSampling = numRays;
         return this;
