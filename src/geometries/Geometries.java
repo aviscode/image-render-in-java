@@ -58,14 +58,13 @@ public class Geometries extends Intersectable {
         _maxZ = Double.MIN_VALUE;
         for (Intersectable geo : _shapes) {
             geo.createBox();
-            if (geo._boudingVolume) {
-                if (geo._minX < _minX) _minX = geo._minX;
-                if (geo._maxX > _maxX) _maxX = geo._maxX;
-                if (geo._minY < _minY) _minY = geo._minY;
-                if (geo._maxY > _maxY) _maxY = geo._maxY;
-                if (geo._minZ < _minZ) _minZ = geo._minZ;
-                if (geo._maxZ > _maxZ) _maxZ = geo._maxZ;
-            }
+            if (geo._minX < _minX) _minX = geo._minX;
+            if (geo._maxX > _maxX) _maxX = geo._maxX;
+            if (geo._minY < _minY) _minY = geo._minY;
+            if (geo._maxY > _maxY) _maxY = geo._maxY;
+            if (geo._minZ < _minZ) _minZ = geo._minZ;
+            if (geo._maxZ > _maxZ) _maxZ = geo._maxZ;
+
         }
         _middlePoint = getMiddlePoint();
     }
@@ -144,7 +143,6 @@ public class Geometries extends Intersectable {
                     min = i;
                 }
             }
-            System.out.println(minD);
             if (_newShapes == null)
                 _newShapes = new LinkedList<Intersectable>();
             shapes.remove(min);

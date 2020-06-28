@@ -93,5 +93,6 @@ public class Sphere extends RadialGeometry {
         _minZ = _center.getZ() - _radius;
         _maxZ = _center.getZ() + _radius;
         _middlePoint = _center;
+        _finity = true;
     }
 }

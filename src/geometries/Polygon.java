@@ -145,5 +145,6 @@ public class Polygon extends Geometry {
             if (point.getZ() < _maxZ) _maxZ = point.getZ();
         }
         _middlePoint = getMiddlePoint();
+        _finity = true;
     }
 }

@@ -21,7 +21,6 @@ public class Main {
      * @param args irrelevant here
      */
     public static void main(String[] args) {
-        C t1 = new C(1,2,3);
 //        out.println("ok");
 //        try { // test zero vector
 //            new Vector(0, 0, 0);
