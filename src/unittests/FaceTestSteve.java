@@ -274,36 +274,44 @@ public class FaceTestSteve {
                 //            .. new Triangle(new Color(java.awt.Color.BLUE), new Material(0.5, 0.5, 60), new Point3D(-30, 10, 20), new Point3D(-50, 0, 20), new Point3D(0, 10, 135)) //
 
         );
+        //scene.getGeometries().createBox();
+        //scene.getGeometries().callMakeTree();
+        //scene.addLights(//new SpotLight(new Color(700, 400, 400), new Point3D(60, -50, 0), new Vector(0, 0, 1), 1, 4E-5, 2E-7).setRadius(7),
+        //      new SpotLight(new Color(200, 400, 400), new Point3D(0, 0, 30), new Vector(-0.5, 0, 1), 1, 4E-5, 2E-7).setRadius(7),
+        //    new PointLight(new Color(200, 200, 200), new Point3D(150, 300, 20), 1, 4E-5, 2E-7).setRadius(7));
+        //ImageWriter imageWriter = new ImageWriter("Face image", 500, 500, 800, 800);
+        //Render render = new Render(imageWriter, scene).setDebugPrint().setMultithreading(5);//.setSuperSampling(300);
+        //render.renderImage();
+        //render.writeToImage();
+    }
+
+    @Test
+    public void manuBuildTest() {
+        Scene scene = new Scene("Test scene");
+        scene.setCamera(new Camera(new Point3D(0, 0, 0), new Vector(0, 0, 1), new Vector(0, -1, 0)));
+        scene.setDistance(100);
+        scene.setBackground(Color.BLACK);
+        scene.setAmbientLight(new AmbientLight(new Color(15, 15, 15), 0));
+//        scene.addGeometries(
+//                new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 20, new Point3D(-43, -80, 149.5)),
+//                new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 20, new Point3D(-43, -40, 149.5)),
+//                new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 20, new Point3D(-43, -0, 149.5)),
+//                new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 20, new Point3D(-43, 40, 149.5)),
+//                new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 20, new Point3D(-43, 80, 149.5))
+//        );
+        Geometries a = new Geometries(new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 20, new Point3D(-43, -80, 149.5)));
+        Geometries c = new Geometries(new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 20, new Point3D(-43, -40, 149.5)));
+        Geometries b = new Geometries(new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 20, new Point3D(-43, -0, 149.5)));
+        Geometries d = new Geometries(new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 20, new Point3D(-43, 40, 149.5)));
+        Geometries e = new Geometries(new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 20, new Point3D(-43, 80, 149.5)));
+        Geometries f = new Geometries(a, b);//;
+        Geometries g = new Geometries(c, d);
+        scene.addGeometries(f,g,e);
         scene.getGeometries().createBox();
-        scene.getGeometries().callMakeTree();
-        scene.addLights(//new SpotLight(new Color(700, 400, 400), new Point3D(60, -50, 0), new Vector(0, 0, 1), 1, 4E-5, 2E-7).setRadius(7),
-                new SpotLight(new Color(200, 400, 400), new Point3D(0, 0, 30), new Vector(-0.5, 0, 1), 1, 4E-5, 2E-7).setRadius(7),
-                new PointLight(new Color(200, 200, 200), new Point3D(150, 300, 20), 1, 4E-5, 2E-7).setRadius(7));
-        ImageWriter imageWriter = new ImageWriter("Face image", 500, 500, 800, 800);
-        Render render = new Render(imageWriter, scene).setDebugPrint().setMultithreading(5);//.setSuperSampling(300);
+        scene.addLights(new SpotLight(new Color(200, 400, 400), new Point3D(0, 0, 30), new Vector(-0.5, 0, 1), 1, 4E-5, 2E-7).setRadius(7));
+        ImageWriter imageWriter = new ImageWriter("manuBuildTest", 500, 500, 800, 800);
+        Render render = new Render(imageWriter, scene).setDebugPrint().setSuperSampling(300);//.setSuperSampling(300);
         render.renderImage();
         render.writeToImage();
     }
-
-//    @Test
-//    public void manuBuildTest() {
-//        Scene scene = new Scene("Test scene");
-//        scene.setCamera(new Camera(new Point3D(0, 0, 0), new Vector(0, 0, 1), new Vector(0, -1, 0)));
-//        scene.setDistance(100);
-//        scene.setBackground(Color.BLACK);
-//        scene.setAmbientLight(new AmbientLight(new Color(15, 15, 15), 0));
-//
-//       Geometries a=  new Geometries(new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 20, new Point3D(-43, -80, 149.5)));
-//       Geometries c=  new Geometries(new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 20, new Point3D(-43, -40, 149.5)));
-//       Geometries b=  new Geometries(new Sphere(new Color(44, 44, 44), new Material(0.25, 0.25, 0, 0.35, 0), 20, new Point3D(-43, -0, 149.5)));
-//        Geometries d =new Geometries(a,b,c);//;
-//
-//        scene.addGeometries(d);
-//        scene.getGeometries().createBox();
-//        //scene.getGeometries().callMakeTree();
-//        ImageWriter imageWriter = new ImageWriter("manuBuildTest", 500, 500, 800, 800);
-//        Render render = new Render(imageWriter, scene).setDebugPrint().setMultithreading(3);//.setSuperSampling(300);
-//        render.renderImage();
-//        render.writeToImage();
-//    }
 }

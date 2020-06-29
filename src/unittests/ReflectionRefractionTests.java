@@ -1,12 +1,9 @@
 package unittests;
 
-import geometries.Plane;
-import geometries.Polygon;
+import geometries.*;
 import org.junit.Test;
 
 import elements.*;
-import geometries.Sphere;
-import geometries.Triangle;
 import primitives.*;
 import renderer.*;
 import scene.Scene;
@@ -22,7 +19,7 @@ public class ReflectionRefractionTests {
     /**
      * Produce a picture of a sphere lighted by a spot light
      */
-    @Test
+    //@Test
     public void twoSpheres() {
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -42,7 +39,7 @@ public class ReflectionRefractionTests {
     /**
      * Produce a picture of a sphere lighted by a spot light
      */
-    @Test
+   // @Test
     public void twoSpheresOnMirrors() {
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -10000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -80,13 +77,25 @@ public class ReflectionRefractionTests {
                 new Polygon(new Color(900, 0, 0), new Material(0.2, 0.2, 200, 0.4, 0), new Point3D(-50, -20, 20), new Point3D(-50, 20, 135), new Point3D(-70, 20, 135), new Point3D(-70, -20, 20)),
                 new Sphere(new Color(java.awt.Color.BLUE), new Material(0.2, 0.2, 30, 0.6, 0), 20, new Point3D(60, -50, 50)),
                 new Sphere(new Color(java.awt.Color.BLUE), new Material(0.2, 0.2, 30, 0.4, 0), 13, new Point3D(0, 0, 30)));
+
+
+//        Geometries a = new Geometries(new Triangle(Color.BLACK, new Material(0.5, 0.5, 60), new Point3D(-150, 150, 115), new Point3D(150, 150, 135), new Point3D(75, -75, 150)), //
+//                new Triangle(Color.BLACK, new Material(0.5, 0.5, 60), new Point3D(-150, 150, 115), new Point3D(-70, -70, 140), new Point3D(75, -75, 150)));
+//        Geometries b = new Geometries(new Triangle(new Color(java.awt.Color.BLUE), new Material(0.5, 0.5, 60), new Point3D(-90, 45, 20), new Point3D(-50, 90, 20), new Point3D(-50, 45, 135)), //
+//                new Triangle(new Color(java.awt.Color.BLUE), new Material(0.5, 0.5, 60), new Point3D(0, 30, 0), new Point3D(80, 60, 135), new Point3D(50, 90, 135)));
+//        Geometries c = new Geometries(new Polygon(new Color(900, 0, 0), new Material(0.2, 0.2, 200, 0.4, 0), new Point3D(-50, -20, 20), new Point3D(-50, 20, 135), new Point3D(-70, 20, 135), new Point3D(-70, -20, 20)),
+//                new Sphere(new Color(java.awt.Color.BLUE), new Material(0.2, 0.2, 30, 0.4, 0), 13, new Point3D(0, 0, 30)));
+//        Geometries d = new Geometries(b, c, new Sphere(new Color(java.awt.Color.BLUE), new Material(0.2, 0.2, 30, 0.6, 0), 20, new Point3D(60, -50, 50)));
+//        Geometries e = new Geometries(d,a);
+//        scene.addGeometries(e);
+//        scene.getGeometries().createBox();
         scene.addLights(
                 new SpotLight(new Color(700, 400, 400), new Point3D(60, -50, 0), new Vector(0, 0, 1), 1, 4E-5, 2E-7).setRadius(7),
                 new SpotLight(new Color(700, 400, 400), new Point3D(-150, 200, 30), new Vector(0, 0, 1), 1, 4E-5, 2E-7).setRadius(7),
                 new PointLight(new Color(200, 200, 200), new Point3D(150, 300, 20), 1, 4E-5, 2E-7).setRadius(7));
 
         ImageWriter imageWriter = new ImageWriter("shadow with transparency", 200, 200, 1000, 1000);
-        Render render = new Render(imageWriter, scene).setSuperSampling(400);
+        Render render = new Render(imageWriter, scene).setSuperSampling(400).setDebugPrint();
         render.renderImage();
         render.writeToImage();
     }
@@ -94,7 +103,7 @@ public class ReflectionRefractionTests {
     /**
      * magical room .
      */
-    @Test
+    //@Test
     public void magicalRoom() {
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -10000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -126,7 +135,7 @@ public class ReflectionRefractionTests {
         //render.writeToImage();
     }
 
-    @Test
+    //@Test
     public void trianglesTransparentSphere1() {
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -10000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -149,7 +158,7 @@ public class ReflectionRefractionTests {
     /**
      * bonus test move camera 2.
      */
-    @Test
+    //@Test
     public void bonusTMoveCamera2() {
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(3100, -3100, -2600), new Vector(-2, 2, 2), new Vector(-1, -2, 1)));
