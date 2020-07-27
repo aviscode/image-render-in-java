@@ -10,7 +10,7 @@ import static java.lang.System.out;
 import static java.lang.System.setIn;
 import static org.junit.Assert.assertEquals;
 import static primitives.Util.*;
-//Avi rosenberg
+
 public class Main {
 
 
