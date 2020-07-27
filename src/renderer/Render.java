@@ -92,6 +92,7 @@ public class Render {
             ++row;
             if (row < _maxRows) {
                 col = 0;
+                // Fix
                 target.row = this.row;
                 target.col = this.col;
                 if (_counter == _nextCounter) {
