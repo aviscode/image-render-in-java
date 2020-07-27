@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scene background-color="75 127 190" screen-width="500"
+<scene background-color="75 127 190" screen-width="530"
 	screen-height="500" screen-distance="100">
 	<image screen-width="500" screen-height="500" Nx="500" Ny="500" />
 	<camera P0="0 0 0" Vto="0 0 1" Vup="0 -1 0" />
