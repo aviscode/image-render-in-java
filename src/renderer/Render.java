@@ -131,7 +131,7 @@ public class Render {
 
     /**
      * Set multithreading <br>
-     * - if the parameter is 0 - number of coress less 2 is taken
+     * if the parameter is 0 - number of coress less 2 is taken
      *
      * @param threads number of threads
      * @return the Render object itself
